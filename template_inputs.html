@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>IVE Airline - Search</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="./highlight.js"></script>
+    <script>
+        $(document).ready(() => {
+            $(".rippleBtn-hover").mousemove(function(event) {
+                const x = event.pageX - this.offsetLeft
+                const y = event.pageY - this.offsetTop
+
+                this.style.setProperty('--x', x + 'px')
+                this.style.setProperty('--y', y + 'px')
+            })
+
+            $(".rippleBtn-click").click(function(event) {
+                const diameter = Math.max(this.clientWidth, this.clientHeight)
+                const radius = diameter / 2
+
+                const circle = document.createElement("span")
+
+                circle.style.width = circle.style.height = `${diameter}px`
+                circle.style.left = `${event.clientX - this.offsetLeft - radius}px`
+                circle.style.top = `${event.clientY - this.offsetTop - radius}px`
+                circle.classList.add("ripple")
+
+                const ripple = this.getElementsByClassName("ripple")[0]
+
+                if (this.children.length > 4) {
+                    ripple.remove()
+                }
+
+                this.appendChild(circle)
+            })
+
+            var deg = 0
+            $('#btn-switch').click(function() {
+                $('#icon-switch').css('transform', 'rotate('+(deg+=180)+'deg)')
+            })
+
+            $('.lst-selected').click(function() {
+                $(this).siblings('.lst-items').toggleClass('active')
+            })
+
+            $('.lst-textbox').children('.txt-textarea').focus(function() {
+                $(this).parent().siblings('.lst-items').addClass('active')
+            })
+
+            $.getJSON('items.json', function(jd) {
+                var content = ""
+                for(let i=0; i<jd.items.length; i++) {
+                    content += 
+                        `
+                        <div class="item">
+                            <input type="radio" class="item-radio" id="item${i}" name="catalogue">
+                            <label for="item${i}">${jd.items[i]}</label>
+                        </div>
+                        `
+                }
+                $('.lst-items').append(content)
+            })
+
+            // Handles the selected item from drop-down list
+            $('.lst-items').on('click', '.item', function() {
+                if 
+                ($(this)
+                    .parent('.lst-items')
+                    .siblings('.lst-textbox')
+                    .hasClass('txt')
+                ) {   // Handles search list
+                    // Display selected item in the search list
+                    $(this)
+                        .parent('.lst-items')
+                        .siblings('.lst-textbox')
+                        .children('.txt-textarea')
+                        .val($(this).children('label').text())
+                    
+                    // Cancel highlight
+                    $(this)
+                        .parent('.lst-items')
+                        .children('.item')
+                        .unhighlight()
+                    
+                    $(this)
+                        .parent('.lst-items')
+                        .children('.item')
+                        .filter(function() {
+                            $(this).toggle(true)
+                        })
+                }
+                else {
+                    $(this)
+                        .parent()
+                        .siblings('.lst-selected')
+                        .text($(this).children('label').text())
+                }
+                $(this).parent('.lst-items').removeClass('active')
+            })
+
+            // Handles the filter search
+            $('.lst-textbox').children('.txt-textarea').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $(this)
+                    .parent('.lst-textbox')
+                    .siblings('.lst-items')
+                    .children('.item')
+                    .filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    })
+            })
+            
+            // Highlight keyword of the filter search
+            $('.lst-textbox').children('.txt-textarea').on('keyup change', function() {
+                var keyword = $(this).val()
+                var items = $(this)
+                    .parent('.lst-textbox')
+                    .siblings('.lst-items')
+                    .children('.item')
+                    .children('label')
+                items.unhighlight(keyword)
+                items.highlight(keyword)
+            })
+        })
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?&family=Quicksand:wght@400;600&display=swap');
+        
+        /* Ripple Buttons */
+        .rippleBtn-hover {
+            position: relative;
+            overflow: hidden;
+
+            padding: 6px 24px;
+            margin: 0 3px;
+
+            color: #0277BD;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            text-shadow: 0px 4px 2px rgba(0, 0, 0, 0.2);
+
+            background: transparent;
+            border: 2px #0277BD solid;
+            border-radius: 24px;
+            box-shadow: 
+                0 4px 2px 0 rgba(0, 0, 0, 0.2), 
+                0 4px 2px 0 rgba(0, 0, 0, 0.2) inset;
+            cursor: pointer;
+
+            transition: all 1s ease;
+        }
+        .rippleBtn-hover::before {
+            content: '';
+            position: absolute;
+            top: var(--y);
+            left: var(--x);
+            width: 0px;
+            height: 0px;
+            border-radius: 50%;
+            background-color: #0277BD;
+            transition: width 0.5s, height 0.5s;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+        .rippleBtn-hover:hover {
+            color: white;
+            text-shadow: 0 0 0;
+            box-shadow: 
+                0 4px 2px 0 rgba(0, 0, 0, 0.2),
+                0 0 0 0 inset;
+                
+            transition: all 0.1s ease;
+        }
+        .rippleBtn-hover:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        .rippleBtn-hover:active {
+            transform: scale(0.92);
+            box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.6);
+        }
+        
+        .rippleBtn-click {
+            position: relative;
+            overflow: hidden;
+
+            padding: 8px 24px;
+            margin: 0 3px;
+
+            color: white;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+
+            background: #0277BD;
+            border: none;
+            border-radius: 24px;
+            box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+
+            transition: all 0.15s ease;
+        }
+        .rippleBtn-click:active {
+            transform: scale(0.92);
+            box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.6);
+        }
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: white;
+            opacity: 0.5;
+            transform: scale(0);
+            animation: ripple 800ms linear;
+        }
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+
+
+
+        /* Textbox */
+        .txt {
+            position: relative;
+        }
+        .txt-textarea {
+            padding: 8px 10px;
+            margin-top: 16px;
+            margin-bottom: 4px;
+            
+            color: #757575;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+
+            border: 2px #BDBDBD solid;
+            border-radius: 8px;
+
+            transition: all 0.15s ease;
+        }
+        .txt-textarea:focus {
+            outline: none;
+            border: 2px #0277BD solid;
+        } 
+        .txt-placeholder {
+            position: absolute;
+            top: 26px;
+            left: 14px;
+            pointer-events: none;
+
+            color: #757575;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+
+            transition: all 0.15s ease;
+        }
+        input:focus ~ .txt-placeholder,
+	    input:not(:focus):valid ~ .txt-placeholder {
+            padding: 0 4px;
+            top: 8px;
+            left: 10px;
+
+            color: #0277BD;
+            font-size: 12px;
+            background-color: white;
+	    }
+        input:not(:focus):valid ~ .txt-placeholder {
+            color: #757575;
+        }
+
+
+
+
+        /* Switch Button */
+        #btn-switch {
+            padding: 4px;
+            display: flex;
+            cursor: pointer;
+            background-color: #0277BD;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
+        }
+        #icon-switch {
+            color: white;
+            font-size: 24px;
+            
+            transition: all 0.45s ease; 
+        }
+
+
+
+
+        /* Radio Button */
+        .rdo {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .rdo-input {
+            display: none;
+        }
+        .rdo-radio {
+            width: 1.25em;
+            height: 1.25em;
+            border: 2px #BDBDBD solid;
+            border-radius: 50%;
+            margin-right: 4px;
+            box-sizing: border-box;
+            padding: 2px;
+        }
+        .rdo-radio::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            display: block;
+            background-color: #0277BD;
+            border-radius: 50%;
+
+            transform: scale(0);
+            transition: transform 0.075s;
+        }    
+        .rdo-input:checked + .rdo-radio::after {
+            transform: scale(1);
+        }
+        .rdo-text {
+            color: #757575;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+        }
+        .rdo-input:checked ~ .rdo-text {
+            color: #0277BD;
+        }
+
+
+
+
+        .lst {
+            display: flex;
+            flex-direction: column;
+            order: 0;
+            width: 200px;
+
+            color: #757575;  
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+        }
+        .lst-selected {
+            border: 2px #BDBDBD solid;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            position: relative;
+        }
+        .lst-selected::after {
+            position: absolute;
+            right: 8px;
+            top: 2px;
+
+            content: "\e5cf";
+            font-size: 32px;
+	        font-family: "Material Icons";
+            font-weight: 400;
+            
+            transition: all 0.4s;
+        }
+        .lst-items.active + .lst-selected::after {
+            transform: rotateX(180deg);
+        }
+        .lst-items {
+            position: relative;
+            order: 1;
+            width: inherit - 4px;
+            max-height: 0;
+            overflow: hidden;
+
+            background-color: white;
+            border: 2px #BDBDBD solid;
+            border-radius: 8px;
+            opacity: 0;
+
+            transition: all 0.4s;
+        }
+        .item,
+        .lst-selected {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        .item {
+            border-bottom: 1px #BDBDBD solid;
+        }
+        .item:hover {
+            background-color: #BDBDBD;
+        }
+        .lst label {
+            cursor: pointer;
+        }
+        .item-radio {
+            display: none;
+        }
+        .lst-items.active {
+            max-height: 200px;
+            opacity: 1;
+            overflow-y: scroll;
+        }
+        .lst-items::-webkit-scrollbar {
+            width: 8px;
+            background-color: #BDBDBD;
+            border-radius: 0 6px 6px 0;
+        }
+        .lst-items::-webkit-scrollbar-thumb {
+            background-color: #757575;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .highlight {
+            background-color: gold;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <form>  
+        <label for="roundTrip" class="rdo">
+            <input type="radio" name="type" id="roundTrip" class="rdo-input">
+            <div class="rdo-radio"></div>
+            <span class="rdo-text">Round Trip</span>
+        </label>
+
+        <label for="oneWay" class="rdo">
+            <input type="radio" name="type" id="oneWay" class="rdo-input">
+            <div class="rdo-radio"></div>
+            <span class="rdo-text">One way</span>
+        </label>
+        
+
+        <button id="btn-switch">
+            <span class="material-icons" id="icon-switch">autorenew</span>
+        </button>
+
+
+        <div class="txt">
+            <input type="text" class="txt-textarea" required>
+            <label class="txt-placeholder">First Name</label>
+        </div>
+        
+        <div class="txt">
+            <input type="text" class="txt-textarea" required>
+            <label class="txt-placeholder">Last Name</label>
+        </div>
+
+        <button type="reset" class="rippleBtn-click">Reset</button>
+
+        <button class="rippleBtn-hover">Button</button>
+
+        <div class="lst">
+            <div class="lst-items"></div>
+            <div class="lst-selected">
+                Select an item
+            </div>
+        </div>
+
+        <div class="lst">
+            <div class="lst-items"></div>
+            <div class="lst-textbox txt">
+                <input type="text" class="txt-textarea" required>
+                <label class="txt-placeholder">Search</label>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
