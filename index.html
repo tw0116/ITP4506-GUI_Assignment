@@ -3,19 +3,25 @@
 <head>
     <title>IVE AirLine - Home</title>
 </head>
-<link rel="stylesheet" href="./styles/style_index.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" type="text/css" href="./styles/style_index.css">
+<link rel="stylesheet" type="text/css" href="./styles/style_inputs.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="./scripts/highlight.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript" src="./scripts/inputs.js"></script>
 <body>
-    <section>
+    <!-- <section>
         <div>
             <p>travel</p>
             <p>it leaves you <span>speechless</span>,</p>
             <p>then turns you into a <span>storyteller</span>.</p>
         </div>
-        <video autoplay loop muted>
-            <source src="./videos/sky1.mp4" type="video/mp4">
-        </video>
-    </section>
+    </section> -->
 
     <header>
         <div id="logo">
@@ -34,5 +40,112 @@
             <button id="btn_register">Register</button>
         </div>
     </header>
+
+    <section>
+        <div id="search">
+            <div id="search-header">
+                <h1>Search Flights</h1>
+            </div>
+            
+            <form id="search-form">
+                <div class="row" style="display: flex;">
+                    <label for="roundTrip" class="rdo">
+                        <input type="radio" name="type" id="roundTrip" class="rdo-input">
+                        <div class="rdo-radio"></div>
+                        <span class="rdo-text">Round Trip</span>
+                    </label>
+                
+                    <label for="oneWay" class="rdo">
+                        <input type="radio" name="type" id="oneWay" class="rdo-input">
+                        <div class="rdo-radio"></div>
+                        <span class="rdo-text">One way</span>
+                    </label>
+            
+                    <label for="multiSegments" class="rdo">
+                        <input type="radio" name="type" id="multiSegments" class="rdo-input">
+                        <div class="rdo-radio"></div>
+                        <span class="rdo-text">Multi-segments</span>
+                    </label>
+                </div>
+        
+                <div class="row" style="display: flex;">
+                    <div class="lst airports" style="width: 250px;">
+                        <div class="lst-items"></div>
+                        <div class="lst-textbox txt" style="width: inherit;">
+                            <input type="text" class="txt-textarea" required style="width: inherit;">
+                            <label class="txt-placeholder">From</label>
+                        </div>
+                    </div>
+            
+                    <div class="lst airports" style="width: 250px;">
+                        <div class="lst-items"></div>
+                        <div class="lst-textbox txt" style="width: inherit;">
+                            <input type="text" class="txt-textarea" required style="width: inherit;">
+                            <label class="txt-placeholder">To</label>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="row" style="display: flex;">
+                    <div style="display: flex;">
+                        <div class="drp">
+                            <input type="text" class="drp-selector">
+                            <label id="drp-label1">Depart</label>
+                            <label id="drp-label2">Return</label>
+                        </div>
+                    </div>
+            
+                    <div class="lst default">
+                        <div class="lst-items"></div>
+                        <div class="lst-selected">
+                            Class
+                        </div>
+                    </div>
+        
+                    <div class="lst" style="width: 280px;">
+                        <div class="lst-items" style="width: 276px;">
+                            <div class="item" style="display: flex; align-items: center;">
+                                <label>Adult (12+ years)</label>
+                                <div class="num" style="margin-left: auto; order: 2;">
+                                    <span class="num-minus">-</span>
+                                    <span class="num-value">0</span>
+                                    <span class="num-plus">+</span>
+                                </div>
+                            </div>
+                            <div class="item" style="display: flex; align-items: center;">
+                                <label>Child (2-11 years)</label>
+                                <div class="num" style="margin-left: auto; order: 2;">
+                                    <span class="num-minus">-</span>
+                                    <span class="num-value">0</span>
+                                    <span class="num-plus">+</span>
+                                </div>
+                            </div>
+                            <div class="item" style="display: flex; align-items: center;">
+                                <label>Infant (12+)</label>
+                                <div class="num" style="margin-left: auto; order: 2;">
+                                    <span class="num-minus">-</span>
+                                    <span class="num-value">0</span>
+                                    <span class="num-plus">+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lst-selected">
+                            Passengers
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="row" style="display: flex;">
+                    <button type="submit" class="rippleBtn-click">Search</button>
+                    <button type="reset" class="rippleBtn-hover">Reset</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="wave wave4"></div>
+    </section>
 </body>
 </html>
