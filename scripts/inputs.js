@@ -89,13 +89,13 @@ $(document).ready(() => {
         })
     }
 
-    var json_classes = 'classes.json'
-    var json_items = 'items.json'
+    var json_classes = '../jsons/classes.json'
+    var json_items = '../jsons/items.json'
         
     $('.lst_classes').list(json_classes, 'class')
     $('#lst_items').list(json_items, 'item')
     $('#searchList_items').list(json_items, 'item')
-
+    
 
     format = 
     `
@@ -110,7 +110,7 @@ $(document).ready(() => {
         </div>
     </div>
     `
-    var json_airports = 'airports.json'
+    var json_airports = '../jsons/airports.json'
     $('.lst_airports').custList(format, json_airports, 'city', 'iata_code', 'name')
 
 
