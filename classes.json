@@ -1,8 +1,14 @@
-{
-    "classes":[
-        "Economy",
-        "Economy Plus",
-        "Business", 
-        "First"
-    ]
-}
+[
+    {
+        "class":"Economy"
+    },
+    {
+        "class":"Economy Plus"
+    },
+    {
+        "class":"Business"
+    },
+    {
+        "class":"First Class"
+    }
+]

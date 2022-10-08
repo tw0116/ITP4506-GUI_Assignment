@@ -26,11 +26,9 @@
         <span class="rdo-text">test2</span>
     </label>
 
-
     <button id="btn-switch">
         <span class="material-icons" id="icon-switch">autorenew</span>
     </button>
-
 
     <div class="txt">
         <input type="text" class="txt-textarea" required>
@@ -42,20 +40,35 @@
         <label class="txt-placeholder">Last Name</label>
     </div>
 
+    <div>
+        <button type="reset" class="rippleBtn-click">Reset</button>
+        <button class="rippleBtn-hover">Button 1</button>
+        <button class="rippleBtn-hover">Button 2</button>
+    </div>
 
-    <button type="reset" class="rippleBtn-click">Reset</button>
-
-    <button class="rippleBtn-hover">Button</button>
-
-
-    <div class="lst default">
+    <div class="lst default lst_classes">
         <div class="lst-items"></div>
         <div class="lst-selected">
-            Select an item
+            Class
         </div>
     </div>
 
-    <div class="lst default">
+    <div class="lst default lst_classes">
+        <div class="lst-items"></div>
+        <div class="lst-selected">
+            Class
+        </div>
+    </div>
+    
+
+    <div id="lst_items" class="lst default">
+        <div class="lst-items"></div>
+        <div class="lst-selected">
+            Item
+        </div>
+    </div>
+
+    <div id="searchList_items" class="lst default">
         <div class="lst-items"></div>
         <div class="lst-textbox txt">
             <input type="text" class="txt-textarea" required>
@@ -63,7 +76,14 @@
         </div>
     </div>
 
-    <div class="lst airports" style="width: 250px;">
+    <div class="lst airports lst_airports" style="width: 250px;">
+        <div class="lst-items"></div>
+        <div class="lst-selected">
+            Airports
+        </div>
+    </div>
+
+    <div class="lst airports lst_airports" style="width: 250px;">
         <div class="lst-items"></div>
         <div class="lst-textbox txt" style="width: inherit;">
             <input type="text" class="txt-textarea" required style="width: inherit;">
@@ -71,7 +91,7 @@
         </div>
     </div>
 
-    <div class="lst airports" style="width: 250px;">
+    <div class="lst airports lst_airports" style="width: 250px;">
         <div class="lst-items"></div>
         <div class="lst-textbox txt" style="width: inherit;">
             <input type="text" class="txt-textarea" required style="width: inherit;">
@@ -91,9 +111,16 @@
         <span class="num-plus">+</span>
     </div>
 
+    <div class="num">
+        <span class="num-minus">-</span>
+        <span class="num-value">0</span>
+        <span class="num-plus">+</span>
+    </div>
 
 
-    <!-- Search -->
+
+
+   
     <div id="search">
         <div id="search-header">
             <h1>Search Flights</h1>
@@ -121,7 +148,7 @@
             </div>
     
             <div class="row" style="display: flex;">
-                <div class="lst airports" style="width: 250px;">
+                <div class="lst airports lst_airports" style="width: 250px;">
                     <div class="lst-items"></div>
                     <div class="lst-textbox txt" style="width: inherit;">
                         <input type="text" class="txt-textarea" required style="width: inherit;">
@@ -129,7 +156,7 @@
                     </div>
                 </div>
         
-                <div class="lst airports" style="width: 250px;">
+                <div class="lst airports lst_airports" style="width: 250px;">
                     <div class="lst-items"></div>
                     <div class="lst-textbox txt" style="width: inherit;">
                         <input type="text" class="txt-textarea" required style="width: inherit;">
@@ -147,7 +174,7 @@
                     </div>
                 </div>
         
-                <div class="lst default">
+                <div class="lst default lst_classes">
                     <div class="lst-items"></div>
                     <div class="lst-selected">
                         Class

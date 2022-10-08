@@ -49,7 +49,9 @@ header {
 }
 
     /* Navagation */
-li, a, button {
+header li, 
+header a, 
+header button {
     text-decoration: none;
     font-size: 16px;
     font-family: 'Quicksand', sans-serif;
@@ -70,6 +72,7 @@ nav ul li {
 #btn_login {
     padding: 8px 24px;
     margin: 0 3px;
+    
     color: white;
     background: #0277BD;
     border: none;
@@ -81,6 +84,7 @@ nav ul li {
 #btn_register {
     padding: 6px 24px;
     margin: 0 3px;
+
     color: #0277BD;
     background: none;
     border: 2px #0277BD solid;
@@ -96,8 +100,14 @@ nav ul li {
 section {
     position: relative;
     width: 100%;
-    height: 100vh;
-    background: #37474F;
+    height: 75vh;
+    background: rgb(69,39,160);
+    background: linear-gradient(
+        66deg, 
+        rgba(69,39,160,1) 0%, 
+        rgba(40,53,147,1) 12%, 
+        rgba(2,119,189,1) 100%
+    );
     overflow: hidden;
 }
 section .wave {
@@ -110,34 +120,34 @@ section .wave {
     background-size: 1000px 100px;
 }
 section .wave.wave1 {
-    animation: animate 30s linear infinite;
-    z-index: 1000;
+    animation: animate1 24s linear infinite;
+    z-index: 100;
     opacity: 1;
     animation-delay: 0s;
     bottom: 0;
 }
 section .wave.wave2 {
-    animation: animate2 15s linear infinite;
-    z-index: 999;
-    opacity: 0.5;
-    animation-delay: -5s;
-    bottom: 10px;
+    animation: animate2 16s linear infinite;
+    z-index: 99;
+    opacity: 0.60;
+    animation-delay: -2s;
+    bottom: 5px;
 }
 section .wave.wave3 {
-    animation: animate 30s linear infinite;
-    z-index: 998;
-    opacity: 0.2;
-    animation-delay: -2s;
-    bottom: 15px;
+    animation: animate1 20s linear infinite;
+    z-index: 98;
+    opacity: 0.40;
+    animation-delay: -4s;
+    bottom: 10px;
 }
 section .wave.wave4 {
-    animation: animate2 5s linear infinite;
-    z-index: 997;
-    opacity: 0.7;
-    animation-delay: -5s;
-    bottom: 20px;
+    animation: animate2 10s linear infinite;
+    z-index: 97;
+    opacity: 0.20;
+    animation-delay: -6s;
+    bottom: 15px;
 }
-@keyframes animate {
+@keyframes animate1 {
     0% {
         background-position-x: 0;
     }
@@ -153,34 +163,3 @@ section .wave.wave4 {
         background-position-x: -1000px;
     }
 }
-/* section {
-    width: 100%;
-    height: 600px;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-}
-
-section p {
-    color: white;
-    font-size: 64px;
-    line-height: 64px;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 400;
-    text-transform: uppercase;
-
-    border: 1px red solid;
-}
-
-p:first-child {
-    font-size: 128px;
-    line-height: 128px;
-    font-weight: 700;
-}
-
-video {
-    position: absolute;
-    width: 100%;
-    margin-top: -100px;
-    z-index: -1;
-} */

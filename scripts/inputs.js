@@ -32,6 +32,11 @@ $(document).ready(() => {
         $('#icon-switch').css('transform', 'rotate('+(deg+=180)+'deg)')
     })
 
+
+
+
+    
+
     $('.lst-selected').click(function() {
         $(this).siblings('.lst-items').toggleClass('active')
     })
@@ -40,19 +45,73 @@ $(document).ready(() => {
         $(this).parent().siblings('.lst-items').addClass('active')
     })
 
-    $.getJSON('classes.json', function(jd) {
-        var content = ""
-        for(let i=0; i<jd.classes.length; i++) {
-            content += 
-                `
-                <div class="item">
-                    <input type="radio" class="item-radio" id="item${i}" name="catalogue">
-                    <label for="item${i}">${jd.classes[i]}</label>
-                </div>
-                `
-        }
-        $('.lst-items').parent('.lst.default').children('.lst-items').append(content)
-    })
+    $.fn.list = function(json, key) {
+        let list = this
+        let format =
+        `
+        <div class="item">
+            <input type="radio" class="item-radio" id="$i" name="catalogue">
+            <label for="$i">$value</label>
+        </div>
+        ` 
+        let content = ''
+        
+        $.getJSON(json, function(jd) {
+            for(i=0; i<jd.length; i++) {
+                format = format.replaceAll('$i', `${i}`)
+                format = format.replaceAll('$value', `${jd[i][key]}`)
+
+                content += format
+
+                format = format.replaceAll(`${i}`, '$i')
+                format = format.replaceAll(`${jd[i][key]}`, '$value')
+            }
+            list.find('.lst-items').append(content)
+        })
+    }
+
+    $.fn.custList = function(format, json, ...keys) {
+        let list = this
+        let content = ''
+        let values = [...keys]
+        let format_copy = format
+
+        $.getJSON(json, function(jd) {
+            for(i=0; i<jd.length; i++) {
+                format = format.replaceAll('$i', `${i}`)
+                for (j=0; j<values.length; j++) {
+                    format = format.replaceAll(`$value${j}`, `${jd[i][keys[j]]}`)
+                }
+                content += format
+                format = format_copy
+            }
+            list.find('.lst-items').append(content)
+        })
+    }
+
+    var json_classes = 'classes.json'
+    var json_items = 'items.json'
+        
+    $('.lst_classes').list(json_classes, 'class')
+    $('#lst_items').list(json_items, 'item')
+    $('#searchList_items').list(json_items, 'item')
+
+
+    format = 
+    `
+    <div class="item">
+        <input type="radio" class="item-radio" id="$i" name="catalogue">
+        <div>
+            <label for="$i" class="city">$value0</label>
+            <label for="$i" class="code" style="float: right; color: #BDBDBD;">$value1</label>
+        </div>
+        <div>
+            <label for="$i" class="name" style="font-size: 12px;">$value2</label>
+        </div>
+    </div>
+    `
+    var json_airports = 'airports.json'
+    $('.lst_airports').custList(format, json_airports, 'city', 'iata_code', 'name')
 
 
     // Handles the selected item from drop-down list
@@ -76,6 +135,7 @@ $(document).ready(() => {
                 .children('.item')
                 .unhighlight()
             
+            // Clear filter keyword
             $(this)
                 .parent('.lst-items')
                 .children('.item')
@@ -119,25 +179,25 @@ $(document).ready(() => {
 
 
 
-    $.getJSON('airports.json', function(jd) {
-        var content = ""
-        for(let i=0; i<jd.length; i++) {
-            content += 
-                `
-                <div class="item">
-                    <input type="radio" class="item-radio" id="item${i}" name="catalogue">
-                    <div>
-                        <label for="item${i}" class="city">${jd[i].city}</label>
-                        <label for="item${i}" class="code" style="float: right; color: #BDBDBD;">${jd[i].iata_code}</label>
-                    </div>
-                    <div>
-                        <label for="item${i}" class="name" style="font-size: 12px;">${jd[i].name}</label>
-                    </div>
-                </div>
-                `
-        }
-        $('.lst-items').parent('.lst.airports').children('.lst-items').append(content)
-    })
+    // $.getJSON('airports.json', function(jd) {
+    //     var content = ""
+    //     for(let i=0; i<jd.length; i++) {
+    //         content += 
+    //             `
+    //             <div class="item">
+    //                 <input type="radio" class="item-radio" id="item${i}" name="catalogue">
+    //                 <div>
+    //                     <label for="item${i}" class="city">${jd[i].city}</label>
+    //                     <label for="item${i}" class="code" style="float: right; color: #BDBDBD;">${jd[i].iata_code}</label>
+    //                 </div>
+    //                 <div>
+    //                     <label for="item${i}" class="name" style="font-size: 12px;">${jd[i].name}</label>
+    //                 </div>
+    //             </div>
+    //             `
+    //     }
+    //     $('.lst-items').parent('.lst.airports').children('.lst-items').append(content)
+    // })
 
     $('.lst.airports').children('.lst-items').on('click', '.item', function() {
         $(this)
@@ -186,19 +246,23 @@ $(document).ready(() => {
         name.highlight(keyword)
     })
 
-    var drp = $('.drp-selector').daterangepicker()
+    $('.drp-selector').daterangepicker()
 
-    let x = 0
-    $('.num-plus').click(function() {
-        x++
-        $('.num-value').text(x)
-    })
+    $.fn.numPicker = function() {
+        x = 0
+        this.find('.num-plus').click(function() {
+            x++
+            $('.num-value').text(x)
+        })
 
-    $('.num-minus').click(function() {
-        if (x <= 0)
-            x = 0
-        else
-            x--
-        $('.num-value').text(x)
-    })
+        $('.num-minus').click(function() {
+            if (x <= 0)
+                x = 0
+            else
+                x--
+            $('.num-value').text(x)
+        })
+    }
+
+    $('.num').numPicker()
 })

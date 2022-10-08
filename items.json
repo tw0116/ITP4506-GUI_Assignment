@@ -1,14 +1,29 @@
-{
-    "items":[
-        "Hong Kong", 
-        "New York", 
-        "Miami", 
-        "Beijing", 
-        "Paris",
-        "Dallas",
-        "Berlin",
-        "Atlanta",
-        "London",
-        "Mumbai"
-    ]
-}
+[
+    {
+        "item":"Hong Kong"
+    },
+    {
+        "item":"New York"
+    },
+    {
+        "item":"Miami"
+    },
+    {
+        "item":"Beijing"
+    },
+    {
+        "item":"Paris"
+    },
+    {
+        "item":"Dallas"
+    },
+    {
+        "item":"Berlin"
+    },
+    {
+        "item":"Atlanta"
+    },
+    {
+        "item":"Mumbai"
+    }
+]
