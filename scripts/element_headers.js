@@ -1,4 +1,4 @@
-class HeaderDefault extends HTMLElement {
+class HeaderIndex extends HTMLElement {
     constructor() {
         super();
         this.innerHTML = 
@@ -6,7 +6,8 @@ class HeaderDefault extends HTMLElement {
         <header>
             <div id="logo">
                 <span id="logo-ive">ive</span>
-                <span id="logo-airline">Airline</span></div>
+                <span id="logo-airline">Airline</span>
+            </div>
             <nav>
                 <ul>
                     <li><a href="">Offers</a></li>
@@ -24,4 +25,20 @@ class HeaderDefault extends HTMLElement {
     }
 }
 
+class HeaderDefault extends HTMLElement {
+    constructor() {
+        super();
+        this.innerHTML = 
+        `
+        <header>
+            <div id="logo">
+                <span id="logo-ive">ive</span>
+                <span id="logo-airline">Airline</span>
+            </div>
+        </header>
+        `
+    }
+}
+
+customElements.define('header-index', HeaderIndex)
 customElements.define('header-default', HeaderDefault)
