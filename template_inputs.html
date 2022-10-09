@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>IVE Airline - Search</title>
-    
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="./styles/style_inputs.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -13,6 +14,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script type="text/javascript" src="./scripts/inputs.js"></script>
 </head>
+
 <body>
     <label for="test1" class="rdo">
         <input type="radio" name="type" id="test1" class="rdo-input">
@@ -34,7 +36,7 @@
         <input type="text" class="txt-textarea" required>
         <label class="txt-placeholder">First Name</label>
     </div>
-    
+
     <div class="txt">
         <input type="text" class="txt-textarea" required>
         <label class="txt-placeholder">Last Name</label>
@@ -59,7 +61,7 @@
             Class
         </div>
     </div>
-    
+
 
     <div id="lst_items" class="lst default">
         <div class="lst-items"></div>
@@ -120,12 +122,12 @@
 
 
 
-   
+
     <div id="search">
         <div id="search-header">
             <h1>Search Flights</h1>
         </div>
-        
+
         <form id="search-form">
             <div class="row" style="display: flex;">
                 <label for="roundTrip" class="rdo">
@@ -133,20 +135,20 @@
                     <div class="rdo-radio"></div>
                     <span class="rdo-text">Round Trip</span>
                 </label>
-            
+
                 <label for="oneWay" class="rdo">
                     <input type="radio" name="type" id="oneWay" class="rdo-input">
                     <div class="rdo-radio"></div>
                     <span class="rdo-text">One way</span>
                 </label>
-        
+
                 <label for="multiSegments" class="rdo">
                     <input type="radio" name="type" id="multiSegments" class="rdo-input">
                     <div class="rdo-radio"></div>
                     <span class="rdo-text">Multi-segments</span>
                 </label>
             </div>
-    
+
             <div class="row" style="display: flex;">
                 <div class="lst airports lst_airports" style="width: 250px;">
                     <div class="lst-items"></div>
@@ -155,7 +157,7 @@
                         <label class="txt-placeholder">From</label>
                     </div>
                 </div>
-        
+
                 <div class="lst airports lst_airports" style="width: 250px;">
                     <div class="lst-items"></div>
                     <div class="lst-textbox txt" style="width: inherit;">
@@ -164,7 +166,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="row" style="display: flex;">
                 <div style="display: flex;">
                     <div class="drp">
@@ -173,14 +175,14 @@
                         <label id="drp-label2">Return</label>
                     </div>
                 </div>
-        
+
                 <div class="lst default lst_classes">
                     <div class="lst-items"></div>
                     <div class="lst-selected">
                         Class
                     </div>
                 </div>
-    
+
                 <div class="lst" style="width: 280px;">
                     <div class="lst-items" style="width: 276px;">
                         <div class="item" style="display: flex; align-items: center;">
@@ -213,7 +215,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="row" style="display: flex;">
                 <button type="submit" class="rippleBtn-click">Search</button>
                 <button type="reset" class="rippleBtn-hover">Reset</button>
@@ -221,4 +223,5 @@
         </form>
     </div>
 </body>
+
 </html>
