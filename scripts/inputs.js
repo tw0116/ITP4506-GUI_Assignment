@@ -97,8 +97,7 @@ $(document).ready(function() {
         
     $('.lst_classes').list(json_classes, 'class')
     $('#lst_items').list(json_items, 'item')
-    $('#searchList_items').list(json_items, 'item')
-    
+    $('#searchList_items').list(json_items, 'item')    
 
     format = 
     `
@@ -207,7 +206,7 @@ $(document).ready(function() {
             .parent('.lst-items')
             .siblings('.lst-textbox')
             .children('.txt-textarea')
-            .val(`${$(this).children().children('.city').text()}, ${$(this).children().children('.code').text()}`)
+            .val(`${$(this).find('.city').text()}, ${$(this).find('.code').text()}`)
     })
 
     $('.lst.airports').find('.txt-textarea').on('keyup', function() {
@@ -268,4 +267,54 @@ $(document).ready(function() {
     $('.num').numPicker()
 
     $('.drp-selector').daterangepicker()
+
+
+
+
+    $('.lst.countries').children('.lst-items').on('click', '.item', function() {
+        $(this)
+            .parent('.lst-items')
+            .siblings('.lst-textbox')
+            .children('.txt-textarea')
+            .val(`${$(this).find('.city').text()}, ${$(this).find('.code').text()}`)
+    })
+
+    $('.lst.countries').find('.txt-textarea').on('keyup', function() {
+        var value = $(this).val().toLowerCase();
+        $(this)
+            .parent('.lst-textbox')
+            .siblings('.lst-items')
+            .children('.item')
+            .filter(function() {
+                $(this).toggle(
+                    $(this).find('.city').text().toLowerCase().indexOf(value) > -1 ||
+                    $(this).find('.code').text().toLowerCase().indexOf(value) > -1 ||
+                    $(this).find('.name').text().toLowerCase().indexOf(value) > -1
+                )
+            })
+    })
+
+    $('.lst.countries').find('.txt-textarea').on('keyup change', function() {
+        var keyword = $(this).val()
+        var city = $(this)
+            .parent('.lst-textbox')
+            .siblings('.lst-items')
+            .find('.city')
+        var code = $(this)
+            .parent('.lst-textbox')
+            .siblings('.lst-items')
+            .find('.code')
+        var name = $(this)
+            .parent('.lst-textbox')
+            .siblings('.lst-items')
+            .find('.name')
+        
+        city.unhighlight(keyword)
+        code.unhighlight(keyword)
+        name.unhighlight(keyword)
+
+        city.highlight(keyword)
+        code.highlight(keyword)
+        name.highlight(keyword)
+    })
 })
