@@ -44,7 +44,8 @@
             }
             $("#email").keyup(() => {
                 if (checkEmail()) {
-                    $(this).css("border", "1px solid lime");
+                    $("#email").css("border", "1px solid lime");
+                    $("#emailMsg").html("");
                 } else {
                     $("#email").css("border", "1px solid red");
                     $("#emailMsg").html("<p class='text-danger'>Invalid Email </p>");
@@ -56,6 +57,7 @@
             $("#password").keyup(() => {
                 if (checkPassword()) {
                     $("#password").css("border", "1px solid lime");
+                    $("#pswMsg").html("");
                 } else {
                     $("#password").css("border", "1px solid red");
                     $("#pswMsg").html("<p class='text-danger'>Invalid Password</p>")
@@ -99,24 +101,6 @@
             border-radius: 10px;
             box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
         }
-
-        .login {}
-
-        .mb-3:focus {
-            outline-offset: 12px;
-            outline: blue;
-        }
-
-
-
-        .mb-3:has(:invalid) {
-            --color: var(--invalid);
-        }
-
-        .mb-3:has(:focus) {
-            --color: var(--focus);
-        }
-
         .container-sm {
             margin: auto;
         }
@@ -124,7 +108,6 @@
         footer {
             height: 20px;
         }
-
     </style>
 </head>
 
