@@ -450,6 +450,65 @@ input:not(:focus):valid ~ .txt-placeholder {
 
 
 
+.dp {
+    position: relative;
+    width: 200px;
+    --dp-margin-top: 0px;
+}
+.dp-selector {
+    box-sizing: border-box;
+    padding: 8px 10px;
+    margin-top: var(--dp-margin-top);
+    margin-bottom: 4px;
+    width: inherit;
+    
+    color: #757575;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+
+    border: 2px #BDBDBD solid;
+    border-radius: 8px;
+
+    transition: all 0.15s ease;
+}
+.dp-selector:focus {
+    outline: none;
+    border: 2px #0277BD solid;
+}
+#dp-label {
+    position: absolute;
+    padding: 0 4px;
+    top: calc(var(--dp-margin-top) - 8px);
+
+    color: #757575;
+    font-size: 12px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+
+    background-color: white;
+
+    transition: all 0.15s ease;
+}
+#dp-label { left: 10px; }
+.dp-selector:focus ~ #dp-label {
+    color: #0277BD;
+}
+.dp::after {
+    position: absolute;
+    right: 10px;
+    top: calc(var(--dp-margin-top) + 8px);
+
+    content: "\ebcc";
+    color: #BDBDBD;
+    font-size: 24px;
+    font-family: "Material Icons";
+    font-weight: 400;
+}
+
+
+
+
 .num {
     width: 96px;
     height: 32px;

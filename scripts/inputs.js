@@ -249,8 +249,6 @@ $(document).ready(function() {
         name.highlight(keyword)
     })
 
-    $('.drp-selector').daterangepicker()
-
     $.fn.numPicker = function() {
         x = 0
         this.find('.num-plus').click(function() {
@@ -268,4 +266,6 @@ $(document).ready(function() {
     }
 
     $('.num').numPicker()
+
+    $('.drp-selector').daterangepicker()
 })
