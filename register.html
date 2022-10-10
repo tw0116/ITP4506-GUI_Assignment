@@ -19,7 +19,19 @@
 
 <script type="text/javascript" lang="javascript">
     $(document).ready(function() {
+        var json_titles = './jsons/titles.json'
+        var json_countries = './jsons/countries.json'
+
+        $('.msg').hide();
+        $('#lst-titles').list(json_titles, 'title')
+        $('#slst-countries').custList(format, json_countries, 'dial_code', 'code', 'name')
         $('.dp-selector').daterangepicker({"singleDatePicker": true})
+
+        $('#btn-submit').click(function() {
+            if ($('input').val() == " ") {
+                alert('hi')
+            }
+        })
     })
 </script>
 
@@ -60,7 +72,7 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    p {
+    .register-heading p, p {
         margin: 10px 0;
         line-height: 1.5em;
 
@@ -83,12 +95,12 @@
 
 
     .register-info {
-        padding: 10px 0 10px 0;
+        padding: 10px 0 80px 0;
 
         display: inline-flex;
         flex-direction: column;
 
-        gap: 10px;
+        gap: 12px;
         
         border-top: 1px var(--color-base3) solid;
     }
@@ -116,12 +128,32 @@
         /* border: 1px red solid; */
     }
 
+    .msg {
+        color: red;
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+
     .txt {
         width: 250px;
     }
     .txt .txt-textarea {
         width: inherit;
-    } 
+    }
+    
+    .lst-text {
+        font-size: 16px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    .dial_code {
+        color: var(--color-base2);       
+    }
+    .country {
+        float: right;
+        color: var(--color-base3);
+    }
 </style>
 <body>
     
@@ -145,7 +177,7 @@
                     If you become a IVE Airline member,<br>
                     you can enjoy <span>exclusive perks</span> and <span>special privilleges</span>.
                 </p>
-                <p>Already a registered member?&nbsp;&nbsp;<a href="">> Log in</a></p>
+                <p>Already a registered member?&nbsp;&nbsp;<a href="">Log in</a></p>
             </div>
     
             <div class="register-info">
@@ -153,7 +185,7 @@
     
                 <div class="row">
                     <div class="input">
-                        <div class="lst default">
+                        <div class="lst default" id="lst-titles">
                             <div class="lst-items"></div>
                             <div class="lst-selected">
                                 Title
@@ -244,10 +276,11 @@
 
                 <div class="row">
                     <div class="input">
-                        <div class="lst default">
-                            <div class="lst-items"></div>
-                            <div class="lst-selected">
-                                Country Code
+                        <div id="slst-countries" class="lst countries" style="width: 200px;">
+                            <div class="lst-items" style="width: inherit;"></div>
+                            <div class="lst-textbox txt" style="width: inherit;">
+                                <input type="text" class="txt-textarea" required>
+                                <label class="txt-placeholder">Country Code</label>
                             </div>
                         </div>
                         <div class="msg">*Please select a contry code</div>
@@ -265,26 +298,28 @@
 
             <div class="register-info">
                 <h1>Log-in Details</h1>
-                <div class="row">
+                <div class="row" style="flex-direction: column;">
                     <p>Your IVE Airline membership number will be provided once your registration is completed.</p>
 
-                    <div class="input">
-                        <div class="txt">
-                            <input type="text" class="txt-textarea" type="password" required
-                                pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$">
-                            <label class="txt-placeholder">Password</label>
-                            <button>eye</button>
+                    <div style="display: flex; gap: 8px;">
+                        <div class="input">
+                            <div class="txt">
+                                <input type="text" class="txt-textarea" type="password" required
+                                    pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$">
+                                <label class="txt-placeholder">Password</label>
+                                <button>eye</button>
+                            </div>
+                            <div class="msg">*Please enter your password</div>
                         </div>
-                        <div class="msg">*Please enter your password</div>
-                    </div>
-                    <div class="input">
-                        <div class="txt">
-                            <input type="text" class="txt-textarea" type="password" required
-                                pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$">
-                            <label class="txt-placeholder">Confirm Password</label>
-                            <button>eye</button>
+                        <div class="input">
+                            <div class="txt">
+                                <input type="text" class="txt-textarea" type="password" required
+                                    pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$">
+                                <label class="txt-placeholder">Confirm Password</label>
+                                <button>eye</button>
+                            </div>
+                            <div class="msg">*Please re-enter your password</div>
                         </div>
-                        <div class="msg">*Please re-enter your password</div>
                     </div>
 
                     <p>
@@ -297,112 +332,23 @@
 
             <div class="register-info">
                 <div class="row">
-                    <label for="test1" class="rdo">
-                        <input type="radio" name="type" id="agreement" class="rdo-input">
+                    <label for="agreement" class="rdo">
+                        <input type="checkbox" name="agreement" id="agreement" class="rdo-input">
                         <div class="rdo-radio"></div>
-                        <span class="rdo-text">
-                            By submitting my information, I acknowledge and accept the terms of IVE Airline's Privacy Policy<br>
-                            and terms and conditions of the IVE Airline programme. 
+                        <span class="rdo-text" style="margin-left: 8px;">
+                            By submitting my information, I acknowledge and accept the terms of IVE Airline's <a href="">Privacy Policy</a><br>
+                            and <a href="">terms and conditions of the IVE Airline programme.</a>
                         </span>
+                        
                     </label>
                 </div>
                 
-                <div class="row">
-                    <button class="btn-style2">Reset</button>
+                <div class="row" style="margin: 40px 0 0 auto">
+                    <button id="btn-submit" class="btn-style2">Reset</button>
                     <button class="btn-style1">Done</button>
                 </div>
             </div>
         </form>
     </section>
-    
-    <!-- <main>
-        <div class="container-md">
-            <div class="heading">
-                <h1 class="text-info">Register</h1>
-                <p>Create an account</p>
-            </div>
-            <form action="" method="post">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col">
-                        <label class="form-label" for="firstName">First Name</label>
-                        <input class="form-control" type="text" placeholder="Enter your first name" pattern="">
-                    </div>
-                    <div class="col">
-                        <label class="form-label" for="middleName">Middle Name (Optional)</label>
-                        <input class="form-control" type="text" placeholder="Enter your middle Name">
-                    </div>
-                    <div class="col">
-                        <label class="form-label" for="lastName">Last Name</label>
-                        <input class="form-control" type="text" placeholder="Enter your last name">
-                    </div>
-                </div>
-                <br>
-                <div class="row justify-content-center align-items-center g-2">
-                    <div class="col">
-                        <label class="form-label" for="email">Email Address</label>
-                        <input class="form-control" type="email" placeholder="Enter your Email Address"
-                            pattern="[A-Za-z0-9.%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}$">
-                    </div>
-                </div>
-                <br>
-                <div class="row justify-content-center align-items-center g-2">
-                    <div class="col">
-                        <label class="form-label" for="password">Password</label>
-                        <input class="form-control" type="password" name="" id="password"
-                            pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$">
-                    </div>
-                    <div class="col">
-                        <label class="form-label" for="confirm-password">Confirm Password</label>
-                        <input class="form-control" type="password">
-                    </div>
-                </div>
-                <br>
-                <div class="row justify-content-center align-items-center g-2">
-                    <div class="col">
-                        <label class="form-label" for="gender">Gender</label>
-                        <select class="form-select" name="" id="">
-                            <option selected value="">Option</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="others">Others</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label class="form-label" for="birthday">Date Of Birth</label>
-                        <input type="text" id="birthday">
-                    </div>
-                    <div class="col">
-                        <label class="form-label" for="tel-number">Phone Number</label>
-                        <input class="form-control" type="tel">
-                    </div>
-                </div>
-                <br>
-                <div class="row justify-content-center align-items-center g-2">
-                    <div class="col">
-                        <label class="form-label" for="postal-code">Postal Code (Optional)</label>
-                        <input class="form-control" type="text">
-                    </div>
-                    <div class="col">
-                        <label class="form-check" for=""></label>
-                    </div>
-                    <div class="col">
-                        <label class="form-label" for="nationality">Nationality</label>
-                        <select class="form-select" name="nation" id="">
-
-                        </select>
-                    </div>
-                </div>
-                <div class="row justify-content-center align-items-center g-2 align-">
-                    <div class="col">
-                        <button type="reset">RESET</button>
-                    </div>
-                    <div class="col">
-                        <button type="submit">SUBMIT</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </main> -->
 </body>
-
 </html>
