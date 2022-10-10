@@ -6,7 +6,7 @@ class Flight_1Stop extends HTMLElement {
         <div class="flight-card">
             <div class="flight-info">
                 <div class="section-top"> <!-- Stops & total hours of flight(s) -->
-                    Two-stops - 00hrs 00mins
+                    One-stop - ${this.getAttribute('total-time')}
                 </div>
 
                 <div class="section-bottom"> 
@@ -22,8 +22,8 @@ class Flight_1Stop extends HTMLElement {
                     <div class="block-flightline">
                         <div class="os-circle"></div>
                         <div class="os-layover">
-                            <div class="layover-airport">${this.getAttribute('layout-airport')}</div>
-                            <div class="layover-time">${this.getAttribute('layout-time')}</div>
+                            <div class="layover-airport">${this.getAttribute('layout-airport-code')}</div>
+                            <div class="layover-time">${this.getAttribute('layout-period')}</div>
                         </div>
                     </div>
                     
@@ -43,21 +43,116 @@ class Flight_1Stop extends HTMLElement {
                                 <span class="flight-logo_airline">Airline</span>
                             </span>
                             <span class="dot"></span>
-                            <span class="flight-num">RM237</span>
+                            <span class="flight-num">${this.getAttribute('flight-code1')}</span>
                         </div>
                         <div class="flight">
                             <span class="flight-logo">
-                                <span class="flight-logo_thei">the</span>
-                                &nbsp;
-                                <span class="flight-logo_airways">Airways</span>
+                                <span class="flight-logo_ive">ive</span>
+                                <span class="flight-logo_airline">Airline</span>
                             </span>
                             <span class="dot"></span>
-                            <span class="flight-num">TY234</span>
+                            <span class="flight-num">${this.getAttribute('flight-code2')}</span>
                         </div>
-                        <a class="btn-details">> Show details</a>
+                        <a class="btn-moreDetails">> More details</a>
                     </div>
                 </div>
             </div>
+
+            <div class="flight-details">
+                <div class="block-details" style="border-bottom: 1px var(--color-base3) solid;">
+                    <div>
+                        <div class="section-top">
+                            One-stop - ${this.getAttribute('total-time')}
+                        </div>
+                    </div>
+                    
+                    <div class="section-bottom">
+                        <div class="block-info">
+                            <div>
+                                <span class="airport">HKG</span>
+                                <span class="time">${this.getAttribute('depart-time')}</span>
+                            </div>
+                            <div class="location">Hong Kong</div>
+                            <div class="date">${this.getAttribute('depart-date')}</div>
+                            <div class="airport-name">${this.getAttribute('depart-airport-name')}</div>
+                        </div>
+
+                        <div class="block-flightline">
+                            <div class="airplane-icon"></div>
+                        </div>
+
+                        <div class="block-info">
+                            <div>
+                                <span class="airport">${this.getAttribute('layout-airport-code')}</span>
+                                <span class="time">${this.getAttribute('layout-time1')}</span>
+                            </div>
+                            <div class="location">${this.getAttribute('layout-location')}</div>
+                            <div class="date">${this.getAttribute('depart-date')}</div>
+                            <div class="airport-name">${this.getAttribute('layout-airport-name')}</div>
+                        </div>
+
+                        <div class="block-info_2">
+                            <div class="flight">
+                                <span class="flight-logo">
+                                    <span class="flight-logo_ive">ive</span>
+                                    <span class="flight-logo_airline">Airline</span>
+                                </span>
+                                <span class="dot"></span>
+                                <span class="flight-num">${this.getAttribute('flight-code1')}</span>
+                            </div>
+                            <div class="airplane-model">Airbus A350-1000</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block-details">
+                    <div>
+                        <div class="section-top">
+                            <span class="layover-title  ">Layover - ${this.getAttribute('layout-period')}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="section-bottom">
+                        <div class="block-info">
+                            <div>
+                                <span class="airport">${this.getAttribute('layout-airport-code')}</span>
+                                <span class="time">${this.getAttribute('layout-time2')}</span>
+                            </div>
+                            <div class="location">${this.getAttribute('layout-location')}</div>
+                            <div class="date">${this.getAttribute('arrive-date')}</div>
+                            <div class="airport-name">${this.getAttribute('layout-airport-name')}</div>
+                        </div>
+
+                        <div class="block-flightline">
+                            <div class="airplane-icon"></div>
+                        </div>
+
+                        <div class="block-info">
+                            <div>
+                                <span class="airport">JFK</span>
+                                <span class="time">${this.getAttribute('arrive-time')}</span>
+                            </div>
+                            <div class="location">New York</div>
+                            <div class="date">${this.getAttribute('arrive-date')}</div>
+                            <div class="airport-name">${this.getAttribute('arrive-airport-name')}</div>
+                        </div>
+
+                        <div class="block-info_2">
+                            <div class="flight">
+                                <span class="flight-logo">
+                                    <span class="flight-logo_ive">ive</span>
+                                    <span class="flight-logo_airline">Airline</span>
+                                </span>
+                                <span class="dot"></span>
+                                <span class="flight-num">${this.getAttribute('flight-code2')}</span>
+                            </div>
+                            <div class="airplane-model">Airbus A350-1000</div>
+                            <a class="btn-lessDetails">> Less details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="flight-class">
                 <div class="section-top class_1">
                     Economy
@@ -122,7 +217,7 @@ class Flight_2Stops extends HTMLElement {
         <div class="flight-card">
             <div class="flight-info">
                 <div class="section-top"> <!-- Stops & total hours of flight(s) -->
-                    Two-stops - 00hrs 00mins
+                    Two-stops - ${this.getAttribute('total-time')}
                 </div>
 
                 <div class="section-bottom"> 
@@ -139,12 +234,12 @@ class Flight_2Stops extends HTMLElement {
                         <div class="ts-circle1"></div>
                         <div class="ts-circle2"></div>
                         <div class="ts-layover1">
-                            <div class="layover-airport">${this.getAttribute('layout-airport1')}</div>
-                            <div class="layover-time">${this.getAttribute('layout-time1')}</div>
+                            <div class="layover-airport">${this.getAttribute('layout1-airport-code')}</div>
+                            <div class="layover-time">${this.getAttribute('layout1-period')}</div>
                         </div>
                         <div class="ts-layover2">
-                            <div class="layover-airport">${this.getAttribute('layout-airport2')}</div>
-                            <div class="layover-time">${this.getAttribute('layout-time2')}</div>
+                            <div class="layover-airport">${this.getAttribute('layout2-airport-code')}</div>
+                            <div class="layover-time">${this.getAttribute('layout2-period')}</div>
                         </div>
                     </div>
                     
@@ -164,7 +259,7 @@ class Flight_2Stops extends HTMLElement {
                                 <span class="flight-logo_airline">Airline</span>
                             </span>
                             <span class="dot"></span>
-                            <span class="flight-num">RM237</span>
+                            <span class="flight-num">${this.getAttribute('flight-code1')}</span>
                         </div>
                         <div class="flight">
                             <span class="flight-logo">
@@ -173,12 +268,156 @@ class Flight_2Stops extends HTMLElement {
                                 <span class="flight-logo_airways">Airways</span>
                             </span>
                             <span class="dot"></span>
-                            <span class="flight-num">TY234</span>
+                            <span class="flight-num">${this.getAttribute('flight-code2')}</span>
                         </div>
-                        <a class="btn-details">> Show details</a>
+                        <a class="btn-moreDetails">> More details</a>
                     </div>
                 </div>
             </div>
+
+            <div class="flight-details">
+                <div class="block-details" style="border-bottom: 1px var(--color-base3) solid;">
+                    <div>
+                        <div class="section-top">
+                            One-stop - ${this.getAttribute('total-time')}
+                        </div>
+                    </div>
+                    
+                    <div class="section-bottom">
+                        <div class="block-info">
+                            <div>
+                                <span class="airport">HKG</span>
+                                <span class="time">${this.getAttribute('depart-time')}</span>
+                            </div>
+                            <div class="location">Hong Kong</div>
+                            <div class="date">${this.getAttribute('depart-date')}</div>
+                            <div class="airport-name">${this.getAttribute('depart-airport-name')}</div>
+                        </div>
+
+                        <div class="block-flightline">
+                            <div class="airplane-icon"></div>
+                        </div>
+
+                        <div class="block-info">
+                            <div>
+                                <span class="airport">${this.getAttribute('layout1-airport-code')}</span>
+                                <span class="time">${this.getAttribute('layout1-time1')}</span>
+                            </div>
+                            <div class="location">${this.getAttribute('layout1-location')}</div>
+                            <div class="date">${this.getAttribute('depart-date')}</div>
+                            <div class="airport-name">${this.getAttribute('layout1-airport-name')}</div>
+                        </div>
+
+                        <div class="block-info_2">
+                            <div class="flight">
+                                <span class="flight-logo">
+                                    <span class="flight-logo_ive">ive</span>
+                                    <span class="flight-logo_airline">Airline</span>
+                                </span>
+                                <span class="dot"></span>
+                                <span class="flight-num">${this.getAttribute('flight-code1')}</span>
+                            </div>
+                            <div class="airplane-model">Airbus A350-1000</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block-details" style="border-bottom: 1px var(--color-base3) solid;">
+                    <div>
+                        <div class="section-top">
+                            <span class="layover-title">Layover - ${this.getAttribute('layout1-period')}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="section-bottom">
+                        <div class="block-info">
+                            <div>
+                                <span class="airport">${this.getAttribute('layout1-airport-code')}</span>
+                                <span class="time">${this.getAttribute('layout1-time2')}</span>
+                            </div>
+                            <div class="location">${this.getAttribute('layout1-location')}</div>
+                            <div class="date">${this.getAttribute('depart-date')}</div>
+                            <div class="airport-name">${this.getAttribute('layout1-airport-name')}</div>
+                        </div>
+
+                        <div class="block-flightline">
+                            <div class="airplane-icon"></div>
+                        </div>
+
+                        <div class="block-info">
+                            <div>
+                                <span class="airport">${this.getAttribute('layout2-airport-code')}</span>
+                                <span class="time">${this.getAttribute('layout2-time1')}</span>
+                            </div>
+                            <div class="location">${this.getAttribute('layout2-location')}</div>
+                            <div class="date">${this.getAttribute('arrive-date')}</div>
+                            <div class="airport-name">${this.getAttribute('layout2-airport-name')}</div>
+                        </div>
+
+                        <div class="block-info_2">
+                            <div class="flight">
+                                <span class="flight-logo">
+                                    <span class="flight-logo_thei">the</span>
+                                    &nbsp;
+                                    <span class="flight-logo_airways">Airways</span>
+                                </span>
+                                <span class="dot"></span>
+                                <span class="flight-num">${this.getAttribute('flight-code2')}</span>
+                            </div>
+                            <div class="airplane-model">Boeing 777-300ER</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block-details">
+                    <div>
+                        <div class="section-top">
+                            <span class="layover-title">Layover - ${this.getAttribute('layout2-period')}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="section-bottom">
+                        <div class="block-info">
+                            <div>
+                                <span class="airport">${this.getAttribute('layout2-airport-code')}</span>
+                                <span class="time">${this.getAttribute('layout2-time2')}</span>
+                            </div>
+                            <div class="location">${this.getAttribute('layout2-location')}</div>
+                            <div class="date">${this.getAttribute('arrive-date')}</div>
+                            <div class="airport-name">${this.getAttribute('layout2-airport-name')}</div>
+                        </div>
+
+                        <div class="block-flightline">
+                            <div class="airplane-icon"></div>
+                        </div>
+
+                        <div class="block-info">
+                            <div>
+                                <span class="airport">JFK</span>
+                                <span class="time">${this.getAttribute('arrive-time')}</span>
+                            </div>
+                            <div class="location">New York</div>
+                            <div class="date">${this.getAttribute('arrive-date')}</div>
+                            <div class="airport-name">${this.getAttribute('arrive-airport-name')}</div>
+                        </div>
+
+                        <div class="block-info_2">
+                            <div class="flight">
+                                <span class="flight-logo">
+                                    <span class="flight-logo_thei">the</span>
+                                    &nbsp;
+                                    <span class="flight-logo_airways">Airways</span>
+                                </span>
+                                <span class="dot"></span>
+                                <span class="flight-num">${this.getAttribute('flight-code2')}</span>
+                            </div>
+                            <div class="airplane-model">Boeing 777-300ER</div>
+                            <a class="btn-lessDetails">> Less details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="flight-class">
                 <div class="section-top class_1">
                     Economy

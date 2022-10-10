@@ -1,4 +1,4 @@
-$(document).ready(() => {
+$(document).ready(function() {
     $(".rippleBtn-hover").mousemove(function(event) {
         const x = event.pageX - this.offsetLeft
         const y = event.pageY - this.offsetTop
