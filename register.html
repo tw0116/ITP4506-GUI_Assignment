@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>IVE Airline - Register</title>
 </head>
@@ -9,11 +10,31 @@
 <link rel="stylesheet" type="text/css" href="./styles/style_index.css">
 <link rel="stylesheet" type="text/css" href="./styles/style_inputs.css">
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="./scripts/highlight.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script type="text/javascript" src="./scripts/inputs.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/litepicker/2.0.11/litepicker.js"></script>
+
+<script type="text/javascript" lang="javascript">
+    $(() => {
+        let birthday = document.getElementById("birthday");
+        let birth = new Litepicker({
+            element: datepicker,
+            format: "DD MMMM YYYY"
+        });
+    });
+</script>
 
 <script type="module" src="./scripts/element_headers.js"></script>
 
+<<<<<<< HEAD
 <style>
     .register {
         position: absolute;
@@ -37,12 +58,41 @@
 <body>
     <header-default></header-default>
     <section>  
+=======
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+
+<style>
+    .heading {
+        text-align: center;
+    }
+
+    form {
+        padding: 50px 40px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 8px rgb(0, 0, 0, 0.2);
+    }
+
+    .col {
+        padding: 0px 20px;
+    }
+</style>
+
+<body>
+    <header-default></header-default>
+
+    <section>
+
+>>>>>>> 22991cf97eb29a1166f9bd00ae6b2a725b3a6823
         <div class="wave wave1"></div>
         <div class="wave wave2"></div>
         <div class="wave wave3"></div>
         <div class="wave wave4"></div>
+
     </section>
 
+<<<<<<< HEAD
     <div class="register">
         <div class="register-heading">
             <h1>Sign Up and Take off!</h1>
@@ -104,5 +154,107 @@
             </div>
         </div>
     </div>
+=======
+    <main>
+        <div class="container-md">
+            <div class="heading">
+                <h1 class="text-info">Register</h1>
+                <p>Create an account</p>
+            </div>
+            <form action="" method="post">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col">
+                        <label class="form-label" for="firstName">First Name</label>
+                        <input class="form-control" type="text" placeholder="Enter your first name" pattern="">
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="middleName">Middle Name (Optional)</label>
+                        <input class="form-control" type="text" placeholder="Enter your middle Name">
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="lastName">Last Name</label>
+                        <input class="form-control" type="text" placeholder="Enter your last name">
+                    </div>
+                </div>
+                <br>
+                <div class="row justify-content-center align-items-center g-2">
+                    <div class="col">
+                        <label class="form-label" for="email">Email Address</label>
+                        <input class="form-control" type="email" placeholder="Enter your Email Address"
+                            pattern="[A-Za-z0-9.%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}$">
+                    </div>
+                </div>
+                <br>
+                <div class="row justify-content-center align-items-center g-2">
+                    <div class="col">
+                        <label class="form-label" for="password">Password</label>
+                        <input class="form-control" type="password" name="" id="password"
+                            pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$">
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="confirm-password">Confirm Password</label>
+                        <input class="form-control" type="password">
+                    </div>
+                </div>
+                <br>
+                <div class="row justify-content-center align-items-center g-2">
+                    <div class="col">
+                        <label class="form-label" for="gender">Gender</label>
+                        <select class="form-select" name="" id="">
+                            <option selected value="">Option</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="birthday">Date Of Birth</label>
+                        <input type="text" id="birthday">
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="tel-number">Phone Number</label>
+                        <input class="form-control" type="tel">
+                    </div>
+                </div>
+                <br>
+                <div class="row justify-content-center align-items-center g-2">
+                    <div class="col">
+                        <label class="form-label" for="postal-code">Postal Code (Optional)</label>
+                        <input class="form-control" type="text">
+                    </div>
+                    <div class="col">
+                        <label class="form-check" for=""></label>
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="nationality">Nationality</label>
+                        <select class="form-select" name="nation" id="">
+
+                        </select>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center g-2 align-">
+                    <div class="col">
+                        <button type="reset">RESET</button>
+                    </div>
+                    <div class="col">
+                        <button type="submit">SUBMIT</button>
+                    </div>
+                </div>
+            </form>
+
+
+
+        </div>
+    </main>
+    <footer>
+        <section>
+            <div>
+                <p>IVE airline</p>
+            </div>
+        </section>
+    </footer>
+
+>>>>>>> 22991cf97eb29a1166f9bd00ae6b2a725b3a6823
 </body>
+
 </html>
