@@ -22,7 +22,50 @@
     <script type="module" src="./scripts/element_headers.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script></script>
+    <script type="text/javascript">
+        $(document).ready(() => {
+            function checkEmail() {
+                let regex = /[A-Za-z0-9.%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}$/;
+                let email = $("#email").val();
+                if (regex.test(email)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            function checkPassword() {
+                let regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$/;
+                let password = $("#password").val();
+                if (regex.test(password)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            $("#email").keyup(() => {
+                if (checkEmail()) {
+                    $(this).css("border", "1px solid lime");
+                } else {
+                    $("#email").css("border", "1px solid red");
+                    $("#emailMsg").html("<p class='text-danger'>Invalid Email </p>");
+                }
+                if ($("#email").val() == "") {
+                    $("#emailMsg").html("<p class='text-danger'>This field is required </p>")
+                };
+            });
+            $("#password").keyup(() => {
+                if (checkPassword()) {
+                    $("#password").css("border", "1px solid lime");
+                } else {
+                    $("#password").css("border", "1px solid red");
+                    $("#pswMsg").html("<p class='text-danger'>Invalid Password</p>")
+                }
+                if ($("#password").val() == "") {
+                    $("#pswMsg").html("<p class='text-danger'>This field is required </p>")
+                };
+            });
+        });
+    </script>
 
     <style>
         :root {
@@ -57,12 +100,14 @@
             box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
         }
 
+        .login {}
+
         .mb-3:focus {
             outline-offset: 12px;
             outline: blue;
         }
 
-    
+
 
         .mb-3:has(:invalid) {
             --color: var(--invalid);
@@ -80,28 +125,6 @@
             height: 20px;
         }
 
-        @keyframes shake {
-
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-
-            20%,
-            40%,
-            60%,
-            80% {
-                transform: translateX(-4%);
-            }
-
-            10%,
-            30%,
-            50%,
-            70%,
-            90% {
-                transform: translateX(4%);
-            }
-        }
     </style>
 </head>
 
@@ -120,7 +143,8 @@
                         <label class="form-label" for="Email">Email</label>
                         <input class="form-control" type="email" name="email" id="email"
                             pattern="[A-Za-z0-9.%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}$"
-                            title="Please enter a valid Email format (xxxx@xxxx.com)" placeholder="Enter Email Address" required>
+                            title="Please enter a valid Email format (xxxx@xxxx.com)" placeholder="Enter Email Address">
+                        <span id="emailMsg"></span>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="Password">Password</label>
@@ -128,6 +152,7 @@
                             pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$"
                             title="Please enter password (must be include a upper case letter, a lower case letter, a number and a characters)"
                             placeholder="Password" required>
+                        <span id="pswMsg"></span>
                     </div>
                     <div class="mb-3">
                         <div>
@@ -135,11 +160,11 @@
                             <label class="form-check-label" for="Remember">Remember Me</label>
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 login">
                         <button type="submit" class="rippleBtn-click">Log In</button>
                     </div>
                     <div class="mb-3">
-                        Not a member yet? <a href="register.html">Sign up now</a>
+                        Not a member? <a href="register.html">Sign up now</a>
                         </a>
                     </div>
                 </form>
