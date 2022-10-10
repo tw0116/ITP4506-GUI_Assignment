@@ -41,8 +41,11 @@ $(document).ready(function() {
         $(this).siblings('.lst-items').toggleClass('active')
     })
 
-    $('.lst-textbox').children('.txt-textarea').focus(function() {
-        $(this).parent().siblings('.lst-items').addClass('active')
+    $('.lst-textbox').children('.txt-textarea').on('input', function() {
+        if ($(this).val() != "")
+            $(this).parent().siblings('.lst-items').addClass('active')
+        else
+            $(this).parent().siblings('.lst-items').removeClass('active')
     })
 
     $.fn.list = function(json, key) {

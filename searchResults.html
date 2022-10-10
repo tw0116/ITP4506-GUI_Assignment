@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" type="text/css" href="./styles/style_headers.css">
+<link rel="stylesheet" type="text/css" href="./styles/style_inputs.css">
 <link rel="stylesheet" type="text/css" href="./styles/style_searchResults.css">
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -19,20 +20,25 @@
         $('.flight-details').hide()
 
         $('.btn-moreDetails').on('click', function() {
-            $(this).parents('.flight-info')
-                .hide()
+            $(this)
+                .parents('.flight-info')
+                .slideUp(500)
             $(this)
                 .parents('.flight-info')
                 .siblings('.flight-details')
-                .show()
+                .delay(500)
+                .slideDown(500)
         })
 
         $('.btn-lessDetails').on('click', function() {
-            $(this).parents('.flight-details').hide()
+            $(this)
+                .parents('.flight-details')
+                .slideUp(500)
             $(this)
                 .parents('.flight-details')
                 .siblings('.flight-info')
-                .show()
+                .delay(500)
+                .slideDown(500)
         })
     })
 </script>
@@ -52,7 +58,7 @@
         gap: 20px;
     }
     .search-title {
-        margin: 40px 0 20px 0;
+        margin: 80px 0 0 0;
     }
     .search-title h1 {
         /* color: #4527A0; */
@@ -102,7 +108,7 @@
     }
     .flight-info {
         padding: 20px 0 20px 0;
-        min-width: 790px;
+        width: 800px;
 
         transition: 
             transform 0.8s ease-in-out,
@@ -393,7 +399,7 @@
 
     /* Flight Details */
     .flight-details {
-        min-width: 790px;
+        width: 800px;
     }
     .block-details {
         padding: 20px 0 20px 0;
@@ -732,6 +738,147 @@
             </div>
 
             <div>
+                <flight-1stop
+                    total-time = "35hrs 40mins"
+
+                    depart-time = "18:50"
+                    depart-date = "22 Oct (Sat)"
+                    depart-airport-name = "Hong Kong Intl"
+
+                    arrive-time = "18:30"
+                    arrive-date = "23 Oct (Sun)"
+                    arrive-airport-name = "John F Kennedy Intl"
+
+                    layout-period = "13h 10m"
+                    layout-time1 = "22:40"
+                    layout-time2 = "11:50"
+                    layout-location = "Singapore"
+                    layout-airport-code = "SIN"
+                    layout-airport-name = "Changi"
+
+                    flight-code1 = "RM 327"
+                    flight-code2 = "SQ 895"
+
+                    class1-price = "25,000"
+                    class2-price = "37,000"
+                    class3-price = "46,000"
+                    class4-price = "59,000"
+                >
+                </flight-2stop>
+            </div>
+
+            <div>
+                <flight-2stops
+                    total-time = "28hrs 20mins"
+
+                    depart-time = "18:50"
+                    depart-date = "22 Oct (Sat)"
+                    depart-airport-name = "Hong Kong Intl"
+
+                    arrive-time = "11:10"
+                    arrive-date = "23 Oct (Sun)"
+                    arrive-airport-name = "John F Kennedy Intl"
+                    
+                    layout1-period = "1h 15m"
+                    layout1-time1 = "22:40"
+                    layout1-time2 = "23:55"
+                    layout1-location = "Singapore"
+                    layout1-airport-code = "SIN"
+                    layout1-airport-name = "Changi"
+
+                    layout2-period = "1h 50m"
+                    layout2-time1 = "06:45"
+                    layout2-time2 = "08:35"
+                    layout2-location = "Frankfurt"
+                    layout2-airport-code = "FRA"
+                    layout2-airport-name = "Rhein Main"
+
+                    flight-code1 = "SQ 895"
+                    flight-code2 = "SQ 26"
+
+                    class1-price = "27,000"
+                    class2-price = "41,000"
+                    class3-price = "46,000"
+                    class4-price = "59,000"
+                >
+                </flight-2stops>
+            </div>
+
+            <div>
+                <flight-2stops
+                    total-time = "28hrs 20mins"
+
+                    depart-time = "18:50"
+                    depart-date = "22 Oct (Sat)"
+                    depart-airport-name = "Hong Kong Intl"
+
+                    arrive-time = "11:10"
+                    arrive-date = "23 Oct (Sun)"
+                    arrive-airport-name = "John F Kennedy Intl"
+                    
+                    layout1-period = "1h 15m"
+                    layout1-time1 = "22:40"
+                    layout1-time2 = "23:55"
+                    layout1-location = "Singapore"
+                    layout1-airport-code = "SIN"
+                    layout1-airport-name = "Changi"
+
+                    layout2-period = "1h 50m"
+                    layout2-time1 = "06:45"
+                    layout2-time2 = "08:35"
+                    layout2-location = "Frankfurt"
+                    layout2-airport-code = "FRA"
+                    layout2-airport-name = "Rhein Main"
+
+                    flight-code1 = "SQ 895"
+                    flight-code2 = "SQ 26"
+
+                    class1-price = "27,000"
+                    class2-price = "41,000"
+                    class3-price = "46,000"
+                    class4-price = "59,000"
+                >
+                </flight-2stops>
+            </div>
+
+            <div>
+                <flight-2stops
+                    total-time = "28hrs 20mins"
+
+                    depart-time = "18:50"
+                    depart-date = "22 Oct (Sat)"
+                    depart-airport-name = "Hong Kong Intl"
+
+                    arrive-time = "11:10"
+                    arrive-date = "23 Oct (Sun)"
+                    arrive-airport-name = "John F Kennedy Intl"
+                    
+                    layout1-period = "1h 15m"
+                    layout1-time1 = "22:40"
+                    layout1-time2 = "23:55"
+                    layout1-location = "Singapore"
+                    layout1-airport-code = "SIN"
+                    layout1-airport-name = "Changi"
+
+                    layout2-period = "1h 50m"
+                    layout2-time1 = "06:45"
+                    layout2-time2 = "08:35"
+                    layout2-location = "Frankfurt"
+                    layout2-airport-code = "FRA"
+                    layout2-airport-name = "Rhein Main"
+
+                    flight-code1 = "SQ 895"
+                    flight-code2 = "SQ 26"
+
+                    class1-price = "27,000"
+                    class2-price = "41,000"
+                    class3-price = "46,000"
+                    class4-price = "59,000"
+                >
+                </flight-2stops>
+            </div>
+
+            <div>
                 <flight-2stops
                     total-time = "28hrs 20mins"
 
@@ -818,6 +965,147 @@
                     class4-price = "59,000"
                 >
                 </flight-2stop>
+            </div>
+
+            <div>
+                <flight-1stop
+                    total-time = "35hrs 40mins"
+
+                    depart-time = "18:50"
+                    depart-date = "22 Oct (Sat)"
+                    depart-airport-name = "Hong Kong Intl"
+
+                    arrive-time = "18:30"
+                    arrive-date = "23 Oct (Sun)"
+                    arrive-airport-name = "John F Kennedy Intl"
+
+                    layout-period = "13h 10m"
+                    layout-time1 = "22:40"
+                    layout-time2 = "11:50"
+                    layout-location = "Singapore"
+                    layout-airport-code = "SIN"
+                    layout-airport-name = "Changi"
+
+                    flight-code1 = "RM 327"
+                    flight-code2 = "SQ 895"
+
+                    class1-price = "25,000"
+                    class2-price = "37,000"
+                    class3-price = "46,000"
+                    class4-price = "59,000"
+                >
+                </flight-2stop>
+            </div>
+
+            <div>
+                <flight-2stops
+                    total-time = "28hrs 20mins"
+
+                    depart-time = "18:50"
+                    depart-date = "22 Oct (Sat)"
+                    depart-airport-name = "Hong Kong Intl"
+
+                    arrive-time = "11:10"
+                    arrive-date = "23 Oct (Sun)"
+                    arrive-airport-name = "John F Kennedy Intl"
+                    
+                    layout1-period = "1h 15m"
+                    layout1-time1 = "22:40"
+                    layout1-time2 = "23:55"
+                    layout1-location = "Singapore"
+                    layout1-airport-code = "SIN"
+                    layout1-airport-name = "Changi"
+
+                    layout2-period = "1h 50m"
+                    layout2-time1 = "06:45"
+                    layout2-time2 = "08:35"
+                    layout2-location = "Frankfurt"
+                    layout2-airport-code = "FRA"
+                    layout2-airport-name = "Rhein Main"
+
+                    flight-code1 = "SQ 895"
+                    flight-code2 = "SQ 26"
+
+                    class1-price = "27,000"
+                    class2-price = "41,000"
+                    class3-price = "46,000"
+                    class4-price = "59,000"
+                >
+                </flight-2stops>
+            </div>
+
+            <div>
+                <flight-2stops
+                    total-time = "28hrs 20mins"
+
+                    depart-time = "18:50"
+                    depart-date = "22 Oct (Sat)"
+                    depart-airport-name = "Hong Kong Intl"
+
+                    arrive-time = "11:10"
+                    arrive-date = "23 Oct (Sun)"
+                    arrive-airport-name = "John F Kennedy Intl"
+                    
+                    layout1-period = "1h 15m"
+                    layout1-time1 = "22:40"
+                    layout1-time2 = "23:55"
+                    layout1-location = "Singapore"
+                    layout1-airport-code = "SIN"
+                    layout1-airport-name = "Changi"
+
+                    layout2-period = "1h 50m"
+                    layout2-time1 = "06:45"
+                    layout2-time2 = "08:35"
+                    layout2-location = "Frankfurt"
+                    layout2-airport-code = "FRA"
+                    layout2-airport-name = "Rhein Main"
+
+                    flight-code1 = "SQ 895"
+                    flight-code2 = "SQ 26"
+
+                    class1-price = "27,000"
+                    class2-price = "41,000"
+                    class3-price = "46,000"
+                    class4-price = "59,000"
+                >
+                </flight-2stops>
+            </div>
+
+            <div>
+                <flight-2stops
+                    total-time = "28hrs 20mins"
+
+                    depart-time = "18:50"
+                    depart-date = "22 Oct (Sat)"
+                    depart-airport-name = "Hong Kong Intl"
+
+                    arrive-time = "11:10"
+                    arrive-date = "23 Oct (Sun)"
+                    arrive-airport-name = "John F Kennedy Intl"
+                    
+                    layout1-period = "1h 15m"
+                    layout1-time1 = "22:40"
+                    layout1-time2 = "23:55"
+                    layout1-location = "Singapore"
+                    layout1-airport-code = "SIN"
+                    layout1-airport-name = "Changi"
+
+                    layout2-period = "1h 50m"
+                    layout2-time1 = "06:45"
+                    layout2-time2 = "08:35"
+                    layout2-location = "Frankfurt"
+                    layout2-airport-code = "FRA"
+                    layout2-airport-name = "Rhein Main"
+
+                    flight-code1 = "SQ 895"
+                    flight-code2 = "SQ 26"
+
+                    class1-price = "27,000"
+                    class2-price = "41,000"
+                    class3-price = "46,000"
+                    class4-price = "59,000"
+                >
+                </flight-2stops>
             </div>
 
             <div>

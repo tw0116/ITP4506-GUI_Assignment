@@ -26,5 +26,90 @@
         <div class="wave wave3"></div>
         <div class="wave wave4"></div>
     </section>
+
+    <div id="search">
+        <div id="search-header">
+            <h1>Search Flights</h1>
+        </div>
+
+        <form id="search-form">
+            <div class="row" style="display: flex;">
+                <label for="roundTrip" class="rdo">
+                    <input type="radio" name="type" id="roundTrip" class="rdo-input">
+                    <div class="rdo-radio"></div>
+                    <span class="rdo-text">Round Trip</span>
+                </label>
+
+                <label for="oneWay" class="rdo">
+                    <input type="radio" name="type" id="oneWay" class="rdo-input">
+                    <div class="rdo-radio"></div>
+                    <span class="rdo-text">One way</span>
+                </label>
+            </div>
+
+            <div class="row" style="display: flex;">
+                <div class="lst airports lst_airports" style="width: 250px;">
+                    <div class="lst-items"></div>
+                    <div class="lst-textbox txt" style="width: inherit;">
+                        <input type="text" class="txt-textarea" required style="width: inherit;">
+                        <label class="txt-placeholder">From</label>
+                    </div>
+                </div>
+
+                <div class="lst airports lst_airports" style="width: 250px;">
+                    <div class="lst-items"></div>
+                    <div class="lst-textbox txt" style="width: inherit;">
+                        <input type="text" class="txt-textarea" required style="width: inherit;">
+                        <label class="txt-placeholder">To</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="display: flex;">
+                <div style="display: flex;">
+                    <div class="drp">
+                        <input type="text" class="drp-selector">
+                        <label id="drp-label1">Depart</label>
+                        <label id="drp-label2">Return</label>
+                    </div>
+                </div>
+
+                <div class="lst default lst_classes">
+                    <div class="lst-items"></div>
+                    <div class="lst-selected">
+                        Class
+                    </div>
+                </div>
+
+                <div class="lst" style="width: 200px;">
+                    <div class="lst-items" style="width: 196px;">
+                        <div class="item" style="display: flex; align-items: center;">
+                            <label>Adult (12+ years)</label>
+                        </div>
+                        <div class="item" style="display: flex; align-items: center;">
+                            <label>Child (2-11 years)</label>
+                        </div>
+                        <div class="item" style="display: flex; align-items: center;">
+                            <label>Infant (12+)</label>
+                        </div>
+                    </div>
+                    <div class="lst-selected">
+                        Passengers
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="display: flex;">
+                <button 
+                    type="submit" 
+                    class="rippleBtn-click" 
+                    onclick="window.location.href='http://127.0.0.1:5500/searchResults.html';"
+                >
+                Search
+                </button>
+                <button type="reset" class="btn-style2">Reset</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

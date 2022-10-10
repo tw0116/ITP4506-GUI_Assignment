@@ -97,6 +97,77 @@
 
 
 
+.btn-style1 {
+    position: relative;
+    overflow: hidden;
+
+    padding: 8px 24px;
+    margin: 0 3px;
+
+    color: white;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+
+    background: #0277BD;
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+
+    transition: all 0.15s ease;
+}
+.btn-style1:hover {
+     background-color: #039BE5;
+}
+.btn-style1:active {
+    transform: scale(0.92);
+    box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.6);
+}
+
+.btn-style2 {
+    position: relative;
+    overflow: hidden;
+
+    padding: 6px 24px;
+    margin: 0 3px;
+
+    color: #0277BD;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    text-shadow: 0px 4px 2px rgba(0, 0, 0, 0.2);
+
+    background-color: transparent;
+    border: 2px #0277BD solid;
+    border-radius: 24px;
+    box-shadow: 
+        0 4px 2px 0 rgba(0, 0, 0, 0.2), 
+        0 4px 2px 0 rgba(0, 0, 0, 0.2) inset;
+    cursor: pointer;
+    
+    transition: all 0.5s ease;
+}
+.btn-style2:hover {
+    color: white;
+    text-shadow: 0 0 0;
+    box-shadow: 
+        0 4px 2px 0 rgba(0, 0, 0, 0.2),
+        0 0 0 0 inset;
+    background-color: darkorange;
+    border: 2px darkorange solid;
+    
+    transition: all 0.1s ease;
+}
+.btn-style2:active {
+    transform: scale(0.92);
+    box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.6);
+    
+}
+
+
+
+
 /* Textbox */
 .txt {
     position: relative;
@@ -120,7 +191,7 @@
 .txt-textarea:focus {
     outline: none;
     border: 2px #0277BD solid;
-} 
+}
 .txt-placeholder {
     position: absolute;
     top: calc(var(--margin-top) + 10px);
@@ -263,7 +334,7 @@ input:not(:focus):valid ~ .txt-placeholder {
 .lst-items {
     position: absolute;
     top: 40px;
-    z-index: 100;
+    z-index: 1000;
 
     order: 1;
     width: calc(100% - 4px);
@@ -286,7 +357,7 @@ input:not(:focus):valid ~ .txt-placeholder {
     border-bottom: 1px #BDBDBD solid;
 }
 .item:hover {
-    background-color: #BDBDBD;
+    background-color: #EEEEEE;
 }
 .lst label {
     cursor: pointer;
@@ -301,7 +372,7 @@ input:not(:focus):valid ~ .txt-placeholder {
 }
 .lst-items::-webkit-scrollbar {
     width: 8px;
-    background-color: #EEEEEE;
+    background-color: #E0E0E0;
     border-radius: 0 6px 6px 0;
 }
 .lst-items::-webkit-scrollbar-thumb {
@@ -411,11 +482,10 @@ input:not(:focus):valid ~ .txt-placeholder {
 
 
 #search {
-    /* position: absolute;
-    top: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 35%;
     left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%); */
 
     display: inline-block;
     background-color: white;
@@ -423,8 +493,11 @@ input:not(:focus):valid ~ .txt-placeholder {
     box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.5);
 }
 #search #search-header {
+    min-height: 80px;
+
     display: flex;
     align-items: center;
+
     background-color: #0277BD;
     border-bottom: 2px #BDBDBD dashed;
     border-radius: 12px 12px 0 0;

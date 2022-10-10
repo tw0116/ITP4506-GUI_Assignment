@@ -17,8 +17,8 @@ class HeaderIndex extends HTMLElement {
                 </ul>
             </nav>
             <div>
-                <button id="btn_login">Login</button>
-                <button id="btn_register">Register</button>
+                <button class="btn-style1">Login</button>
+                <button class="btn-style2">Register</button>
             </div>
         </header>
         `
