@@ -19,7 +19,7 @@
 
 <script type="text/javascript" lang="javascript">
     function checkPW(pw) {
-        if (pw.match(/(?=.*[a-z])/)) 
+        if (pw.length <= 8 && pw.match(/(?=.*[a-z])/)) 
             strength += 1
         if (pw.match(/(?=.*[0-9])/))
             strength += 1
@@ -266,15 +266,83 @@
     }
     .pw-meter[strength="1"] .meter-block:first-child,
     .pw-meter[strength="2"] .meter-block:first-child,
-    .pw-meter[strength="3"] .meter-block:first-child {
+    .pw-meter[strength="3"] .meter-block:first-child,
+    .pw-meter[strength="4"] .meter-block:first-child {
         background-color: red;
     }
     .pw-meter[strength="2"] .meter-block:nth-child(2),
-    .pw-meter[strength="3"] .meter-block:nth-child(2) {
+    .pw-meter[strength="3"] .meter-block:nth-child(2),
+    .pw-meter[strength="4"] .meter-block:nth-child(2) {
         background-color: orange;
     }
-    .pw-meter[strength="3"] .meter-block:nth-child(3) {
+    .pw-meter[strength="3"] .meter-block:nth-child(3),
+    .pw-meter[strength="4"] .meter-block:nth-child(3) {
+        background-color: darkcyan;
+    }
+    .pw-meter[strength="4"] .meter-block:nth-child(4) {
         background-color: limegreen;
+    }
+
+    .meter-scale {
+        position: relative;
+        color: var(--color-base2);
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-indent: 3em;
+        text-transform: capitalize;
+    }
+    .scale1::before {
+        content: '';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 28px;
+
+        width: 12px;
+        height: 12px;
+        background-color: red;
+        border-radius: 50%;
+    }
+    .scale2::before {
+        content: '';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 28px;
+
+        width: 12px;
+        height: 12px;
+        background-color: orange;
+        border-radius: 50%;
+    }
+    .scale3::before {
+        content: '';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 28px;
+
+        width: 12px;
+        height: 12px;
+        background-color: darkcyan;
+        border-radius: 50%;
+    }
+    .scale4::before {
+        content: '';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 28px;
+
+        width: 12px;
+        height: 12px;
+        background-color: limegreen;
+        border-radius: 50%;
     }
 </style>
 <body>
@@ -464,6 +532,14 @@
                         </div>
                     </div>
 
+                    <p>
+                        A strong password is highly recommanded.<br>
+                        Password strength indicatior scale:
+                    </p>
+                        <div class="meter-scale"><span class="scale1">weak</span></div>
+                        <div class="meter-scale"><span class="scale2">fair</span></div>
+                        <div class="meter-scale"><span class="scale3">good</span></div>
+                        <div class="meter-scale"><span class="scale4">strong</span></div>
                     <p>
                         Your password must contain 8 to 16 alphanumeric<br>
                         characters, and include a combination of a number (0-9),<br>

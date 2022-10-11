@@ -154,8 +154,8 @@
     box-shadow: 
         0 4px 2px 0 rgba(0, 0, 0, 0.2),
         0 0 0 0 inset;
-    background-color: darkorange;
-    border: 2px darkorange solid;
+    background-color: orange;
+    border: 2px orange solid;
     
     transition: all 0.1s ease;
 }
