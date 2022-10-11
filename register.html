@@ -18,6 +18,20 @@
 <script type="text/javascript" src="./scripts/inputs.js"></script>
 
 <script type="text/javascript" lang="javascript">
+    function checkPW(pw) {
+        if (pw.length >= 6 && pw.match(/(?=.*[a-z])/)) 
+            strength += 1
+        if (pw.match(/(?=.*[0-9])/))
+            strength += 1
+        if (pw.match(/(?=.[`,~,!,@,#,$,%,^,&,*,(,),_,.])/))
+            strength += 1   
+
+        setMeter(strength)
+    }
+    function setMeter(strength) {
+        $('.pw-meter').attr('strength', strength)
+    }
+
     $(document).ready(function() {
         var json_titles = './jsons/titles.json'
         var json_countries = './jsons/countries.json'
@@ -27,10 +41,56 @@
         $('#slst-countries').custList(format, json_countries, 'dial_code', 'code', 'name')
         $('.dp-selector').daterangepicker({"singleDatePicker": true})
 
-        $('#btn-submit').click(function() {
-            if ($('input').val() == " ") {
-                alert('hi')
+        $('form').submit(function(e) {
+            e.preventDefault();
+        });
+
+        $('.pw-visibility').click(function() {
+            if ($(this).siblings('.txt-textarea').attr('type') == 'password') {
+                $(this).siblings('.txt-textarea').attr('type', 'text')
+                $(this).removeClass('pw-show')
+                $(this).addClass('pw-hide')
             }
+            else {
+                $(this).siblings('.txt-textarea').attr('type', 'password')
+                $(this).removeClass('pw-hide')
+                $(this).addClass('pw-show')
+            }
+        })
+
+        $("#password").keyup(function() {
+            strength = 0;
+            checkPW($(this).val())
+        })
+
+        var dp_val = $('.dp-selector').val()
+
+        $('#btn-submit').click(function() {     
+            let text = $('input:text').filter(function() { return $(this).val() == "" })
+            let radio = $('input:radio').filter(function() { return !$(this).is(':checked') })
+            let checkbox = $('input:checkbox').filter(function() { return $(this).is(':checked') })
+            let list = $('.lst').find('.lst-selected').filter(function() { return $(this).text().trim() == "Title" })
+            let searchList = $('.lst').find('.txt-textarea').filter(function() { return $(this).val() == "" })
+            let datePicker = $('.dp').find('.dp-selector').filter(function() { return $(this).val() == dp_val })
+            
+            text.parent().siblings('.msg').show()
+            radio.parent().siblings('.msg').show()
+            list.parent().siblings('.msg').show()
+            searchList.parent().parent().siblings('.msg').show()
+            datePicker.parent().siblings('.msg')
+
+            let _text = $('input:text').filter(function() { return $(this).val() != "" })
+            let _radio = $('input:radio').filter(function() { return $(this).is(':checked') })
+            let _checkbox = $('input:checkbox').filter(function() { return $(this).is(':not(:checked)') })
+            let _list = $('.lst').find('.lst-selected').filter(function() { return $(this).text().trim() != "Title" })
+            let _searchList = $('.lst').find('.txt-textarea').filter(function() { return $(this).val() != "" })
+            let _datePicker = $('.dp').find('.dp-selector').filter(function() { return $(this).val() != dp_val })
+
+            _text.parent().siblings('.msg').hide()
+            _radio.parent().siblings('.msg').hide()
+            _list.parent().siblings('.msg').hide()
+            _searchList.parent().parent().siblings('.msg').hide()
+            _datePicker.parent().siblings('.msg')
         })
     })
 </script>
@@ -154,6 +214,66 @@
         float: right;
         color: var(--color-base3);
     }
+
+
+    .pw-visibility {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        right: 4px;
+        
+        width: 24px;
+        height: 24px;
+
+        appearance: none;
+    }
+    .pw-show::after {
+        content: "\e8f4";
+        position: absolute;
+
+        color: var(--color-base2);
+        font-size: 24px;
+        font-family: "Material Icons";
+        font-weight: 400;
+
+        cursor: pointer;
+    }
+    .pw-hide::after {
+        content: "\e8f5";
+        position: absolute;
+
+        color: var(--color-base2);
+        font-size: 24px;
+        font-family: "Material Icons";
+        font-weight: 400;
+
+        cursor: pointer;
+    }
+
+
+    .pw-meter {
+        margin-top: 8px;
+        display: flex;
+        gap: 4px;
+    }
+    .meter-block {
+        width: 100%;
+        height: 6px;
+        background-color: var(--color-base3);
+        border-radius: 2px;
+    }
+    .pw-meter[strength="1"] .meter-block:first-child,
+    .pw-meter[strength="2"] .meter-block:first-child,
+    .pw-meter[strength="3"] .meter-block:first-child {
+        background-color: red;
+    }
+    .pw-meter[strength="2"] .meter-block:nth-child(2),
+    .pw-meter[strength="3"] .meter-block:nth-child(2) {
+        background-color: orange;
+    }
+    .pw-meter[strength="3"] .meter-block:nth-child(3) {
+        background-color: limegreen;
+    }
 </style>
 <body>
     
@@ -168,7 +288,7 @@
     </section>
 
     <section class="section-content">
-        <form class="register">
+        <form class="register" novalidate>
 
             <div class="register-heading">
                 <h1>Sign Up&nbsp;&nbsp;and&nbsp;&nbsp;Take off!</h1>
@@ -190,8 +310,8 @@
                             <div class="lst-selected">
                                 Title
                             </div>
-                            <div class="msg">*Please select a title</div>
                         </div>
+                        <div class="msg">*Please select a title</div>
                     </div>
                 </div>
     
@@ -303,20 +423,40 @@
 
                     <div style="display: flex; gap: 8px;">
                         <div class="input">
-                            <div class="txt">
-                                <input type="text" class="txt-textarea" type="password" required
+                            <!-- <div class="txt">
+                                <input type="password" class="txt-textarea" required
                                     pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$">
                                 <label class="txt-placeholder">Password</label>
-                                <button>eye</button>
+
+                                <input type="checkbox" class="pw-visibility pw-show">
+                            </div> -->
+
+                            <div class="txt">
+                                <input type="password" id="password" class="txt-textarea" required>
+                                <label class="txt-placeholder">Password</label>
+                                <input type="checkbox" class="pw-visibility pw-show">
+                            </div>
+                            <div class="pw-meter" strength="">
+                                <span class="meter-block"></span>
+                                <span class="meter-block"></span>
+                                <span class="meter-block"></span>
+                                <span class="meter-block"></span>
                             </div>
                             <div class="msg">*Please enter your password</div>
                         </div>
                         <div class="input">
-                            <div class="txt">
-                                <input type="text" class="txt-textarea" type="password" required
+                            <!-- <div class="txt">
+                                <input type="password" class="txt-textarea" required
                                     pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$">
                                 <label class="txt-placeholder">Confirm Password</label>
-                                <button>eye</button>
+                                
+                                <input type="checkbox" class="pw-visibility pw-show">
+                            </div> -->
+
+                            <div class="txt">
+                                <input type="password" class="txt-textarea" required>
+                                <label class="txt-placeholder">Confirm Password</label>
+                                <input type="checkbox" class="pw-visibility pw-show">
                             </div>
                             <div class="msg">*Please re-enter your password</div>
                         </div>
@@ -339,13 +479,12 @@
                             By submitting my information, I acknowledge and accept the terms of IVE Airline's <a href="">Privacy Policy</a><br>
                             and <a href="">terms and conditions of the IVE Airline programme.</a>
                         </span>
-                        
                     </label>
                 </div>
                 
                 <div class="row" style="margin: 40px 0 0 auto">
-                    <button id="btn-submit" class="btn-style2">Reset</button>
-                    <button class="btn-style1">Done</button>
+                    <button class="btn-style2">Reset</button>
+                    <button id="btn-submit" class="btn-style1">Done</button>
                 </div>
             </div>
         </form>
