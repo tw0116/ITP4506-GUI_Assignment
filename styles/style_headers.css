@@ -43,9 +43,10 @@ header {
 }
 
 #logo-airline {
+    color: #424242;
     font-size: 24px;
     font-family: 'Abril Fatface', cursive;
-    color: #424242;
+    font-weight: 400;
 }
 
     /* Navagation */

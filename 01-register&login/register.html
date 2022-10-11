@@ -6,16 +6,18 @@
 </head>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" type="text/css" href="./styles/style_headers.css">
-<link rel="stylesheet" type="text/css" href="./styles/style_register.css">
-<link rel="stylesheet" type="text/css" href="./styles/style_inputs.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_headers.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_register.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-<script type="text/javascript" src="./scripts/highlight.js"></script>
+<script type="text/javascript" src="../scripts/highlight.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script type="text/javascript" src="./scripts/inputs.js"></script>
+<script type="text/javascript" src="../scripts/inputs.js"></script>
+
+<script type="module" src="../scripts/element_headers.js"></script>
 
 <script type="text/javascript" lang="javascript">
     function checkPW(pw) {
@@ -30,13 +32,21 @@
 
         setMeter(strength)
     }
+
     function setMeter(strength) {
         $('.pw-meter').attr('strength', strength)
     }
 
+    function checkConfirmPW(pw) {
+        if (pw == $('#confirm-password').val())
+            return true
+        else
+            return false
+    }
+
     $(document).ready(function() {
-        var json_titles = './jsons/titles.json'
-        var json_countries = './jsons/countries.json'
+        var json_titles = '../jsons/titles.json'
+        var json_countries = '../jsons/countries.json'
 
         $('.msg').hide();
         $('#lst-titles').list(json_titles, 'title')
@@ -60,11 +70,32 @@
             }
         })
 
-        $("#password").keyup(function() {
+        $('#password').keyup(function() {
             strength = 0;
             checkPW($(this).val())
         })
 
+        $('#confirm-password').on('keyup', function() {
+            if ($('#confirm-password').val() != "" && checkConfirmPW($('#password').val())) {
+                $(this).css({'border-color':'limegreen'})
+                $(this).siblings('label').css({'color': 'limegreen'})
+            }
+            else {
+                $(this).css({'border-color': 'red'})
+                $(this).siblings('label').css({'color':'red'})
+            }
+        })
+
+        $('#confirm-password').focusout(function() {
+            if ($('#confirm-password').val() != "" && checkConfirmPW($('#password').val()))
+                return
+            else {
+                $(this).css({'border-color': '#BDBDBD'})
+                $(this).siblings('label').css({'color': '#757575'})
+            }
+        })
+
+        // Check empty input(s) & display error messages
         var dp_val = $('.dp-selector').val()
 
         $('#btn-submit').click(function() {     
@@ -73,26 +104,30 @@
             let checkbox = $('input:checkbox').filter(function() { return $(this).is(':checked') })
             let list = $('.lst').find('.lst-selected').filter(function() { return $(this).text().trim() == "Title" })
             let searchList = $('.lst').find('.txt-textarea').filter(function() { return $(this).val() == "" })
-            let datePicker = $('.dp').find('.dp-selector').filter(function() { return $(this).val() == dp_val })
+            // let datePicker = $('.dp').find('.dp-selector').filter(function() { return $(this).val() == dp_val })
+            let password = $('input:password').filter(function() { return $(this).val() == "" })
             
             text.parent().siblings('.msg').show()
             radio.parent().siblings('.msg').show()
             list.parent().siblings('.msg').show()
             searchList.parent().parent().siblings('.msg').show()
-            datePicker.parent().siblings('.msg')
+            // datePicker.parent().siblings('.msg')
+            password.parent().siblings('.msg').show()
 
             let _text = $('input:text').filter(function() { return $(this).val() != "" })
             let _radio = $('input:radio').filter(function() { return $(this).is(':checked') })
             let _checkbox = $('input:checkbox').filter(function() { return $(this).is(':not(:checked)') })
             let _list = $('.lst').find('.lst-selected').filter(function() { return $(this).text().trim() != "Title" })
             let _searchList = $('.lst').find('.txt-textarea').filter(function() { return $(this).val() != "" })
-            let _datePicker = $('.dp').find('.dp-selector').filter(function() { return $(this).val() != dp_val })
+            // let _datePicker = $('.dp').find('.dp-selector').filter(function() { return $(this).val() != dp_val })
+            let _password = $('input:password').filter(function() { return $(this).val() != "" })
 
             _text.parent().siblings('.msg').hide()
             _radio.parent().siblings('.msg').hide()
             _list.parent().siblings('.msg').hide()
             _searchList.parent().parent().siblings('.msg').hide()
-            _datePicker.parent().siblings('.msg')
+            // _datePicker.parent().siblings('.msg')
+            _password.parent().siblings('.msg').hide()
         })
     })
 </script>
@@ -367,7 +402,7 @@
                     If you become a IVE Airline member,<br>
                     you can enjoy <span>exclusive perks</span> and <span>special privilleges</span>.
                 </p>
-                <p>Already a registered member?&nbsp;&nbsp;<a href="">Log in</a></p>
+                <p>Already a registered member?&nbsp;&nbsp;<a href="./login.html">Log in</a></p>
             </div>
     
             <div class="register-info">
@@ -493,38 +528,22 @@
 
                     <div style="display: flex; gap: 8px;">
                         <div class="input">
-                            <!-- <div class="txt">
-                                <input type="password" class="txt-textarea" required
-                                    pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$">
-                                <label class="txt-placeholder">Password</label>
-
-                                <input type="checkbox" class="pw-visibility pw-show">
-                            </div> -->
-
                             <div class="txt">
                                 <input type="password" id="password" class="txt-textarea" required>
                                 <label class="txt-placeholder">Password</label>
                                 <input type="checkbox" class="pw-visibility pw-show">
                             </div>
+                            <div class="msg">*Please enter your password</div>
                             <div class="pw-meter" strength="">
                                 <span class="meter-block"></span>
                                 <span class="meter-block"></span>
                                 <span class="meter-block"></span>
                                 <span class="meter-block"></span>
                             </div>
-                            <div class="msg">*Please enter your password</div>
                         </div>
                         <div class="input">
-                            <!-- <div class="txt">
-                                <input type="password" class="txt-textarea" required
-                                    pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$">
-                                <label class="txt-placeholder">Confirm Password</label>
-                                
-                                <input type="checkbox" class="pw-visibility pw-show">
-                            </div> -->
-
                             <div class="txt">
-                                <input type="password" class="txt-textarea" required>
+                                <input type="password" id="confirm-password" class="txt-textarea" required>
                                 <label class="txt-placeholder">Confirm Password</label>
                                 <input type="checkbox" class="pw-visibility pw-show">
                             </div>
@@ -553,11 +572,11 @@
                     <label for="agreement" class="rdo">
                         <input type="checkbox" name="agreement" id="agreement" class="rdo-input">
                         <div class="rdo-radio"></div>
-                        <span class="rdo-text" style="margin-left: 8px;">
-                            By submitting my information, I acknowledge and accept the terms of IVE Airline's <a href="">Privacy Policy</a><br>
-                            and <a href="">terms and conditions of the IVE Airline programme.</a>
-                        </span>
                     </label>
+                    <span class="rdo-text" style="margin-left: 8px;">
+                        By submitting my information, I acknowledge and accept the terms of IVE Airline's <a href="">Privacy Policy</a><br>
+                        and <a href="">terms and conditions of the IVE Airline programme.</a>
+                    </span>
                 </div>
                 
                 <div class="row" style="margin: 40px 0 0 auto">
@@ -567,5 +586,7 @@
             </div>
         </form>
     </section>
+
+    <!-- pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$" -->
 </body>
 </html>
