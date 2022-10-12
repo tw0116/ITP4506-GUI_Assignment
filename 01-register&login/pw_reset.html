@@ -8,30 +8,42 @@
     <title>IVE Airline - Reset Password</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" type="text/css" href="./styles/style_headers.css">
-    <link rel="stylesheet" type="text/css" href="./styles/style_index.css">
-    <link rel="stylesheet" type="text/css" href="./styles/style_inputs.css">
+    <link rel="stylesheet" type="text/css" href="../styles/style_headers.css">
+    <link rel="stylesheet" type="text/css" href="../styles/style_index.css">
+    <link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
 
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
-    <script type="text/javascript" src="./scripts/highlight.js"></script>
+    <script type="text/javascript" src="../scripts/highlight.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-        crossorigin="anonymous"></script>
-    <script type="module" src="./scripts/element_headers.js"></script>
+        crossorigin="anonymous">
+    </script>
 
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script type="module" src="../scripts/element_headers.js"></script>
+
     <script type="text/javascript">
+        function checkConfirmPW(pw) {
+            if (pw == $('#confirm-password').val())
+                return true
+            else
+                return false
+        }
+        
         $(document).ready(() => {
             $("#psw").on("focus", () => {
                 $(".checkPsw").slideDown();
             });
+
             $("#psw").on("blur", () => {
                 $(".checkPsw").slideUp();
             });
+
             $("#psw").on("keyup", () => {
                 let password = $("#psw").val();
 
@@ -61,24 +73,42 @@
                     $(".tenChara").removeClass("active");
                 }
             });
-        
-        });
+
+            $('.pw-visibility').click(function() {
+                if ($(this).siblings('.form-control').attr('type') == 'password') {
+                    $(this).siblings('.form-control').attr('type', 'text')
+                    $(this).removeClass('pw-show')
+                    $(this).addClass('pw-hide')
+                }
+                else {
+                    $(this).siblings('.form-control').attr('type', 'password')
+                    $(this).removeClass('pw-hide')
+                    $(this).addClass('pw-show')
+                }
+            })
+        })
     </script>
 
     <style>
+        :root {
+            --color-base1: #0277BD;
+            --color-base2: #757575;
+            --color-base3: #BDBDBD;
+        }
+
         body {
             font-family: 'Quicksand', sans-serif;
-            align-items: center;
         }
-
-        .title {
-            text-align: center;
-        }
-
         .container-sm {
-            padding: 0px 300px 100px;
-        }
+            width: 500px;
+            
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
 
+            z-index: 1000;
+        }
         form {
             background-color: aliceblue;
             padding: 40px 50px;
@@ -86,43 +116,95 @@
             border-radius: 10px;
             box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
         }
-
-        #psw {
-            margin-bottom: 10px;
+        form .title {
+            color: var(--color-base1);
+            text-align: center;
+            font-family: 'Abril Fatface', cursive;
         }
+        form p {
+            color: var(--color-base2);
+            font-size: 14px;
+            font-weight: 600;
+        }
+        form .form-label {
+            color: var(--color-base2);
+            font-weight: 600;
+        }
+
+
+
 
         .checkPsw {
             display: none;
         }
-
         .checkPsw ul {
             list-style: none;
         }
-
         .checkPsw ul li {
             padding: 1px 0px;
             color: red;
         }
-
         .checkPsw ul li span::before {
             margin-right: 10px;
             content: "✕";
         }
-
         .checkPsw ul li.active {
             color: lime;
         }
-
         .checkPsw ul li.active span::before {
             margin-right: 10px;
             content: "✓";
+        }
+
+
+
+        .input-wrapper {
+            position: relative;
+        }
+        .pw-visibility {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            right: 2px;
+            
+            width: 24px;
+            height: 24px;
+
+            appearance: none;
+        }
+        .pw-show::after {
+            content: "\e8f4";
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+
+            color: var(--color-base2);
+            font-size: 24px;
+            font-family: "Material Icons";
+            font-weight: 400;
+
+            cursor: pointer;
+        }
+        .pw-hide::after {
+            content: "\e8f5";
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+
+            color: var(--color-base2);
+            font-size: 24px;
+            font-family: "Material Icons";
+            font-weight: 400;
+
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
     <header-default></header-default>
-    <p></p>
     <section>
         <div class="wave wave1"></div>
         <div class="wave wave2"></div>
@@ -131,15 +213,20 @@
     </section>
 
     <div class="container-sm">
-        <div class="title">
-            <h1 class="text-info">Reset Password</h1>
-        </div>
-        <br>
-        <form action="">
+        <form>
+            <div class="title">
+                <h1>Reset&nbsp;&nbsp;Password</h1>
+            </div> 
+
+            <p>You are require to reset your password for your first login.</p>
+
             <div class="row justify-content-center align-items-center g-2">
                 <div class="mb-3">
-                    <label for="" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="" id="psw" placeholder="Enter Password">
+                    <label for="" class="form-label">New Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" class="form-control" name="" id="psw">
+                        <input type="checkbox" class="pw-visibility pw-show">
+                    </div>
                     <div class="checkPsw">
                         <ul>
                             <li class="tenChara"><span></span>At least 10 characters</li>
@@ -151,17 +238,21 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="row justify-content-center align-items-center g-2">
                 <div class="mb-3">
                     <label for="" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" name="" id="confirmPsw"
-                        placeholder="Confirm Password">
+                    <div class="input-wrapper">
+                        <input type="password" class="form-control" id="confirmPsw">
+                        <input type="checkbox" class="pw-visibility pw-show">
+                    </div>
                     <span class="pswRemind"></span>
                 </div>
             </div>
-            <br>
-            <div class="row justify-content-center align-items-center g-2">
-                <input name="" id="" class="btn btn-primary" type="submit" value="Reset Password">
+
+            <div class="row justify-content-center align-items-center g-0">
+                <input class="btn btn-primary" type="submit" value="Reset Password">
             </div>
         </form>
     </div>

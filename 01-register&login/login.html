@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IVE Airline - Login</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="../styles/style_headers.css">
+    <link rel="stylesheet" type="text/css" href="../styles/style_index.css">
+    <link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <script type="text/javascript" src="../scripts/highlight.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous">
+    </script>
+
+    <script type="module" src="../scripts/element_headers.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(() => {
+            function checkEmail() {
+                let regex = /[A-Za-z0-9.%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}$/;
+                let email = $("#email").val();
+                if (regex.test(email)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            function checkPassword() {
+                let regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$/;
+                let password = $("#password").val();
+                if (regex.test(password)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            $("#email").keyup(() => {
+                if (checkEmail()) {
+                    $("#email").css("border", "1px solid lime");
+                    $("#emailMsg").html("");
+                } else {
+                    $("#email").css("border", "1px solid red");
+                    $("#emailMsg").html("<p class='text-danger'>Invalid Email </p>");
+                }
+                if ($("#email").val() == "") {
+                    $("#emailMsg").html("<p class='text-danger'>This field is required </p>")
+                };
+            });
+            $("#password").keyup(() => {
+                if (checkPassword()) {
+                    $("#password").css("border", "1px solid lime");
+                    $("#pswMsg").html("");
+                } else {
+                    $("#password").css("border", "1px solid red");
+                    $("#pswMsg").html("<p class='text-danger'>Invalid Password</p>")
+                }
+                if ($("#password").val() == "") {
+                    $("#pswMsg").html("<p class='text-danger'>This field is required </p>")
+                };
+            });
+        });
+    </script>
+
+    <style>
+        :root {
+            --color-base1: #0277BD;
+            --color-base2: #757575;
+            --color-base3: #BDBDBD;
+        }
+
+        body {
+            color: var(--color-base2);
+            font-family: 'Quicksand', sans-serif;
+        }
+        .container-sm {
+            width: 500px;
+            
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+
+            z-index: 1000;
+        }
+        form {
+            background-color: aliceblue;
+            padding: 40px 50px;
+            border: 1px black;
+            border-radius: 10px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        form .title {
+            margin-bottom: 40px;
+            color: var(--color-base1);
+            text-align: center;
+            font-family: 'Abril Fatface', cursive;
+        }
+        form .form-label {
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <header-default></header-default>
+
+    <section>
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="wave wave4"></div>
+    </section>
+
+    <div class="container-sm">
+        <form novalidate>
+            <div class="title">
+                <h1>Welcome</h1>
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" for="Email">Email</label>
+                <input class="form-control" type="email" name="email" id="email"
+                    pattern="[A-Za-z0-9.%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}$"
+                    title="Please enter a valid Email format (xxxx@xxxx.com)">
+                <span id="emailMsg"></span>
+            </div>
+
+            <div class="">
+                <label class="form-label" for="Password">Password</label>
+                <input class="form-control" type="password" name="password" id="password"
+                    pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$" novalidate
+                    title="Please enter password (must be include a upper case letter, a lower case letter, a number and a characters)" 
+                    required>
+                <span id="pswMsg"></span>
+            </div>
+
+            <div style="margin-top: 8px; font-size: 14px;">
+                <input class="form-check-input" type="checkbox" id="checkbox">
+                <label class="form-check-label" for="Remember">&nbsp;Remember Me</label>
+                <a href="./pw_forgot-page1.html" style="float: right;">Forgot Password?</a>
+            </div>
+
+            <div class="mt-5 row justify-content-center align-items-center g-0">
+                <input class="btn btn-primary" type="submit" value="Login">
+            </div>
+
+            <div class="mb-3" style="margin-top: 20px; text-align: center; font-size: 14px;">
+                Don't have an account? <a href="./register.html" style="font-weight: 600;">Sign up</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

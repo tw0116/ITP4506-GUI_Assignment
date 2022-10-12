@@ -4,10 +4,10 @@ class HeaderIndex extends HTMLElement {
         this.innerHTML = 
         `
         <header>
-            <div id="logo">
+            <a href="/" id="logo">
                 <span id="logo-ive">ive</span>
                 <span id="logo-airline">Airline</span>
-            </div>
+            </a>
             <nav>
                 <ul>
                     <li><a href="">Offers</a></li>
@@ -17,8 +17,8 @@ class HeaderIndex extends HTMLElement {
                 </ul>
             </nav>
             <div>
-                <button class="btn-style1">Login</button>
-                <button class="btn-style2">Register</button>
+                <button id="btn-login" class="btn-style1" onclick="location.href='/01-register&login/login.html';">Login</button>
+                <button id="btn-register" class="btn-style2" onclick="location.href='/01-register&login/register.html';">Register</button>
             </div>
         </header>
         `
@@ -31,10 +31,10 @@ class HeaderDefault extends HTMLElement {
         this.innerHTML = 
         `
         <header>
-            <div id="logo">
+            <a href="/" id="logo">
                 <span id="logo-ive">ive</span>
                 <span id="logo-airline">Airline</span>
-            </div>
+            </a>
         </header>
         `
     }
