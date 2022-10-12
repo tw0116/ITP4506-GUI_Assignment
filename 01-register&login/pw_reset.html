@@ -19,6 +19,7 @@
     <script type="text/javascript" src="../scripts/highlight.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script 
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
@@ -29,20 +30,25 @@
 
     <script type="text/javascript">
         function checkConfirmPW(pw) {
-            if (pw == $('#confirm-password').val())
+            if (pw == $('#confirmPsw').val())
                 return true
             else
                 return false
         }
         
         $(document).ready(() => {
-            $("#psw").on("focus", () => {
-                $(".checkPsw").slideDown();
-            });
 
-            $("#psw").on("blur", () => {
+            $("#psw").on("focus keyup", () => {
+                if ($("#psw").val() == "") {
+                    $(".checkPsw").slideUp()
+                } else if ($("#psw").val() != "") {
+                    $(".checkPsw").slideDown()
+                }
+            })          
+
+            if ($("#psw").val() == "") {
                 $(".checkPsw").slideUp();
-            });
+            }
 
             $("#psw").on("keyup", () => {
                 let password = $("#psw").val();
@@ -84,6 +90,43 @@
                     $(this).siblings('.form-control').attr('type', 'password')
                     $(this).removeClass('pw-hide')
                     $(this).addClass('pw-show')
+                }
+            })
+
+            $('.btn-primary').click(function() {
+                if ($('#psw').val() != "" && $('#confirmPsw').val() != "") {
+                    swal({
+                        title: "Renew Successful",
+                        text: "Your password has been successfully updated.",
+                        icon: "success",
+                        button: "Countinue Login",
+                    })
+                    .then(function() {
+                        window.location = './index_operator.html'
+                    })
+                }
+            })
+
+            $('#confirmPsw').on('keyup focus', function() {
+                if ($(this).val() == "") {
+                    $(this).css({'border-color': '#0277BD'})
+                    $(this).siblings('label').css({'color': '#0277BD'})
+                } else if ($(this).val() != "" && checkConfirmPW($('#psw').val()) == true) {
+                    $(this).css({'border-color':'limegreen', 'border-width': '2px'})
+                    $(this).siblings('label').css({'color': 'limegreen'})
+                } else {
+                    $(this).css({'border-color': 'red', 'border-width': '2px'})
+                    $(this).siblings('label').css({'color':'red'})
+                }
+            })
+
+            $('#confirmPsw').focusout(function() {
+                if($(this).val() == "") {
+                    $(this).css({'border-color': '#BDBDBD'})
+                    $(this).siblings('label').css({'color': '#757575'})
+                } else if ($(this).val() != "" && checkConfirmPW($('#psw').val()) == true) {
+                    $(this).css({'border-color':'limegreen', 'border-width': '2px'})
+                    $(this).siblings('label').css({'color': 'limegreen'})
                 }
             })
         })
@@ -200,11 +243,43 @@
 
             cursor: pointer;
         }
+
+        .swal-overlay {
+            background-color: rgba(0, 0, 0, 0.50);
+            backdrop-filter: blur(10px);
+        }
+        .swal-modal {
+            border-radius: 12px;
+        }
+        .swal-title {
+            color: var(--color-base1);
+            font-family: 'Abril Fatface', cursive;
+            font-weight: 400;
+        }
+        .swal-text {
+            color: var(--color-base2);
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+        }
+        .swal-button {
+            color: white;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+
+            background: #0277BD;
+            border: none;
+            border-radius: 24px;
+            box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
     <header-default></header-default>
+
     <section>
         <div class="wave wave1"></div>
         <div class="wave wave2"></div>
@@ -215,47 +290,41 @@
     <div class="container-sm">
         <form>
             <div class="title">
-                <h1>Reset&nbsp;&nbsp;Password</h1>
+                <h1>Renew&nbsp;&nbsp;Password</h1>
             </div> 
 
-            <p>You are require to reset your password for your first login.</p>
+            <p>You are required to renew your password for your first login.</p>
 
-            <div class="row justify-content-center align-items-center g-2">
-                <div class="mb-3">
-                    <label for="" class="form-label">New Password</label>
-                    <div class="input-wrapper">
-                        <input type="password" class="form-control" name="" id="psw">
-                        <input type="checkbox" class="pw-visibility pw-show">
-                    </div>
-                    <div class="checkPsw">
-                        <ul>
-                            <li class="tenChara"><span></span>At least 10 characters</li>
-                            <li class="capital"><span></span>Contain one Capital letter</li>
-                            <li class="lowerCase"><span></span>Contain one lowercase letter</li>
-                            <li class="number"><span></span>Contain one numebr</li>
-                            <li class="special"><span></span>Contain one specical character</li>
-                        </ul>
-                    </div>
+            <div class="mb-3">
+                <label for="" class="form-label">New Password</label>
+                <div class="input-wrapper">
+                    <input type="password" class="form-control" name="" id="psw">
+                    <input type="checkbox" class="pw-visibility pw-show">
+                </div>
+                <div class="checkPsw">
+                    <ul>
+                        <li class="tenChara"><span></span>At least 10 characters</li>
+                        <li class="capital"><span></span>Contain one Capital letter</li>
+                        <li class="lowerCase"><span></span>Contain one lowercase letter</li>
+                        <li class="number"><span></span>Contain one numebr</li>
+                        <li class="special"><span></span>Contain one specical character</li>
+                    </ul>
                 </div>
             </div>
 
-
-            <div class="row justify-content-center align-items-center g-2">
-                <div class="mb-3">
-                    <label for="" class="form-label">Confirm Password</label>
-                    <div class="input-wrapper">
-                        <input type="password" class="form-control" id="confirmPsw">
-                        <input type="checkbox" class="pw-visibility pw-show">
-                    </div>
-                    <span class="pswRemind"></span>
+            <div>
+                <label for="" class="form-label">Confirm Password</label>
+                <div class="input-wrapper">
+                    <input type="password" class="form-control" name="" id="confirmPsw">
+                    <input type="checkbox" class="pw-visibility pw-show">
                 </div>
+                <span class="pswRemind"></span>
             </div>
 
-            <div class="row justify-content-center align-items-center g-0">
-                <input class="btn btn-primary" type="submit" value="Reset Password">
+            <div class="mt-5 row justify-content-center align-items-center g-0">
+                <input class="btn btn-primary" value="Reset">
             </div>
         </form>
     </div>
 </body>
-
 </html>
