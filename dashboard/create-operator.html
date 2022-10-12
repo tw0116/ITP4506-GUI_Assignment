@@ -18,40 +18,49 @@
     <script>
         $(document).ready(() => {
             $(".createOperator").submit((event) => {
+
                 if ($("#fname").val() == "") {
                     $(".fnameMsg").text("This field is required").show();
-                } else {
+                    event.preventDefault();
+                } else if ($("#fname").val() != "") {
                     $(".fnameMsg").text();
-                    return;
                 }
                 if ($("#lname").val() == "") {
                     $(".lnameMsg").text("This field is required").show();
-                } else {
+                    event.preventDefault();
+                } else if ($("#lname").val() != ""){
                     $(".lnameMsg").text();
-                    return;
                 }
                 if ($("#tel").val() == "") {
                     $(".telMsg").text("This field is required").show();
+                    event.preventDefault();
                 } else {
                     $(".telMsg").text();
+                    return
                 }
                 if ($("#email").val() == "") {
                     $(".emailMsg").text("This field is required").show();
+                    event.preventDefault();
                 } else {
                     $(".emailMsg").text();
                 }
                 if ($("#psw").val() == "") {
                     $(".pswMsg").text("This field is required").show();
+                    event.preventDefault();
                 } else {
                     $(".pswMsg").text();
                 }
                 if ($("#cPsw").val() == "") {
                     $(".cPswMsg").text("This field is required").show();
+                    event.preventDefault();
                 } else {
                     $(".cPswMsg").text();
                 }
-                event.preventDefault();
             });
+
+            $("#btnReset").click(() => {
+                $("label span").text("");
+            })
         });
     </script>
 </head>
@@ -87,6 +96,8 @@
         font-size: 24px;
         font-family: 'Abril Fatface', cursive;
         color: #424242;
+        text-transform: capitalize;
+        font-weight: 400;
     }
 </style>
 
@@ -100,7 +111,7 @@
                         <header>
                             <div id="logo">
                                 <span id="logo-ive">ive</span>
-                                <span id="logo-airline">Airline</span>
+                                <span id="logo-airline">airline</span>
                             </div>
                         </header>
                     </div>
@@ -345,7 +356,7 @@
                         <div class="row">
                             <div class="col" style="text-align: right;height: 56px;">
                                 <button class="btn btn-primary" type="reset" id="btnReset"
-                                    style="transform: translate(-80px);--bs-danger: #e74a3b;--bs-danger-rgb: 231,74,59;background: #e74a3b;">Reset</button>
+                                    style="transform: translate(-40px);--bs-danger: #e74a3b;--bs-danger-rgb: 231,74,59;background: #e74a3b;">Reset</button>
                                 <button class="btn btn-primary" type="submit" id="btnSubmit"
                                     style="transform: translate(-20px);">Create</button>
                             </div>
