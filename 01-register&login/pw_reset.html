@@ -37,20 +37,18 @@
         }
         
         $(document).ready(() => {
-            
+
             $("#psw").on("focus keyup", () => {
                 if ($("#psw").val() == "") {
                     $(".checkPsw").slideUp()
                 } else if ($("#psw").val() != "") {
                     $(".checkPsw").slideDown()
                 }
-            })
-            
+            })          
 
             if ($("#psw").val() == "") {
                 $(".checkPsw").slideUp();
             }
-
 
             $("#psw").on("keyup", () => {
                 let password = $("#psw").val();
@@ -101,10 +99,10 @@
                         title: "Renew Successful",
                         text: "Your password has been successfully updated.",
                         icon: "success",
-                        button: "Cancel",
+                        button: "Countinue Login",
                     })
                     .then(function() {
-                        $('body').load('./login.html')
+                        window.location = './index_operator.html'
                     })
                 }
             })
@@ -245,6 +243,37 @@
 
             cursor: pointer;
         }
+
+        .swal-overlay {
+            background-color: rgba(0, 0, 0, 0.50);
+            backdrop-filter: blur(10px);
+        }
+        .swal-modal {
+            border-radius: 12px;
+        }
+        .swal-title {
+            color: var(--color-base1);
+            font-family: 'Abril Fatface', cursive;
+            font-weight: 400;
+        }
+        .swal-text {
+            color: var(--color-base2);
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+        }
+        .swal-button {
+            color: white;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+
+            background: #0277BD;
+            border: none;
+            border-radius: 24px;
+            box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -261,10 +290,10 @@
     <div class="container-sm">
         <form>
             <div class="title">
-                <h1>Reset&nbsp;&nbsp;Password</h1>
+                <h1>Renew&nbsp;&nbsp;Password</h1>
             </div> 
 
-            <p>You are require to reset your password for your first login.</p>
+            <p>You are required to renew your password for your first login.</p>
 
             <div class="mb-3">
                 <label for="" class="form-label">New Password</label>

@@ -99,10 +99,10 @@
                         title: "Renew Successful",
                         text: "Your password has been successfully updated.",
                         icon: "success",
-                        button: "Cancel",
+                        button: "Back to Login",
                     })
                     .then(function() {
-                        $('body').load('./login.html')
+                        window.location = './login.html'
                     })
                 }
             })

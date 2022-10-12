@@ -41,10 +41,10 @@
                         button: "Cancel",
                     })
                     .then(function() {
-                        $('body').load()
+                        window.location = './pw_forgot-page2.html'
                     })
                 } else {
-                    $('body').load('./pw_forgot-page3.html')
+                    window.location = './pw_forgot-page3.html'
                 }
             })
 
