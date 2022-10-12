@@ -13,53 +13,54 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?&family=Jost:ital,wght@1,700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?&family=Quicksand:wght@400;600&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
         $(document).ready(() => {
-            $(".createOperator").submit((event) => {
-
-                if ($("#fname").val() == "") {
-                    $(".fnameMsg").text("This field is required").show();
-                    event.preventDefault();
-                } else if ($("#fname").val() != "") {
-                    $(".fnameMsg").text();
-                }
-                if ($("#lname").val() == "") {
-                    $(".lnameMsg").text("This field is required").show();
-                    event.preventDefault();
-                } else if ($("#lname").val() != ""){
-                    $(".lnameMsg").text();
-                }
-                if ($("#tel").val() == "") {
-                    $(".telMsg").text("This field is required").show();
-                    event.preventDefault();
-                } else {
-                    $(".telMsg").text();
-                    return
-                }
-                if ($("#email").val() == "") {
-                    $(".emailMsg").text("This field is required").show();
-                    event.preventDefault();
-                } else {
-                    $(".emailMsg").text();
-                }
-                if ($("#psw").val() == "") {
-                    $(".pswMsg").text("This field is required").show();
-                    event.preventDefault();
-                } else {
-                    $(".pswMsg").text();
-                }
-                if ($("#cPsw").val() == "") {
-                    $(".cPswMsg").text("This field is required").show();
-                    event.preventDefault();
-                } else {
-                    $(".cPswMsg").text();
-                }
+            $('form').submit(function(e) {
+                e.preventDefault();
             });
 
-            $("#btnReset").click(() => {
-                $("label span").text("");
+            $('#btnSubmit').click(function() {
+                let fname = $('#fname').filter(function() { return $(this).val() == "" })
+                let lname = $('#lname').filter(function() { return $(this).val() == "" })
+                let mobileNum = $('#tel').filter(function() { return $(this).val() == "" })
+                let select = $('#gender').filter(function() { return $(this).find(':selected').val() == ""})
+                let dob = $('#dob').filter(function() { return $(this).val() == "" })
+                let email = $('#email').filter(function() { return $(this).val() == "" })
+                let psw = $('#psw').filter(function() { return $(this).val() == "" })
+                let cPsw = $('#cPsw').filter(function() { return $(this).val() == "" })
+
+                fname.siblings('.msg').html("<p class='text-danger'>*Please enter your first name</p>")
+                lname.siblings('.msg').html("<p class='text-danger'>*Please enter your last name</p>")
+                mobileNum.siblings('.msg').html("<p class='text-danger'>*Please enter your mobile no.</p>")
+                select.siblings('.msg').html("<p class='text-danger'>*Please select a gender</p>")
+                dob.siblings('.msg').html("<p class='text-danger'>*Please enter your date of birth</p>")
+                email.siblings('.msg').html("<p class='text-danger'>*Please enter your first name</p>")
+                psw.siblings('.msg').html("<p class='text-danger'>*Please enter your email address</p>")
+                cPsw.siblings('.msg').html("<p class='text-danger'>*Please re-enter your password</p>")
+
+                if (
+                    $('#fname').val() != "" &&
+                    $('#lname').val() != "" &&
+                    $('#tel').val() != "" && 
+                    $('#gender').find(':selected').val() != "" &&
+                    $('#dob').val() != "" &&
+                    $('#email').val() != "" &&
+                    $('#psw').val() != "" &&
+                    $('#cPsw').val() != ""
+                ) {
+                    swal({
+                        title: "Successful",
+                        text: "An operator has been successfully created",
+                        icon: "success",
+                        button: "Continue",
+                    })
+                    .then(function() {
+                        window.location = './admin-op_create.html'
+                    })
+                }
             })
         });
     </script>
@@ -282,88 +283,109 @@
                         </ul>
                     </div>
                 </nav>
+                
                 <div class="container" style="height: 75px;"><span></span></div>
-                <div class="container-fluid" style="width: 1000px;height: 557px;">
-                    <form class="createOperator" novalidate>
+
+                <div class="container-fluid" style="width: 1000px; height: 500px;">
+
+                    <form class="createOperator" action="/" novalidate>
+                        
                         <h1 style="text-align: center;height: 70px;">Create New Operator</h1>
+
                         <div class="row">
+
                             <div class="col">
                                 <label class="col-form-label">First Name<br>
                                     <input class="form-control" type="text" id="fname" style="width: 250px;" required>
-                                    <span class="fnameMsg"></span>
+                                    <span class="msg"></span>
                                 </label>
                             </div>
-                            <div class="col"><label class="col-form-label">Middle Name (optional)<br>
+
+                            <div class="col">
+                                <label class="col-form-label">Middle Name (optional)<br>
                                     <input class="form-control" type="text" style="width: 250px;">
                                 </label>
                             </div>
-                            <div class="col" style="height: 90px;"><label class="col-form-label">Last Name<br>
+
+                            <div class="col" style="height: 90px;">
+                                <label class="col-form-label">Last Name<br>
                                     <input class="form-control" type="text" id="lname" style="width: 250px;" required>
-                                    <span class="lnameMsg"></span>
+                                    <span class="msg"></span>
                                 </label>
                             </div>
                         </div>
+
+
                         <div class="row">
+
                             <div class="col">
-                                <label class="col-form-label">Telephone Number
-                                    <br>
+                                <label class="col-form-label">Telephone Number<br>
                                     <input class="form-control" type="tel" id="tel" style="width: 250px;" required>
-                                    <span class="telMsg"></span>
+                                    <span class="msg"></span>
                                 </label>
                             </div>
+
                             <div class="col">
                                 <label class="col-form-label">Gender
-                                    <select class="form-select" id="gender" gender="Male" style="width: 180px;"
-                                        required>
-                                        <optgroup label="Gender">
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="others">Others</option>
-                                        </optgroup>
+                                    <select class="form-select" id="gender" style="width: 200px;" required>
+                                        <option disabled selected value>-- Select an option --</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="others">Others</option>
                                     </select>
-                                    <span class="genderMsg"></span>
+                                    <span class="msg"></span>
                                 </label>
                             </div>
-                            <div class="col" style="height: 90px;"><label class="col-form-label">Date Of Birth
-                                    <input class="form-control" type="date" id="dob"
-                                        style="height: 40px ;width: 230px;">
-                                    <span class="dobMsg"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col" style="height: 90px;"><label class="col-form-label">Email Address<br>
-                                    <input class="form-control" type="email" id="email" style="width: 835px;" required>
-                                    <span class="emailMsg"></span>
+
+                            <div class="col" style="height: 90px;">
+                                <label class="col-form-label">Date Of Birth
+                                    <input class="form-control" type="date" id="dob" style="height: 40px ;width: 230px;">
+                                    <span class="msg"></span>
                                 </label>
                             </div>
                         </div>
+
+
                         <div class="row">
-                            <div class="col"><label class="col-form-label" style="width: 415px;">
-                                    Password (10+ characters)<br>
+
+                            <div class="col" style="height: 90px;">
+                                <label class="col-form-label">Email Address<br>
+                                    <input class="form-control" type="text" id="email" style="width: 400px;" required>
+                                    <span class="msg"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label class="col-form-label" style="width: 415px;">Password (10+ characters)<br>
                                     <input class="form-control" type="password" id="psw" style="width: 400px;" required>
-                                    <span class="pswMsg"></span>
+                                    <span class="msg"></span>
                                 </label>
                             </div>
                             <div class="col" style="height: 100px;">
                                 <label class="col-form-label">Confirm Password<br>
                                     <input class="form-control" type="password" id="cPsw" style="width: 400px;"
                                         required>
-                                    <span class="cPswMsg"></span>
+                                    <span class="msg"></span>
                                 </label>
                             </div>
                         </div>
+
+
                         <div class="row">
-                            <div class="col" style="text-align: right;height: 56px;">
-                                <button class="btn btn-primary" type="reset" id="btnReset"
-                                    style="transform: translate(-40px);--bs-danger: #e74a3b;--bs-danger-rgb: 231,74,59;background: #e74a3b;">Reset</button>
-                                <button class="btn btn-primary" type="submit" id="btnSubmit"
-                                    style="transform: translate(-20px);">Create</button>
+
+                            <div class="col" style="text-align: right; height: 56px;">
+                                <button class="btn btn-primary" id="btnReset"
+                                    style=" --bs-danger: #e74a3b; --bs-danger-rgb: 231,74,59; background: #e74a3b;">Reset</button>
+
+                                <button class="btn btn-primary" id="btnSubmit" style="">Create</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © IVE Airline All Right Reserved.</span>
@@ -372,6 +394,7 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+    
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/theme.js"></script>
