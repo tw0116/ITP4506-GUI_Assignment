@@ -12,10 +12,10 @@ class Flight_1Stop extends HTMLElement {
                 <div class="section-bottom"> 
                     <div class="block-info">
                         <div>
-                            <span class="airport">HKG</span>
+                            <span class="airport">${this.getAttribute('depart-airport-code')}</span>
                             <span class="time">${this.getAttribute('depart-time')}</span>
                         </div>
-                        <div class="location">Hong Kong</div>
+                        <div class="location">${this.getAttribute('depart-location')}</div>
                         <div class="date">${this.getAttribute('depart-date')}</div>
                     </div>
 
@@ -29,10 +29,10 @@ class Flight_1Stop extends HTMLElement {
                     
                     <div class="block-info">
                         <div>
-                            <span class="airport">JFK</span>
+                            <span class="airport">${this.getAttribute('arrive-airport-code')}</span>
                             <span class="time">${this.getAttribute('arrive-time')}</span>
                         </div>
-                        <div class="location">New York</div>
+                        <div class="location">${this.getAttribute('arrive-location')}</div>
                         <div class="date">${this.getAttribute('arrive-date')}</div>
                     </div>
         
@@ -69,10 +69,10 @@ class Flight_1Stop extends HTMLElement {
                     <div class="section-bottom">
                         <div class="block-info">
                             <div>
-                                <span class="airport">HKG</span>
+                                <span class="airport">${this.getAttribute('depart-airport-code')}</span>
                                 <span class="time">${this.getAttribute('depart-time')}</span>
                             </div>
-                            <div class="location">Hong Kong</div>
+                            <div class="location">${this.getAttribute('depart-location')}</div>
                             <div class="date">${this.getAttribute('depart-date')}</div>
                             <div class="airport-name">${this.getAttribute('depart-airport-name')}</div>
                         </div>
@@ -129,10 +129,10 @@ class Flight_1Stop extends HTMLElement {
 
                         <div class="block-info">
                             <div>
-                                <span class="airport">JFK</span>
+                                <span class="airport">${this.getAttribute('arrive-airport-code')}</span>
                                 <span class="time">${this.getAttribute('arrive-time')}</span>
                             </div>
-                            <div class="location">New York</div>
+                            <div class="location">${this.getAttribute('arrive-location')}</div>
                             <div class="date">${this.getAttribute('arrive-date')}</div>
                             <div class="airport-name">${this.getAttribute('arrive-airport-name')}</div>
                         </div>
@@ -223,10 +223,10 @@ class Flight_2Stops extends HTMLElement {
                 <div class="section-bottom"> 
                     <div class="block-info">
                         <div>
-                            <span class="airport">HKG</span>
+                            <span class="airport">${this.getAttribute('depart-airport-code')}</span>
                             <span class="time">${this.getAttribute('depart-time')}</span>
                         </div>
-                        <div class="location">Hong Kong</div>
+                        <div class="location">${this.getAttribute('depart-location')}</div>
                         <div class="date">${this.getAttribute('depart-date')}</div>
                     </div>
 
@@ -245,10 +245,10 @@ class Flight_2Stops extends HTMLElement {
                     
                     <div class="block-info">
                         <div>
-                            <span class="airport">JFK</span>
+                            <span class="airport">${this.getAttribute('arrive-airport-code')}</span>
                             <span class="time">${this.getAttribute('arrive-time')}</span>
                         </div>
-                        <div class="location">New York</div>
+                        <div class="location">${this.getAttribute('arrive-location')}</div>
                         <div class="date">${this.getAttribute('arrive-date')}</div>
                     </div>
         
@@ -286,10 +286,10 @@ class Flight_2Stops extends HTMLElement {
                     <div class="section-bottom">
                         <div class="block-info">
                             <div>
-                                <span class="airport">HKG</span>
+                                <span class="airport">${this.getAttribute('depart-airport-code')}</span>
                                 <span class="time">${this.getAttribute('depart-time')}</span>
                             </div>
-                            <div class="location">Hong Kong</div>
+                            <div class="location">${this.getAttribute('depart-location')}</div>
                             <div class="date">${this.getAttribute('depart-date')}</div>
                             <div class="airport-name">${this.getAttribute('depart-airport-name')}</div>
                         </div>
@@ -393,10 +393,10 @@ class Flight_2Stops extends HTMLElement {
 
                         <div class="block-info">
                             <div>
-                                <span class="airport">JFK</span>
+                                <span class="airport">${this.getAttribute('arrive-airport-code')}</span>
                                 <span class="time">${this.getAttribute('arrive-time')}</span>
                             </div>
-                            <div class="location">New York</div>
+                            <div class="location">${this.getAttribute('arrive-location')}</div>
                             <div class="date">${this.getAttribute('arrive-date')}</div>
                             <div class="airport-name">${this.getAttribute('arrive-airport-name')}</div>
                         </div>

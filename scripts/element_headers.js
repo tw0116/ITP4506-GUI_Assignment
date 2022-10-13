@@ -40,5 +40,35 @@ class HeaderDefault extends HTMLElement {
     }
 }
 
+class HeaderUser extends HTMLElement {
+    constructor() {
+        super();
+        this.innerHTML = 
+        `
+        <header>
+            <a href="/" id="logo">
+                <span id="logo-ive">ive</span>
+                <span id="logo-airline">Airline</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="">Offers</a></li>
+                    <li><a href="">Manage</a></li>
+                    <li><a href="">Experience</a></li>
+                    <li><a href="">Memebership</a></li>
+                </ul>
+            </nav>
+            <div>
+                <div>
+                    <div>Thomas Wong</div>
+                    <div>User</div>
+                </div>
+            </div>
+        </header>
+        `
+    }
+}
+
 customElements.define('header-index', HeaderIndex)
 customElements.define('header-default', HeaderDefault)
+customElements.define('header-user', HeaderUser)
