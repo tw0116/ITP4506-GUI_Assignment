@@ -154,7 +154,7 @@ class Flight_1Stop extends HTMLElement {
             </div>
 
             <div class="flight-class">
-                <div class="section-top class_1">
+                <div class="section-top ${this.getAttribute('class1-class')}">
                     ${this.getAttribute('class1-name')}
                 </div>
                 <div class="section-bottom">
@@ -167,7 +167,7 @@ class Flight_1Stop extends HTMLElement {
             </div>
 
             <div class="flight-class">
-                <div class="section-top class_2">
+                <div class="section-top ${this.getAttribute('class2-class')}">
                     ${this.getAttribute('class2-name')}
                 </div>
                 <div class="section-bottom">
@@ -393,7 +393,7 @@ class Flight_2Stops extends HTMLElement {
             </div>
 
             <div class="flight-class">
-                <div class="section-top class_1">
+                <div class="section-top ${this.getAttribute('class1-class')}">
                     ${this.getAttribute('class1-name')}
                 </div>
                 <div class="section-bottom">
@@ -406,8 +406,8 @@ class Flight_2Stops extends HTMLElement {
             </div>
 
             <div class="flight-class">
-                <div class="section-top class_2">
-                    ${this.getAttribute('class1-name')}
+                <div class="section-top ${this.getAttribute('class2-class')}">
+                    ${this.getAttribute('class2-name')}
                 </div>
                 <div class="section-bottom">
                     <div>From</div>

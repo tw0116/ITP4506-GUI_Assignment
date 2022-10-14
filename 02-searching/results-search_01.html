@@ -7,10 +7,17 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" type="text/css" href="../styles/style_headers.css">
 <link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_searchbox.css">
 <link rel="stylesheet" type="text/css" href="../styles/style_searchResults.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script type="text/javascript" src="../scripts/inputs.js"></script>
+
+<script type="text/javascript" src="../scripts/highlight.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
 
 <script type="module" src="../scripts/element_headers.js"></script>
 <script type="module" src="../scripts/element_flightCards.js"></script>
@@ -40,6 +47,32 @@
                 .delay(500)
                 .slideDown(500)
         })
+
+        // $("#card").parent().hide()
+
+        // var toggled = true;
+        // $('#btn_search').click(function() {
+        //     if (toggled) {
+        //         $("#card").parent().slideDown("slow")
+        //         $("#card").flip(true)
+
+        //         $(this).html('Hide Search')
+                
+        //     } else {
+        //         $("#card").flip(false)
+        //         $("#card").parent().slideUp("slow") 
+
+        //         $(this).html('Show Search')
+        //     }
+        //     toggled = !toggled;
+        // })
+
+        // $("#card").flip({
+        //     axis: 'x',
+        //     reverse: true,
+        //     trigger: 'manual',
+        //     speed: 500
+        // })
     })
 </script>
 <style>
@@ -49,6 +82,7 @@
         --color-base3: #BDBDBD;
     }
     .section-content {
+        position: relative;
         display: flex;
         justify-content: center;
     }
@@ -56,9 +90,6 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-    }
-    .search-title {
-        margin: 80px 0 0 0;
     }
     .search-title h1 {
         /* color: #4527A0; */
@@ -476,7 +507,7 @@
     .step-line::after {
         content: '';
         position: absolute;
-        top: 50%;
+        top: 25%;
 
         width: 600px;
         height: 2px;
@@ -487,13 +518,13 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 0px;
 
         width: 40px;
         height: 40px;
         background-color: orange;
-        border: 12px white solid;
+        border: 12px #EEEEEE solid;
         border-radius: 50%;
         z-index: 1;
     }
@@ -502,13 +533,13 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 200px;
 
         width: 40px;
         height: 40px;
         background-color: var(--color-base2);
-        border: 12px white solid;
+        border: 12px #EEEEEE solid;
         border-radius: 50%;
         z-index: 1;
     }
@@ -517,13 +548,13 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 400px;
 
         width: 40px;
         height: 40px;
         background-color: var(--color-base2);
-        border: 12px white solid;
+        border: 12px #EEEEEE solid;
         border-radius: 50%;
         z-index: 1;
     }
@@ -532,13 +563,13 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 600px;
 
         width: 40px;
         height: 40px;
         background-color: var(--color-base2);
-        border: 12px white solid;
+        border: 12px #EEEEEE solid;
         border-radius: 50%;
         z-index: 1;
     }
@@ -547,7 +578,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 0;
 
         color: black;
@@ -562,7 +593,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 200px;
 
         color: white;
@@ -577,7 +608,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 400px;
 
         color: white;
@@ -592,7 +623,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 600px;
 
         color: white;
@@ -607,7 +638,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 90%;
+        top: 60%;
         left: 0;
 
         color: black;
@@ -622,7 +653,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 90%;
+        top: 60%;
         left: 200px;
 
         color: black;
@@ -637,7 +668,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 90%;
+        top: 60%;
         left: 400px;
 
         color: black;
@@ -652,7 +683,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 90%;
+        top: 60%;
         left: 600px;
 
         color: black;
@@ -676,20 +707,127 @@
         <div class="wave wave4"></div>
     </section>
 
+    <section class="section-content" 
+        style="
+            margin: 40px 0 20px 0;
+            background-color: #EEEEEE;
+            border-top: 1px var(--color-base3) solid;
+            border-bottom: 1px var(--color-base3) solid;
+        "
+    >
+        <div class="step-line">
+            <div class="step1-circle"></div>
+            <div class="step2-circle"></div>
+            <div class="step3-circle"></div>
+            <div class="step4-circle"></div>
+            <div class="step1-text"></div>
+            <div class="step2-text"></div>
+            <div class="step3-text"></div>
+            <div class="step4-text"></div>
+        </div>
+    </section>
+
+    <section class="section-content" style="align-items: center; width: 100vw; height: 300px; margin: 0; padding: 0;">
+
+        <div id="search" class="back">
+            <div id="search-header">
+                <h1>Search Flights</h1>
+            </div>
+    
+            <form id="search-form" action="./02-searching/searchResults.html">
+                <div class="row" style="display: flex;">
+                    <label for="roundTrip" class="rdo">
+                        <input type="radio" name="type" id="roundTrip" class="rdo-input">
+                        <div class="rdo-radio"></div>
+                        <span class="rdo-text">Round Trip</span>
+                    </label>
+    
+                    <label for="oneWay" class="rdo">
+                        <input type="radio" name="type" id="oneWay" class="rdo-input">
+                        <div class="rdo-radio"></div>
+                        <span class="rdo-text">One way</span>
+                    </label>
+                </div>
+    
+                <div class="row" style="display: flex;">
+                    <div class="lst airports lst_airports" style="width: 250px;">
+                        <div class="lst-items"></div>
+                        <div class="lst-textbox txt" style="width: inherit;">
+                            <input type="text" class="txt-textarea" required style="width: inherit;">
+                            <label class="txt-placeholder">From</label>
+                        </div>
+                    </div>
+    
+                    <div class="lst airports lst_airports" style="width: 250px;">
+                        <div class="lst-items"></div>
+                        <div class="lst-textbox txt" style="width: inherit;">
+                            <input type="text" class="txt-textarea" required style="width: inherit;">
+                            <label class="txt-placeholder">To</label>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="row" style="display: flex;">
+                    <div style="display: flex;">
+                        <div class="drp">
+                            <input type="text" class="drp-selector">
+                            <label id="drp-label1">Depart</label>
+                            <label id="drp-label2">Return</label>
+                        </div>
+                    </div>
+    
+                    <div class="lst default lst_classes">
+                        <div class="lst-items"></div>
+                        <div class="lst-selected">
+                            Class
+                        </div>
+                    </div>
+    
+                    <div class="lst" style="width: 200px;">
+                        <div class="lst-items" style="width: 196px;">
+                            <div class="item" style="display: flex; align-items: center;">
+                                <label>Adult (12+ years)</label>
+                            </div>
+                            <div class="item" style="display: flex; align-items: center;">
+                                <label>Child (2-11 years)</label>
+                            </div>
+                            <div class="item" style="display: flex; align-items: center;">
+                                <label>Infant (12+)</label>
+                            </div>
+                        </div>
+                        <div class="lst-selected">
+                            Passengers
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="row" style="display: flex;">
+                    <button type="submit" class="btn-style1">
+                        Search
+                    </button>
+                    <button type="reset" class="btn-style2">Reset</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="card" 
+            style="
+                width: 700px; 
+                height: 300px;
+            "
+        >
+        </div>
+    </section>
+
+    <!-- <section class="section-content" style="">
+        <div>
+            <button id="btn_search" class="btn-style1" >Show Search</button>
+        </div>
+    </section> -->
+
     <section class="section-content">
 
-        <div class="search-result">
-
-            <div class="step-line">
-                <div class="step1-circle"></div>
-                <div class="step2-circle"></div>
-                <div class="step3-circle"></div>
-                <div class="step4-circle"></div>
-                <div class="step1-text"></div>
-                <div class="step2-text"></div>
-                <div class="step3-text"></div>
-                <div class="step4-text"></div>
-            </div>
+        <div class="search-result" style="margin-top: 40px;">
 
             <div class="search-title">
                 <h1>Departing Flight</h1>
@@ -739,9 +877,14 @@
                     layout2-airport-code = "FRA"
                     layout2-airport-name = "Rhein Main"
 
+                    flight-code1 = "SQ 883"
+                    flight-code2 = "SQ 38"
+
+                    class1-class = "class_1"
                     class1-name = "Economy"
                     class1-price = "27,000"
 
+                    class2-class = "class_2"
                     class2-name = "Economy Plus"
                     class2-price = "41,000"
                 >
@@ -778,9 +921,14 @@
                     layout2-airport-code = "LAX"
                     layout2-airport-name = "Los Angeles Intl"
 
+                    flight-code1 = "SQ 883"
+                    flight-code2 = "SQ 38"
+
+                    class1-class = "class_1"
                     class1-name = "Economy"
                     class1-price = "27,000"
 
+                    class2-class = "class_2"
                     class2-name = "Economy Plus"
                     class2-price = "41,000"
                 >
@@ -817,9 +965,14 @@
                     layout2-airport-code = "FRA"
                     layout2-airport-name = "Rhein Main"
 
+                    flight-code1 = "SQ 883"
+                    flight-code2 = "SQ 38"
+
+                    class1-class = "class_1"
                     class1-name = "Economy"
                     class1-price = "27,000"
 
+                    class2-class = "class_2"
                     class2-name = "Economy Plus"
                     class2-price = "41,000"
                 >
@@ -849,9 +1002,14 @@
                     layout-airport-code = "SIN"
                     layout-airport-name = "Changi"
 
+                    flight-code1 = "SQ 883"
+                    flight-code2 = "SQ 38"
+                    
+                    class1-class = "class_1"
                     class1-name = "Economy"
                     class1-price = "27,000"
 
+                    class2-class = "class_2"
                     class2-name = "Economy Plus"
                     class2-price = "41,000"
                 >
@@ -881,9 +1039,14 @@
                     layout-airport-code = "SIN"
                     layout-airport-name = "Changi"
 
+                    flight-code1 = "SQ 883"
+                    flight-code2 = "SQ 38"
+                    
+                    class1-class = "class_1"
                     class1-name = "Economy"
                     class1-price = "27,000"
-
+                    
+                    class2-class = "class_2"
                     class2-name = "Economy Plus"
                     class2-price = "41,000"
                 >
@@ -913,9 +1076,14 @@
                     layout-airport-code = "SIN"
                     layout-airport-name = "Changi"
 
+                    flight-code1 = "SQ 883"
+                    flight-code2 = "SQ 38"
+
+                    class1-class = "class_1"
                     class1-name = "Economy"
                     class1-price = "27,000"
-
+                    
+                    class2-class = "class_2"
                     class2-name = "Economy Plus"
                     class2-price = "41,000"
                 >
@@ -927,10 +1095,12 @@
     <section class="section-content">
 
         <div class="search-result">
-            <div class="search-title">
+
+            <div class="search-title" style="margin-top: 80px;">
                 <h1>Returning Flight</h1>
                 <h3>From <span>New York</span> to <span>Hong Kong</span></h3>
             </div>
+
             <div class="airlines-group">
                 <span>VTC Airlines Group:</span>
                 <span class="flight-logo">
@@ -967,9 +1137,14 @@
                     layout-airport-code = "SIN"
                     layout-airport-name = "Changi"
 
+                    flight-code1 = "SQ 883"
+                    flight-code2 = "SQ 38"
+
+                    class1-class = "class_1"
                     class1-name = "Economy"
                     class1-price = "27,000"
 
+                    class2-class = "class_2"
                     class2-name = "Economy Plus"
                     class2-price = "41,000"
                 >
@@ -1006,9 +1181,14 @@
                     layout2-airport-code = "SIN"
                     layout2-airport-name = "Changi"
 
+                    flight-code1 = "SQ 883"
+                    flight-code2 = "SQ 26"
+
+                    class1-class = "class_1"
                     class1-name = "Economy"
                     class1-price = "27,000"
 
+                    class2-class = "class_2"
                     class2-name = "Economy Plus"
                     class2-price = "41,000"
                 >
@@ -1045,9 +1225,14 @@
                     layout2-airport-code = "SIN"
                     layout2-airport-name = "Changi"
 
+                    flight-code1 = "SQ 895"
+                    flight-code2 = "SQ 24"
+                    
+                    class1-class = "class_1"
                     class1-name = "Economy"
                     class1-price = "27,000"
 
+                    class2-class = "class_2"
                     class2-name = "Economy Plus"
                     class2-price = "41,000"
                 >
@@ -1077,9 +1262,14 @@
                     layout-airport-code = "SIN"
                     layout-airport-name = "Changi"
 
+                    flight-code1 = "SQ 895"
+                    flight-code2 = "SQ 24"
+
+                    class1-class = "class_1"
                     class1-name = "Economy"
                     class1-price = "27,000"
 
+                    class2-class = "class_2"
                     class2-name = "Economy Plus"
                     class2-price = "41,000"
                 >
@@ -1119,9 +1309,55 @@
                     flight-code1 = "SQ 25"
                     flight-code2 = "SQ 8632"
 
+                    class1-class = "class_1"
                     class1-name = "Economy"
                     class1-price = "27,000"
 
+                    class2-class = "class_2"
+                    class2-name = "Economy Plus"
+                    class2-price = "41,000"
+                >
+                </flight-2stops>
+            </div>
+
+            <div>
+                <flight-2stops
+                    total-time = "49hrs 55mins"
+
+                    depart-time = "21:20"
+                    depart-date = "22 Oct (Sat)"
+                    depart-airport-name = "John F Kennedy Intl"
+                    depart-location = "New York"
+                    depart-airport-code = "JFK"
+
+                    arrive-time = "11:10"
+                    arrive-date = "23 Oct (Sun)"
+                    arrive-airport-name = "Hong Kong Intl"
+                    arrive-location = "Hong Kong"
+                    arrive-airport-code = "HKG"
+                    
+                    layout1-period = "3h 55m"
+                    layout1-time1 = "09:50"
+                    layout1-time2 = "11:40"
+                    layout1-location = "Frankfurt"
+                    layout1-airport-code = "FRA"
+                    layout1-airport-name = "Rhein Main"
+
+                    layout2-period = "23h 15m"
+                    layout2-time1 = "06:50"
+                    layout2-time2 = "06:05"
+                    layout2-location = "Singapore"
+                    layout2-airport-code = "SIN"
+                    layout2-airport-name = "Changi"
+
+                    flight-code1 = "SQ 25"
+                    flight-code2 = "SQ 8632"
+
+                    class1-class = "class_1"
+                    class1-name = "Economy"
+                    class1-price = "27,000"
+
+                    class2-class = "class_2"
                     class2-name = "Economy Plus"
                     class2-price = "41,000"
                 >
