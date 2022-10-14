@@ -155,7 +155,7 @@ class Flight_1Stop extends HTMLElement {
 
             <div class="flight-class">
                 <div class="section-top class_1">
-                    Economy
+                    ${this.getAttribute('class1-name')}
                 </div>
                 <div class="section-bottom">
                     <div>From</div>
@@ -168,39 +168,13 @@ class Flight_1Stop extends HTMLElement {
 
             <div class="flight-class">
                 <div class="section-top class_2">
-                    Premium Economy
+                    ${this.getAttribute('class2-name')}
                 </div>
                 <div class="section-bottom">
                     <div>From</div>
                     <div>
                         <span class="currency">HKD</span>
                         <span class="price">${this.getAttribute('class2-price')}</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flight-class"> 
-                <div class="section-top class_3">
-                    Bussiness
-                </div>
-                <div class="section-bottom">
-                    <div>From</div>
-                    <div>
-                        <span class="currency">HKD</span>
-                        <span class="price">${this.getAttribute('class3-price')}</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flight-class">
-                <div class="section-top class_4">
-                    First
-                </div>
-                <div class="section-bottom">
-                    <div>From</div>
-                    <div>
-                        <span class="currency">HKD</span>
-                        <span class="price">${this.getAttribute('class4-price')}</span>
                     </div>
                 </div>
             </div>
@@ -420,7 +394,7 @@ class Flight_2Stops extends HTMLElement {
 
             <div class="flight-class">
                 <div class="section-top class_1">
-                    Economy
+                    ${this.getAttribute('class1-name')}
                 </div>
                 <div class="section-bottom">
                     <div>From</div>
@@ -433,39 +407,13 @@ class Flight_2Stops extends HTMLElement {
 
             <div class="flight-class">
                 <div class="section-top class_2">
-                    Premium Economy
+                    ${this.getAttribute('class1-name')}
                 </div>
                 <div class="section-bottom">
                     <div>From</div>
                     <div>
                         <span class="currency">HKD</span>
                         <span class="price">${this.getAttribute('class2-price')}</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flight-class"> 
-                <div class="section-top class_3">
-                    Bussiness
-                </div>
-                <div class="section-bottom">
-                    <div>From</div>
-                    <div>
-                        <span class="currency">HKD</span>
-                        <span class="price">${this.getAttribute('class3-price')}</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flight-class">
-                <div class="section-top class_4">
-                    First
-                </div>
-                <div class="section-bottom">
-                    <div>From</div>
-                    <div>
-                        <span class="currency">HKD</span>
-                        <span class="price">${this.getAttribute('class4-price')}</span>
                     </div>
                 </div>
             </div>
