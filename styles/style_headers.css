@@ -37,7 +37,7 @@ header {
     font-family: 'Jost', sans-serif;
     text-transform: uppercase;
     
-    background: -webkit-linear-gradient(left, #0277BD, #00E5FF);
+    background: -webkit-linear-gradient(left, #0277bd, #00E5FF);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
