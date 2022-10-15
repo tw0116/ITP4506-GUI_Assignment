@@ -7,10 +7,17 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" type="text/css" href="../styles/style_headers.css">
 <link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_searchbox.css">
 <link rel="stylesheet" type="text/css" href="../styles/style_searchResults.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script type="text/javascript" src="../scripts/inputs.js"></script>
+
+<script type="text/javascript" src="../scripts/highlight.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
 
 <script type="module" src="../scripts/element_headers.js"></script>
 <script type="module" src="../scripts/element_flightCards.js"></script>
@@ -40,6 +47,32 @@
                 .delay(500)
                 .slideDown(500)
         })
+
+        $("#card").parent().hide()
+
+        var toggled = true;
+        $('#search-show').click(function() {
+            if (toggled) {
+                $("#card").parent().slideDown("slow")
+                $("#card").flip(true)
+
+                $(this).html('Hide Search')
+                
+            } else {
+                $("#card").flip(false)
+                $("#card").parent().slideUp("slow") 
+
+                $(this).html('Show Search')
+            }
+            toggled = !toggled;
+        })
+
+        $("#card").flip({
+            axis: 'x',
+            reverse: true,
+            trigger: 'manual',
+            speed: 500
+        })
     })
 </script>
 <style>
@@ -49,6 +82,7 @@
         --color-base3: #BDBDBD;
     }
     .section-content {
+        position: relative;
         display: flex;
         justify-content: center;
     }
@@ -56,9 +90,6 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-    }
-    .search-title {
-        margin: 80px 0 0 0;
     }
     .search-title h1 {
         /* color: #4527A0; */
@@ -476,7 +507,7 @@
     .step-line::after {
         content: '';
         position: absolute;
-        top: 50%;
+        top: 25%;
 
         width: 600px;
         height: 2px;
@@ -487,13 +518,13 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 0px;
 
         width: 40px;
         height: 40px;
         background-color: orange;
-        border: 12px white solid;
+        border: 12px #EEEEEE solid;
         border-radius: 50%;
         z-index: 1;
     }
@@ -502,13 +533,13 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 200px;
 
         width: 40px;
         height: 40px;
         background-color: var(--color-base2);
-        border: 12px white solid;
+        border: 12px #EEEEEE solid;
         border-radius: 50%;
         z-index: 1;
     }
@@ -517,13 +548,13 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 400px;
 
         width: 40px;
         height: 40px;
         background-color: var(--color-base2);
-        border: 12px white solid;
+        border: 12px #EEEEEE solid;
         border-radius: 50%;
         z-index: 1;
     }
@@ -532,13 +563,13 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 600px;
 
         width: 40px;
         height: 40px;
         background-color: var(--color-base2);
-        border: 12px white solid;
+        border: 12px #EEEEEE solid;
         border-radius: 50%;
         z-index: 1;
     }
@@ -547,7 +578,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 0;
 
         color: black;
@@ -562,7 +593,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 200px;
 
         color: white;
@@ -577,7 +608,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 400px;
 
         color: white;
@@ -592,7 +623,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 50%;
+        top: 25%;
         left: 600px;
 
         color: white;
@@ -607,7 +638,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 90%;
+        top: 60%;
         left: 0;
 
         color: black;
@@ -622,7 +653,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 90%;
+        top: 60%;
         left: 200px;
 
         color: black;
@@ -637,7 +668,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 90%;
+        top: 60%;
         left: 400px;
 
         color: black;
@@ -652,7 +683,7 @@
         position: absolute;
 
         transform: translate(-50%, -50%);
-        top: 90%;
+        top: 60%;
         left: 600px;
 
         color: black;
@@ -676,24 +707,141 @@
         <div class="wave wave4"></div>
     </section>
 
+    <section class="section-content" 
+        style="
+            margin: 40px 0 20px 0;
+            background-color: #EEEEEE;
+            border-top: 1px var(--color-base3) solid;
+            border-bottom: 1px var(--color-base3) solid;
+        "
+    >
+        <div class="step-line">
+            <div class="step1-circle"></div>
+            <div class="step2-circle"></div>
+            <div class="step3-circle"></div>
+            <div class="step4-circle"></div>
+            <div class="step1-text"></div>
+            <div class="step2-text"></div>
+            <div class="step3-text"></div>
+            <div class="step4-text"></div>
+        </div>
+    </section>
+
+    <section class="section-content">
+        <div>
+            <button id="search-show" class="btn-style1">Show Search</button>
+        </div>
+    </section>
+
+    <section class="section-content" 
+        style="
+            align-items: center; 
+            width: 100vw; 
+            height: 400px;
+        "
+    >
+
+        <div id="card" 
+            style="
+                width: 700px; 
+                height: 300px;
+            "
+        >
+            <div id="search" class="back" 
+                style="
+                    top: -10%;
+                "
+            >
+
+                <div id="search-header">
+                    <h1>Search Flights</h1>
+                </div>
+
+                <form id="search-form" action="./02-searching/results-search_02.html" novalidate>
+                    <div class="search-row" style="display: flex;">
+                        <label for="roundTrip" class="rdo">
+                            <input type="radio" name="type" id="roundTrip" class="rdo-input">
+                            <div class="rdo-radio"></div>
+                            <span class="rdo-text">Round Trip</span>
+                        </label>
+
+                        <label for="oneWay" class="rdo">
+                            <input type="radio" name="type" id="oneWay" class="rdo-input">
+                            <div class="rdo-radio"></div>
+                            <span class="rdo-text">One way</span>
+                        </label>
+                    </div>
+
+                    <div class="search-row" style="display: flex;">
+                        <div class="lst airports lst_airports" style="width: 250px;">
+                            <div class="lst-items"></div>
+                            <div class="lst-textbox txt" style="width: inherit;">
+                                <input type="text" class="txt-textarea" required style="width: inherit;">
+                                <label class="txt-placeholder">From</label>
+                            </div>
+                        </div>
+
+                        <div class="lst airports lst_airports" style="width: 250px;">
+                            <div class="lst-items"></div>
+                            <div class="lst-textbox txt" style="width: inherit;">
+                                <input type="text" class="txt-textarea" required style="width: inherit;">
+                                <label class="txt-placeholder">To</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="search-row" style="display: flex;">
+                        <div style="display: flex;">
+                            <div class="drp">
+                                <input type="text" class="drp-selector">
+                                <label id="drp-label1">Depart</label>
+                                <label id="drp-label2">Return</label>
+                            </div>
+                        </div>
+
+                        <div class="lst default lst_classes">
+                            <div class="lst-items"></div>
+                            <div class="lst-selected">
+                                Class
+                            </div>
+                        </div>
+
+                        <div class="lst" style="width: 200px;">
+                            <div class="lst-items" style="width: 196px;">
+                                <div class="item" style="display: flex; align-items: center;">
+                                    <label>Adult (12+ years)</label>
+                                </div>
+                                <div class="item" style="display: flex; align-items: center;">
+                                    <label>Child (2-11 years)</label>
+                                </div>
+                                <div class="item" style="display: flex; align-items: center;">
+                                    <label>Infant (12+)</label>
+                                </div>
+                            </div>
+                            <div class="lst-selected">
+                                Passengers
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="search-row" style="display: flex;">
+                        <button type="submit" class="btn-style1">
+                            Search
+                        </button>
+                        <button type="reset" class="btn-style2">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <section class="section-content">
 
-        <div class="search-result">
-
-            <div class="step-line">
-                <div class="step1-circle"></div>
-                <div class="step2-circle"></div>
-                <div class="step3-circle"></div>
-                <div class="step4-circle"></div>
-                <div class="step1-text"></div>
-                <div class="step2-text"></div>
-                <div class="step3-text"></div>
-                <div class="step4-text"></div>
-            </div>
+        <div class="search-result" style="margin-top: 40px;">
 
             <div class="search-title">
                 <h1>Departing Flight</h1>
-                <h3>From <span>New York</span> to <span>Hong Kong</span></h3>
+                <h3>From <span>Hong Kong</span> to <span>London</span></h3>
             </div>
 
             <div class="airlines-group">
@@ -710,8 +858,8 @@
             </div>
 
             <div>
-                <flight-2stops
-                    total-time = "28hrs 20mins"
+                <flight-1stop
+                    total-time = "18hrs 5mins"
 
                     depart-time = "18:50"
                     depart-date = "22 Oct (Sat)"
@@ -719,87 +867,73 @@
                     depart-location = "Hong Kong"
                     depart-airport-code = "HKG"
 
-                    arrive-time = "11:10"
+                    arrive-time = "05:55"
                     arrive-date = "23 Oct (Sun)"
-                    arrive-airport-name = "John F Kennedy Intl"
-                    arrive-location = "New York"
-                    arrive-airport-code = "JFK"
-                    
-                    layout1-period = "1h 15m"
-                    layout1-time1 = "22:40"
-                    layout1-time2 = "23:55"
-                    layout1-location = "Singapore"
-                    layout1-airport-code = "SIN"
-                    layout1-airport-name = "Changi"
+                    arrive-airport-name = "Heathrow"
+                    arrive-location = "London"
+                    arrive-airport-code = "LHR"
 
-                    layout2-period = "1h 50m"
-                    layout2-time1 = "06:45"
-                    layout2-time2 = "08:35"
-                    layout2-location = "Frankfurt"
-                    layout2-airport-code = "FRA"
-                    layout2-airport-name = "Rhein Main"
+                    layout-period = "50m"
+                    layout-time1 = "22:40"
+                    layout-time2 = "23:30"
+                    layout-location = "Singapore"
+                    layout-airport-code = "SIN"
+                    layout-airport-name = "Changi"
 
                     flight-code1 = "SQ 895"
-                    flight-code2 = "SQ 26"
-
-                    class1-class = "class_2"
+                    flight-code2 = "SQ 322"
+                    
+                    class1-class = "class_3"
                     class1-name = "Bussiness"
-                    class1-price = "27,000"
+                    class1-price = "52,955"
 
-                    class2-class = "class_3"
+                    class2-class = "class_4"
                     class2-name = "First"
-                    class2-price = "41,000"
+                    class2-price = "72,699"
                 >
-                </flight-2stops>
+                </flight-1stop>
             </div>
 
             <div>
-                <flight-2stops
-                    total-time = "30hrs"
+                <flight-1stop
+                    total-time = "19hrs 55mins"
 
-                    depart-time = "14:30"
+                    depart-time = "18:50"
                     depart-date = "22 Oct (Sat)"
                     depart-airport-name = "Hong Kong Intl"
                     depart-location = "Hong Kong"
                     depart-airport-code = "HKG"
 
-                    arrive-time = "08:30"
+                    arrive-time = "07:45"
                     arrive-date = "23 Oct (Sun)"
-                    arrive-airport-name = "John F Kennedy Intl"
-                    arrive-location = "New York"
-                    arrive-airport-code = "JFK"
-                    
-                    layout1-period = "2h 25m"
-                    layout1-time1 = "18:20"
-                    layout1-time2 = "20:45"
-                    layout1-location = "Singapore"
-                    layout1-airport-code = "SIN"
-                    layout1-airport-name = "Changi"
+                    arrive-airport-name = "Heathrow"
+                    arrive-location = "London"
+                    arrive-airport-code = "LHR"
 
-                    layout2-period = "2h 19m"
-                    layout2-time1 = "21:40"
-                    layout2-time2 = "23:59"
-                    layout2-location = "Los Angeles"
-                    layout2-airport-code = "LAX"
-                    layout2-airport-name = "Los Angeles Intl"
+                    layout-period = "2h 30m"
+                    layout-time1 = "22:40"
+                    layout-time2 = "01:10"
+                    layout-location = "Singapore"
+                    layout-airport-code = "SIN"
+                    layout-airport-name = "Changi"
 
                     flight-code1 = "SQ 883"
                     flight-code2 = "SQ 38"
-
-                    class1-class = "class_2"
+                    
+                    class1-class = "class_3"
                     class1-name = "Bussiness"
-                    class1-price = "27,000"
+                    class1-price = "52,955"
 
-                    class2-class = "class_3"
+                    class2-class = "class_4"
                     class2-name = "First"
-                    class2-price = "41,000"
+                    class2-price = "72,699"
                 >
-                </flight-2stops>
+                </flight-1stop>
             </div>
 
             <div>
-                <flight-2stops
-                    total-time = "30hrs"
+                <flight-1stop
+                    total-time = "22hrs 25mins"
 
                     depart-time = "14:30"
                     depart-date = "22 Oct (Sat)"
@@ -807,43 +941,73 @@
                     depart-location = "Hong Kong"
                     depart-airport-code = "HKG"
 
-                    arrive-time = "11:10"
+                    arrive-time = "05:55"
                     arrive-date = "23 Oct (Sun)"
-                    arrive-airport-name = "John F Kennedy Intl"
-                    arrive-location = "New York"
-                    arrive-airport-code = "JFK"
-                    
-                    layout1-period = "5h 35m"
-                    layout1-time1 = "18:20"
-                    layout1-time2 = "23:55"
-                    layout1-location = "Singapore"
-                    layout1-airport-code = "SIN"
-                    layout1-airport-name = "Changi"
+                    arrive-airport-name = "Heathrow"
+                    arrive-location = "London"
+                    arrive-airport-code = "LHR"
 
-                    layout2-period = "1h 50m"
-                    layout2-time1 = "06:45"
-                    layout2-time2 = "08:35"
-                    layout2-location = "Frankfurt"
-                    layout2-airport-code = "FRA"
-                    layout2-airport-name = "Rhein Main"
+                    layout-period = "19h 10m"
+                    layout-time1 = "18:20"
+                    layout-time2 = "23:30"
+                    layout-location = "Singapore"
+                    layout-airport-code = "SIN"
+                    layout-airport-name = "Changi"
 
                     flight-code1 = "SQ 883"
-                    flight-code2 = "SQ 26"
+                    flight-code2 = "SQ 322"
 
-                    class1-class = "class_2"
+                    class1-class = "class_3"
                     class1-name = "Bussiness"
-                    class1-price = "27,000"
+                    class1-price = "52,955"
 
-                    class2-class = "class_3"
+                    class2-class = "class_4"
                     class2-name = "First"
-                    class2-price = "41,000"
+                    class2-price = "72,699"
                 >
-                </flight-2stops>
+                </flight-1stop>
             </div>
 
             <div>
                 <flight-1stop
-                    total-time = "35hrs 40mins"
+                    total-time = "24hrs 15mins"
+
+                    depart-time = "14:30"
+                    depart-date = "22 Oct (Sat)"
+                    depart-airport-name = "Hong Kong Intl"
+                    depart-location = "Hong Kong"
+                    depart-airport-code = "HKG"
+
+                    arrive-time = "07:45"
+                    arrive-date = "23 Oct (Sun)"
+                    arrive-airport-name = "Heathrow"
+                    arrive-location = "London"
+                    arrive-airport-code = "LHR"
+
+                    layout-period = "6h 50m"
+                    layout-time1 = "18:20"
+                    layout-time2 = "01:10"
+                    layout-location = "Singapore"
+                    layout-airport-code = "SIN"
+                    layout-airport-name = "Changi"
+
+                    flight-code1 = "SQ 883"
+                    flight-code2 = "SQ 306"
+                    
+                    class1-class = "class_3"
+                    class1-name = "Bussiness"
+                    class1-price = "52,955"
+
+                    class2-class = "class_4"
+                    class2-name = "First"
+                    class2-price = "72,699"
+                >
+                </flight-1stop>
+            </div>
+
+            <div>
+                <flight-1stop
+                    total-time = "27hrs 50mins"
 
                     depart-time = "18:50"
                     depart-date = "22 Oct (Sat)"
@@ -851,103 +1015,66 @@
                     depart-location = "Hong Kong"
                     depart-airport-code = "HKG"
 
-                    arrive-time = "18:30"
+                    arrive-time = "15:40"
                     arrive-date = "23 Oct (Sun)"
-                    arrive-airport-name = "John F Kennedy Intl"
-                    arrive-location = "New York"
-                    arrive-airport-code = "JFK"
+                    arrive-airport-name = "Heathrow"
+                    arrive-location = "London"
+                    arrive-airport-code = "LHR"
 
-                    layout-period = "13h 10m"
+                    layout-period = "10h 20m"
                     layout-time1 = "22:40"
-                    layout-time2 = "11:50"
+                    layout-time2 = "09:00"
                     layout-location = "Singapore"
                     layout-airport-code = "SIN"
                     layout-airport-name = "Changi"
 
-                    flight-code1 = "SQ 895"
-                    flight-code2 = "SQ 24"
-
-                    class1-class = "class_2"
+                    flight-code1 = "SQ 883"
+                    flight-code2 = "SQ 308"
+                    
+                    class1-class = "class_3"
                     class1-name = "Bussiness"
-                    class1-price = "27,000"
+                    class1-price = "52,955"
 
-                    class2-class = "class_3"
+                    class2-class = "class_4"
                     class2-name = "First"
-                    class2-price = "41,000"
+                    class2-price = "72,699"
                 >
                 </flight-1stop>
             </div>
 
             <div>
                 <flight-1stop
-                    total-time = "40hrs"
+                    total-time = "29hrs 50mins"
 
-                    depart-time = "14:30"
+                    depart-time = "18:50"
                     depart-date = "22 Oct (Sat)"
                     depart-airport-name = "Hong Kong Intl"
                     depart-location = "Hong Kong"
                     depart-airport-code = "HKG"
 
-                    arrive-time = "18:30"
+                    arrive-time = "17:40"
                     arrive-date = "23 Oct (Sun)"
-                    arrive-airport-name = "John F Kennedy Intl"
-                    arrive-location = "New York"
-                    arrive-airport-code = "JFK"
+                    arrive-airport-name = "Heathrow"
+                    arrive-location = "London"
+                    arrive-airport-code = "LHR"
 
-                    layout-period = "17h 30m"
-                    layout-time1 = "18:20"
-                    layout-time2 = "11:50"
+                    layout-period = "12h 20m"
+                    layout-time1 = "22:40"
+                    layout-time2 = "11:00"
                     layout-location = "Singapore"
                     layout-airport-code = "SIN"
                     layout-airport-name = "Changi"
 
-                    flight-code1 = "SQ 895"
-                    flight-code2 = "SQ 24"
-
-                    class1-class = "class_2"
+                    flight-code1 = "SQ 883"
+                    flight-code2 = "SQ 308"
+                    
+                    class1-class = "class_3"
                     class1-name = "Bussiness"
-                    class1-price = "27,000"
+                    class1-price = "52,955"
 
-                    class2-class = "class_3"
+                    class2-class = "class_4"
                     class2-name = "First"
-                    class2-price = "41,000"
-                >
-                </flight-1stop>
-            </div>
-
-            <div>
-                <flight-1stop
-                    total-time = "42hrs"
-
-                    depart-time = "14:30"
-                    depart-date = "22 Oct (Sat)"
-                    depart-airport-name = "Hong Kong Intl"
-                    depart-location = "Hong Kong"
-                    depart-airport-code = "HKG"
-
-                    arrive-time = "20:10"
-                    arrive-date = "23 Oct (Sun)"
-                    arrive-airport-name = "John F Kennedy Intl"
-                    arrive-location = "New York"
-                    arrive-airport-code = "JFK"
-
-                    layout-period = "19h 10m"
-                    layout-time1 = "18:20"
-                    layout-time2 = "13:50"
-                    layout-location = "Singapore"
-                    layout-airport-code = "SIN"
-                    layout-airport-name = "Changi"
-
-                    flight-code1 = "SQ 895"
-                    flight-code2 = "SQ 24"
-
-                    class1-class = "class_2"
-                    class1-name = "Bussiness"
-                    class1-price = "27,000"
-
-                    class2-class = "class_3"
-                    class2-name = "First"
-                    class2-price = "41,000"
+                    class2-price = "72,699"
                 >
                 </flight-1stop>
             </div>
@@ -957,10 +1084,12 @@
     <section class="section-content">
 
         <div class="search-result">
-            <div class="search-title">
+
+            <div class="search-title" style="margin-top: 80px;">
                 <h1>Returning Flight</h1>
-                <h3>From <span>New York</span> to <span>Hong Kong</span></h3>
+                <h3>From <span>London</span> to <span>Hong Kong</span></h3>
             </div>
+
             <div class="airlines-group">
                 <span>VTC Airlines Group:</span>
                 <span class="flight-logo">
@@ -976,13 +1105,13 @@
 
             <div>
                 <flight-1stop
-                    total-time = "29hrs 25mins"
+                    total-time = "22hrs 10mins"
 
-                    depart-time = "22:40"
+                    depart-time = "10:55"
                     depart-date = "22 Oct (Sat)"
-                    depart-airport-name = "John F Kennedy Intl"
-                    depart-location = "New York"
-                    depart-airport-code = "JFK"
+                    depart-airport-name = "Heathrow"
+                    depart-location = "London"
+                    depart-airport-code = "LHR"
 
                     arrive-time = "17:05"
                     arrive-date = "23 Oct (Sun)"
@@ -990,36 +1119,36 @@
                     arrive-location = "Hong Kong"
                     arrive-airport-code = "HKG"
 
-                    layout-period = "6h 55m"
-                    layout-time1 = "06:10"
+                    layout-period = "5h 15m"
+                    layout-time1 = "07:50"
                     layout-time2 = "13:05"
                     layout-location = "Singapore"
                     layout-airport-code = "SIN"
                     layout-airport-name = "Changi"
 
-                    flight-code1 = "RM 23"
-                    flight-code2 = "SQ 894"
+                    flight-code1 = "SQ 883"
+                    flight-code2 = "SQ 38"
 
-                    class1-class = "class_2"
+                    class1-class = "class_3"
                     class1-name = "Bussiness"
                     class1-price = "27,000"
 
-                    class2-class = "class_3"
+                    class2-class = "class_4"
                     class2-name = "First"
                     class2-price = "41,000"
                 >
-                </flight-2stop>
+                </flight-1stop>
             </div>
 
             <div>
-                <flight-2stops
-                    total-time = "31hrs 50mins"
+                <flight-1stop
+                    total-time = "23hrs 55mins"
 
                     depart-time = "20:15"
                     depart-date = "22 Oct (Sat)"
-                    depart-airport-name = "John F Kennedy Intl"
-                    depart-location = "New York"
-                    depart-airport-code = "JFK"
+                    depart-airport-name = "Heathrow"
+                    depart-location = "London"
+                    depart-airport-code = "LHR"
 
                     arrive-time = "17:05"
                     arrive-date = "23 Oct (Sun)"
@@ -1027,87 +1156,73 @@
                     arrive-location = "Hong Kong"
                     arrive-airport-code = "HKG"
                     
-                    layout1-period = "1h 50m"
-                    layout1-time1 = "09:50"
-                    layout1-time2 = "11:40"
-                    layout1-location = "Frankfurt"
-                    layout1-airport-code = "FRA"
-                    layout1-airport-name = "Rhein Main"
+                    layout-period = "7h"
+                    layout-time1 = "06:05"
+                    layout-time2 = "13:05"
+                    layout-location = "Singapore"
+                    layout-airport-code = "SIN"
+                    layout-airport-name = "Changi"
 
-                    layout2-period = "6h 15m"
-                    layout2-time1 = "06:50"
-                    layout2-time2 = "13:05"
-                    layout2-location = "Singapore"
-                    layout2-airport-code = "SIN"
-                    layout2-airport-name = "Changi"
-
-                    flight-code1 = "SQ 25"
+                    flight-code1 = "SQ 305"
                     flight-code2 = "SQ 894"
 
-                    class1-class = "class_2"
+                    class1-class = "class_3"
                     class1-name = "Bussiness"
                     class1-price = "27,000"
 
-                    class2-class = "class_3"
+                    class2-class = "class_4"
                     class2-name = "First"
                     class2-price = "41,000"
                 >
-                </flight-2stops>
-            </div>
-
-            <div>
-                <flight-2stops
-                    total-time = "37hrs 50 mins"
-
-                    depart-time = "15:00"
-                    depart-date = "22 Oct (Sat)"
-                    depart-airport-name = "John F Kennedy Intl"
-                    depart-location = "New York"
-                    depart-airport-code = "JFK"
-
-                    arrive-time = "17:05"
-                    arrive-date = "23 Oct (Sun)"
-                    arrive-airport-name = "John F Kennedy Intl"
-                    arrive-location = "New York"
-                    arrive-airport-code = "JFK"
-                    
-                    layout1-period = "4h 4m"
-                    layout1-time1 = "18:21"
-                    layout1-time2 = "22:25"
-                    layout1-location = "Frankfurt"
-                    layout1-airport-code = "FRA"
-                    layout1-airport-name = "Rhein Main"
-
-                    layout2-period = "4h 50m"
-                    layout2-time1 = "08:15"
-                    layout2-time2 = "13:05"
-                    layout2-location = "Singapore"
-                    layout2-airport-code = "SIN"
-                    layout2-airport-name = "Changi"
-
-                    flight-code1 = "SQ 37"
-                    flight-code2 = "SQ 894"
-
-                    class1-class = "class_2"
-                    class1-name = "Bussiness"
-                    class1-price = "27,000"
-
-                    class2-class = "class_3"
-                    class2-name = "First"
-                    class2-price = "41,000"
-                >
-                </flight-2stops>
+                </flight-1stop>
             </div>
 
             <div>
                 <flight-1stop
-                    total-time = "46hrs 25mins"
+                    total-time = "28hrs"
 
-                    depart-time = "22:40"
+                    depart-time = "15:00"
                     depart-date = "22 Oct (Sat)"
-                    depart-airport-name = "John F Kennedy Intl"
-                    depart-location = "New York"
-                    depart-airport-code = "JFK"
+                    depart-airport-name = "Heathrow"
+                    depart-location = "London"
+                    depart-airport-code = "LHR"
+
+                    arrive-time = "17:05"
+                    arrive-date = "23 Oct (Sun)"
+                    arrive-airport-name = "Hong Kong Intl"
+                    arrive-location = "Hong Kong"
+                    arrive-airport-code = "HKG"
+                    
+                    layout-period = "11h 5m"
+                    layout-time1 = "18:21"
+                    layout-time2 = "22:25"
+                    layout-location = "Singapore"
+                    layout-airport-code = "SIN"
+                    layout-airport-name = "Changi"
+
+                    flight-code1 = "SQ 321"
+                    flight-code2 = "SQ 8632"
+
+                    class1-class = "class_3"
+                    class1-name = "Bussiness"
+                    class1-price = "27,000"
+
+                    class2-class = "class_4"
+                    class2-name = "First"
+                    class2-price = "41,000"
+                >
+                </flight-1stop>
+            </div>
+
+            <div>
+                <flight-1stop
+                    total-time = "29hrs 30mins"
+
+                    depart-time = "20:35"
+                    depart-date = "22 Oct (Sat)"
+                    depart-airport-name = "Heathrow"
+                    depart-location = "London"
+                    depart-airport-code = "LHR"
 
                     arrive-time = "10:05"
                     arrive-date = "23 Oct (Sun)"
@@ -1115,113 +1230,99 @@
                     arrive-location = "Hong Kong"
                     arrive-airport-code = "HKG"
 
-                    layout-period = "23h 55m"
-                    layout-time1 = "06:10"
+                    layout-period = "12h 35m"
+                    layout-time1 = "17:30"
                     layout-time2 = "06:05"
                     layout-location = "Singapore"
                     layout-airport-code = "SIN"
                     layout-airport-name = "Changi"
 
-                    flight-code1 = "RM 327"
-                    flight-code2 = "SQ 895"
+                    flight-code1 = "SQ 319"
+                    flight-code2 = "SQ 8632"
 
-                    class1-class = "class_2"
+                    class1-class = "class_3"
                     class1-name = "Bussiness"
                     class1-price = "27,000"
 
-                    class2-class = "class_3"
+                    class2-class = "class_4"
                     class2-name = "First"
                     class2-price = "41,000"
                 >
-                </flight-2stop>
+                </flight-1stop>
             </div>
 
             <div>
-                <flight-2stops
-                    total-time = "48hrs 50mins"
+                <flight-1stop
+                    total-time = "35hrs"
 
-                    depart-time = "20:15"
+                    depart-time = "22:05"
                     depart-date = "22 Oct (Sat)"
-                    depart-airport-name = "John F Kennedy Intl"
-                    depart-location = "New York"
-                    depart-airport-code = "JFK"
+                    depart-airport-name = "Heathrow"
+                    depart-location = "London"
+                    depart-airport-code = "LHR"
 
-                    arrive-time = "10:05"
+                    arrive-time = "17:05"
                     arrive-date = "23 Oct (Sun)"
                     arrive-airport-name = "Hong Kong Intl"
                     arrive-location = "Hong Kong"
                     arrive-airport-code = "HKG"
                     
-                    layout1-period = "1h 50m"
-                    layout1-time1 = "09:50"
-                    layout1-time2 = "11:40"
-                    layout1-location = "Frankfurt"
-                    layout1-airport-code = "FRA"
-                    layout1-airport-name = "Rhein Main"
+                    layout-period = "18h 5m"
+                    layout-time1 = "19:00"
+                    layout-time2 = "13:05"
+                    layout-location = "Singapore"
+                    layout-airport-code = "SIN"
+                    layout-airport-name = "Changi"
 
-                    layout2-period = "23h 15m"
-                    layout2-time1 = "06:50"
-                    layout2-time2 = "06:05"
-                    layout2-location = "Singapore"
-                    layout2-airport-code = "SIN"
-                    layout2-airport-name = "Changi"
+                    flight-code1 = "SQ 321"
+                    flight-code2 = "SQ 894"
 
-                    flight-code1 = "SQ 25"
-                    flight-code2 = "SQ 8632"
-
-                    class1-class = "class_2"
+                    class1-class = "class_3"
                     class1-name = "Bussiness"
                     class1-price = "27,000"
 
-                    class2-class = "class_3"
+                    class2-class = "class_4"
                     class2-name = "First"
                     class2-price = "41,000"
                 >
-                </flight-2stops>
+                </flight-1stop>
             </div>
 
             <div>
-                <flight-2stops
-                    total-time = "48hrs 50mins"
+                <flight-1stop
+                    total-time = "35hrs"
 
                     depart-time = "20:15"
                     depart-date = "22 Oct (Sat)"
-                    depart-airport-name = "John F Kennedy Intl"
-                    depart-location = "New York"
-                    depart-airport-code = "JFK"
+                    depart-airport-name = "Heathrow"
+                    depart-location = "London"
+                    depart-airport-code = "LHR"
 
-                    arrive-time = "10:05"
+                    arrive-time = "17:05"
                     arrive-date = "23 Oct (Sun)"
                     arrive-airport-name = "Hong Kong Intl"
                     arrive-location = "Hong Kong"
                     arrive-airport-code = "HKG"
                     
-                    layout1-period = "1h 50m"
-                    layout1-time1 = "09:50"
-                    layout1-time2 = "11:40"
-                    layout1-location = "Frankfurt"
-                    layout1-airport-code = "FRA"
-                    layout1-airport-name = "Rhein Main"
-
-                    layout2-period = "23h 15m"
-                    layout2-time1 = "06:50"
-                    layout2-time2 = "06:05"
-                    layout2-location = "Singapore"
-                    layout2-airport-code = "SIN"
-                    layout2-airport-name = "Changi"
+                    layout-period = "1h 50m"
+                    layout-time1 = "09:50"
+                    layout-time2 = "11:40"
+                    layout-location = "Singapore"
+                    layout-airport-code = "SIN"
+                    layout-airport-name = "Changi"
 
                     flight-code1 = "SQ 25"
                     flight-code2 = "SQ 8632"
 
-                    class1-class = "class_2"
+                    class1-class = "class_3"
                     class1-name = "Bussiness"
                     class1-price = "27,000"
 
-                    class2-class = "class_3"
+                    class2-class = "class_4"
                     class2-name = "First"
                     class2-price = "41,000"
                 >
-                </flight-2stops>
+                </flight-1stop>
             </div>
         </div>
     </section>
