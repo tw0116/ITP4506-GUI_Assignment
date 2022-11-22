@@ -20,11 +20,9 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script 
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-        crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
+        </script>
 
     <script type="module" src="../scripts/element_headers.js"></script>
 
@@ -52,25 +50,25 @@
                 }
             }
 
-            $('#email').on('keyup focus', function() {
+            $('#email').on('keyup focus', function () {
                 if ($(this).val() == "") {
-                    $(this).css({'border-color': '#0277BD', 'border-width': '1px'})
+                    $(this).css({ 'border-color': '#0277BD', 'border-width': '1px' })
                 } else if ($(this).val() != "" && checkEmail() == true) {
-                    $(this).css({'border-color':'limegreen', 'border-width': '2px'})
+                    $(this).css({ 'border-color': 'limegreen', 'border-width': '2px' })
                 } else {
-                    $(this).css({'border-color': 'red', 'border-width': '2px'})
+                    $(this).css({ 'border-color': 'red', 'border-width': '2px' })
                 }
             })
 
-            $('#email').focusout(function() {
-                if($(this).val() == "") {
-                    $(this).css({'border-color': '#BDBDBD', 'border-width': '1px'})
+            $('#email').focusout(function () {
+                if ($(this).val() == "") {
+                    $(this).css({ 'border-color': '#BDBDBD', 'border-width': '1px' })
                 } else if ($(this).val() != "" && checkEmail() == true) {
-                    $(this).css({'border-color':'limegreen', 'border-width': '2px'})
+                    $(this).css({ 'border-color': 'limegreen', 'border-width': '2px' })
                 }
             })
 
-            $('.pw-visibility').click(function() {
+            $('.pw-visibility').click(function () {
                 if ($(this).siblings('.form-control').attr('type') == 'password') {
                     $(this).siblings('.form-control').attr('type', 'text')
                     $(this).removeClass('pw-show')
@@ -83,13 +81,13 @@
                 }
             })
 
-            $('.btn-primary').click(function() {      
-                let email = $('#email').filter(function() { return $(this).val() == ""})
-                let psw = $('#psw').filter(function() {return $(this).val() == ""})
+            $('.btn-primary').click(function () {
+                let email = $('#email').filter(function () { return $(this).val() == "" })
+                let psw = $('#psw').filter(function () { return $(this).val() == "" })
 
-                if ($('#email').val() == "" || $('#psw').val() == "") {  
+                if ($('#email').val() == "" || $('#psw').val() == "") {
                     email.siblings('.msg').html("<p class='text-danger'>*This field is required</p>")
-                    psw.parent().siblings('.msg').html("<p class='text-danger'>*This field is required</p>")  
+                    psw.parent().siblings('.msg').html("<p class='text-danger'>*This field is required</p>")
                 }
                 else if ($('#psw').val() == password) {
                     for (let i = 0; i < users.length; i++) {
@@ -97,7 +95,7 @@
                             window.location = indexes[i]
                         }
                     }
-                } 
+                }
                 else {
                     swal({
                         title: "Login Failed",
@@ -105,17 +103,17 @@
                         icon: "error",
                         button: "Cancel",
                     })
-                    .then(function() {
-                        window.location = './login.html'
-                    })
+                        .then(function () {
+                            window.location = './login.html'
+                        })
                 }
             })
 
-            $('#email').keyup(function() {
+            $('#email').keyup(function () {
                 $(this).siblings('.msg').html("");
             })
 
-            $('#psw').keyup(function() {
+            $('#psw').keyup(function () {
                 $(this).parent().siblings('.msg').html("");
             })
         });
@@ -132,9 +130,10 @@
             color: var(--color-base2);
             font-family: 'Quicksand', sans-serif;
         }
+
         .container-sm {
             width: 500px;
-            
+
             position: absolute;
             transform: translate(-50%, -50%);
             top: 50%;
@@ -142,6 +141,7 @@
 
             z-index: 1000;
         }
+
         form {
             background-color: aliceblue;
             padding: 40px 50px;
@@ -149,12 +149,14 @@
             border-radius: 10px;
             box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
         }
+
         form .title {
             margin-bottom: 40px;
             color: var(--color-base1);
             text-align: center;
             font-family: 'Abril Fatface', cursive;
         }
+
         form .form-label {
             font-weight: 600;
         }
@@ -162,17 +164,19 @@
         .input-wrapper {
             position: relative;
         }
+
         .pw-visibility {
             position: absolute;
             transform: translate(-50%, -50%);
             top: 50%;
             right: 2px;
-            
+
             width: 24px;
             height: 24px;
 
             appearance: none;
         }
+
         .pw-show::after {
             content: "\e8f4";
             position: absolute;
@@ -187,6 +191,7 @@
 
             cursor: pointer;
         }
+
         .pw-hide::after {
             content: "\e8f5";
             position: absolute;
@@ -205,17 +210,19 @@
         .input-wrapper {
             position: relative;
         }
+
         .pw-visibility {
             position: absolute;
             transform: translate(-50%, -50%);
             top: 50%;
             right: 2px;
-            
+
             width: 24px;
             height: 24px;
 
             appearance: none;
         }
+
         .pw-show::after {
             content: "\e8f4";
             position: absolute;
@@ -230,6 +237,7 @@
 
             cursor: pointer;
         }
+
         .pw-hide::after {
             content: "\e8f5";
             position: absolute;
@@ -251,17 +259,19 @@
         .input-wrapper {
             position: relative;
         }
+
         .pw-visibility {
             position: absolute;
             transform: translate(-50%, -50%);
             top: 50%;
             right: 2px;
-            
+
             width: 24px;
             height: 24px;
 
             appearance: none;
         }
+
         .pw-show::after {
             content: "\e8f4";
             position: absolute;
@@ -276,6 +286,7 @@
 
             cursor: pointer;
         }
+
         .pw-hide::after {
             content: "\e8f5";
             position: absolute;
@@ -298,20 +309,24 @@
             background-color: rgba(0, 0, 0, 0.50);
             backdrop-filter: blur(10px);
         }
+
         .swal-modal {
             border-radius: 12px;
         }
+
         .swal-title {
             color: var(--color-base1);
             font-family: 'Abril Fatface', cursive;
             font-weight: 400;
         }
+
         .swal-text {
             color: var(--color-base2);
             font-size: 16px;
             font-family: 'Quicksand', sans-serif;
             font-weight: 600;
         }
+
         .swal-button {
             color: white;
             font-size: 16px;
@@ -345,7 +360,7 @@
 
             <div class="mb-2">
                 <label class="form-label" for="">Email</label>
-                <input type="text" class="form-control"  id="email"
+                <input type="text" class="form-control" id="email"
                     pattern="[A-Za-z0-9.%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}$">
                 <span class="msg"></span>
             </div>
@@ -357,11 +372,11 @@
                     <input type="checkbox" class="pw-visibility pw-show">
                 </div>
                 <span class="msg"></span>
-                
+
                 <!-- <input class="form-control" type="password" name="password" id="password"
                     pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$" novalidate
                     title="Please enter password (must be include a upper case letter, a lower case letter, a number and a characters)" 
-                    required> --> 
+                    required> -->
             </div>
 
             <div style="margin-top: 8px; font-size: 14px;">
@@ -380,4 +395,5 @@
         </form>
     </div>
 </body>
+
 </html>
