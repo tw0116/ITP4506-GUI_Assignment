@@ -711,7 +711,6 @@
 
         cursor: pointer;
     }
-
     .sortBy::before {
         content: "";
         position: absolute;
@@ -725,11 +724,9 @@
         background-color: orange;
         transition: width 0.25s ease-out;
     }
-
     .sortBy:has(input:checked) {
         color: black;
     }
-
     .sortBy:has(input:checked)::before {
         width: 100%;
     }
@@ -758,7 +755,12 @@
 
         transition: all 0.5s ease;
     }
-
+    .period-tag {
+        font-size: 16px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        color: var(--color-base2);
+    }
     .period:has(input:checked) {
         color: black;
         background-color: orange;
@@ -771,7 +773,7 @@
     }
 
     #filter {
-        height: 800px;
+        height: 600px;
         width: 250px;
 
         padding: 20px;
@@ -787,11 +789,18 @@
         box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
     }
 
-    .filter-group {
-        position: relative;
-    }
+    .filter-tag {    
+        margin-bottom: 10px;
+        padding-bottom: 2px;
 
-    .filter-group::before {
+        position: relative;
+
+        font-size: 18px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        color: var(--color-base1);
+    }
+    .filter-tag::before {
         content: "";
         position: absolute;
 
@@ -804,23 +813,10 @@
         background-color: var(--color-base3);
     }
 
-    .filter-tag {
-        margin-bottom: 10px;
-
-        position: relative;
-
-        font-size: 18px;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        color: var(--color-base1);
-    }
-
-
     .filter-options {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        margin-left: 20px;
         margin-bottom: 20px;
     }
 
@@ -984,38 +980,53 @@
                     </label>
                     <label for="price" class="sortBy">
                         <input type="radio" id="price" name="sortBy" value="Price">
-                        <span>Price</span>
+                        Price
                     </label>
                     <label for="arrivalTime" class="sortBy">
                         <input type="radio" id="arrivalTime" name="sortBy" value="Arrival Time">
-                        <span>Arrival Time</span>
+                        Arrival Time
                     </label>
                     <label for="departureTime" class="sortBy">
                         <input type="radio" id="departureTime" name="sortBy" value="Departure Time">
-                        <span>Departure Time</span>
+                        Departure Time
                     </label>
                 </div>
             </div>
             
             <div class="filter-group">
-                <div class="filter-tag">Period:</div>
+                <div class="filter-tag">Departure Period:</div>
                 <div class="filter-options">
-                    <label for="morning" class="period">
-                        <input type="radio" id="morning" name="period" value="Travel Duration" checked>
-                        Morning
-                    </label>
-                    <label for="afternoon" class="period">
-                        <input type="radio" id="afternoon" name="period" value="Price">
-                        Afternoon
-                    </label>
-                    <label for="evening" class="period">
-                        <input type="radio" id="evening" name="period" value="Arrival Time">
-                        Evening
-                    </label>          
-                    <label for="night" class="period">
-                        <input type="radio" id="night" name="period" value="Arrival Time">
-                        Night
-                    </label>
+                    <div>
+                        <div class="period-tag">06:00 ~ 12:00</div>
+                        <label for="morning" class="period">
+                            <input type="radio" id="morning" name="period" value="Travel Duration" checked>
+                            Morning
+                        </label>
+                    </div>
+
+                    <div>
+                        <div class="period-tag">12:00 ~ 17:00</div>
+                        <label for="afternoon" class="period">
+                            <input type="radio" id="afternoon" name="period" value="Price">
+                            Afternoon
+                        </label>
+                    </div>
+
+                    <div>
+                        <div class="period-tag">17:00 ~ 22:00</div>
+                        <label for="evening" class="period">
+                            <input type="radio" id="evening" name="period" value="Arrival Time">
+                            Evening
+                        </label>
+                    </div>
+
+                    <div>
+                        <div class="period-tag">22:00 ~ 06:00</div>      
+                        <label for="night" class="period">
+                            <input type="radio" id="night" name="period" value="Arrival Time">
+                            Night
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
