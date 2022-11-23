@@ -36,18 +36,40 @@
 <style>
     .inlineimage {
         max-width: 470px;
-        margin-right: 8px;
-        margin-left: 10px
+        margin-right: px;
+        margin-left: 10px;
     }
 
     .images {
         display: inline-block;
-        max-width: 98%;
+        max-width: 100%;
         height: auto;
-        width: 22%;
+        width: 20%;
         margin: 1%;
-        left: 20px;
         text-align: center
+    }
+
+    .text-center {
+        color: #0277BD;
+        text-align: center;
+        font-family: 'Abril Fatface', cursive;
+    }
+
+    .container-sm {
+        width: 800px;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        z-index: 1000;
+    }
+
+    form {
+        background-color: aliceblue;
+        padding: 40px 50px;
+        border: 1px black;
+        border-radius: 10px;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
     }
 </style>
 
@@ -64,73 +86,92 @@
 
 
     <div class="container-sm">
-        <div class="row">
-            <div class="col-xs-12 col-md-6 col-md-offset-4">
-                <div class="panel panel-default">
+
+        <form action="" method="post">
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-md-offset-4">
 
 
-                    <div class="panel-heading">
+                    <div class="panel">
 
-                        <div class="row">
-                            <h3 class="text-center">Payment Details</h3>
-                            <!--credit card picture-->
-                            <div class="inlineimage">
-                                <img class="img-responsive images"
-                                    src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Mastercard-Curved.png">
-                                <img class="img-responsive images"
-                                    src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Discover-Curved.png">
-                                <img class="img-responsive images"
-                                    src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Paypal-Curved.png">
-                                <img class="img-responsive images"
-                                    src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/American-Express-Curved.png">
+                        <div class="panel-heading">
+
+                            <div class="row">
+                                <h1 class="text-center">Payment Details</h1>
+                                <!--credit card picture-->
+                                <div class="inlineimage">
+                                    <img class="img-responsive images"
+                                        src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Mastercard-Curved.png">
+                                    <img class="img-responsive images"
+                                        src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Discover-Curved.png">
+                                    <img class="img-responsive images"
+                                        src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Paypal-Curved.png">
+                                    <img class="img-responsive images"
+                                        src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/American-Express-Curved.png">
+                                    <img class="img-res">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    <div class="panel-body">
-                        <form role="form">
+                        <div class="panel-body">
+
+                            <!--card holder-->
                             <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="form-group"> <label>CARD NUMBER</label>
-                                        <div class="input-group"> <input type="tel" class="form-control"
-                                                placeholder="Valid Card Number" />
-                                            <span class="input-group-addon">
-                                                <span class="fa fa-credit-card"> </span></span>
+                                <div class="col">
+                                    <div class="form-group"> <label>CARD OWNER</label>
+                                        <input type="text" class="form-control" placeholder="Card Holder's Name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="">
+                                    <div class="form-group">
+                                        <label>CARD NUMBER</label>
+
+                                        <div class="input-group">
+                                            <input type="tel" class="form-control" placeholder="Card Number" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
-                                <div class="col-xs-7 col-md-7">
-                                    <div class="form-group"> <label><span class="hidden-xs">EXPIRATION</span><span
-                                                class="visible-xs-inline">EXP</span> DATE</label> <input type="tel"
-                                            class="form-control" placeholder="MM / YY" /> </div>
+                                <!-- Expirtaion date-->
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label>
+                                            <span class="hidden-xs">Expiry Date </span>
+                                        </label>
+                                        <input type="tel" class="form-control" placeholder="MM / YY" />
+                                    </div>
                                 </div>
-                                <div class="col-xs-5 col-md-5 pull-right">
-                                    <div class="form-group"> <label>CVV CODE</label> <input type="tel"
-                                            class="form-control" placeholder="000" /> </div>
+                                <!--security code-->
+                                <div class=" col-md-4">
+                                    <div class="form-group">
+                                        <label>CVV</label>
+                                        <input type="tel" class="form-control" placeholder="000" />
+                                    </div>
                                 </div>
                             </div>
+
+
+                        </div>
+
+                        <!--footer of the payment form-->
+                        <div class="panel-footer">
+                            <br>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <div class="form-group"> <label>CARD OWNER</label> <input type="text"
-                                            class="form-control" placeholder="Card Owner Name" /> </div>
+                                    <button class="btn btn-primary btn-lg btn-block">Confirm Payment</button>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <div class="panel-footer">
-                        <br>
-                        <div class="row">
-                            <div class="col-xs-12"> <button class="btn btn-success btn-lg btn-block">Confirm
-                                    Payment</button> </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+        </form>
 
     </div>
 </body>
