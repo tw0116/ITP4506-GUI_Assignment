@@ -697,16 +697,13 @@
 
 
 
-    .filter-tag {
-        margin-bottom: 10px;
-
-        font-size: 18px;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        color: var(--color-base1);
-    }
-
     .sortBy {
+        position: relative;
+
+        width: fit-content;
+
+        padding-bottom: 2px;
+
         font-size: 16px;
         font-family: 'Quicksand', sans-serif;
         font-weight: 600;
@@ -715,8 +712,26 @@
         cursor: pointer;
     }
 
-    .sortBy > input:checked {
+    .sortBy::before {
+        content: "";
+        position: absolute;
         
+        left: 0;
+        bottom: 0;
+
+        width: 0;
+        height: 4px;
+
+        background-color: orange;
+        transition: width 0.25s ease-out;
+    }
+
+    .sortBy:has(input:checked) {
+        color: black;
+    }
+
+    .sortBy:has(input:checked)::before {
+        width: 100%;
     }
     
     .period {
@@ -740,6 +755,14 @@
         border-radius: 20px;
 
         cursor: pointer;
+
+        transition: all 0.5s ease;
+    }
+
+    .period:has(input:checked) {
+        color: black;
+        background-color: orange;
+        border: 1px goldenrod solid;
     }
 
     .sortBy > input[type=radio],
@@ -764,12 +787,41 @@
         box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
     }
 
+    .filter-group {
+        position: relative;
+    }
+
+    .filter-group::before {
+        content: "";
+        position: absolute;
+
+        left: 0;
+        bottom: 0px;
+
+        width: 100%;
+        height: 1px;
+
+        background-color: var(--color-base3);
+    }
+
+    .filter-tag {
+        margin-bottom: 10px;
+
+        position: relative;
+
+        font-size: 18px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        color: var(--color-base1);
+    }
+
+
     .filter-options {
         display: flex;
         flex-direction: column;
         gap: 10px;
-
-        margin-left: 10px;
+        margin-left: 20px;
+        margin-bottom: 20px;
     }
 
 </style>
@@ -932,15 +984,15 @@
                     </label>
                     <label for="price" class="sortBy">
                         <input type="radio" id="price" name="sortBy" value="Price">
-                        Price
+                        <span>Price</span>
                     </label>
                     <label for="arrivalTime" class="sortBy">
-                        <input type="radio" id="arrrivalTime" name="sortBy" value="Arrival Time">
-                        Arrival Time
+                        <input type="radio" id="arrivalTime" name="sortBy" value="Arrival Time">
+                        <span>Arrival Time</span>
                     </label>
                     <label for="departureTime" class="sortBy">
                         <input type="radio" id="departureTime" name="sortBy" value="Departure Time">
-                        Departure Time
+                        <span>Departure Time</span>
                     </label>
                 </div>
             </div>
