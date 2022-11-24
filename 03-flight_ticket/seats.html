@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IVE Airline - Search Result</title>
+</head>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" type="text/css" href="../styles/style_headers.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_searchbox.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_searchResults.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../scripts/inputs.js"></script>
+
+<script type="text/javascript" src="../scripts/highlight.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
+
+<script type="module" src="../scripts/element_headers.js"></script>
+<script type="module" src="../scripts/element_flightCards.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.tab-item input').on('click', function() {
+            var item = $(this).val();
+            $('.tab-body').removeClass('tab-active')
+            console.log($('#-'+item).addClass('tab-active'))
+        })
+
+        $('.seat-legroom, .seat-forward, .seat-standard, .seat-selected').on('click', function() {
+            console.log($(this).val())
+            $(this).toggleClass('seat-selected')
+            $('.seatplan-seat[type=button]').not(this).removeClass('seat-selected')
+
+            $(this).effect('bounce', {times : 2, distance: 12}, 400)
+        })
+
+        $('.seatplan-seat')
+            .not('.seatplan-seat.seat-legroom')
+            .not('.seatplan-seat.seat-forward')
+            .not('.seatplan-seat.seat-standard')
+            .not('.seatplan-seat.seat-selected')
+            .click(function() {
+                $(this).effect('shake', {times : 3, distance: 4}, 500)
+            })  
+    })
+</script>
+<style>
+    html {
+        height: 1600px;
+    }
+
+    :root {
+        --color-base1: #0277BD;
+        --color-base2: #757575;
+        --color-base3: #BDBDBD;
+    }
+    .section-content {
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+    .search-result {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .search-title h1 {
+        /* color: #4527A0; */
+        font-size: 2em;
+        font-family: 'Abril Fatface', cursive;
+        font-weight: 400;
+
+        background: -webkit-linear-gradient(45deg, #4527A0 0%, #0277BD 20%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .search-title h3 {
+        color: var(--color-base2);
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 400;
+    }
+    .search-title h3 span {
+        color: var(--color-base1);
+        font-size: 1.2em;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+
+
+
+    
+    .step-line {
+        position: relative;
+        width: 600px;
+        height: 100px;
+
+        margin: 40px auto 0 auto;
+    }
+    .step-line::after {
+        content: '';
+        position: absolute;
+        top: 25%;
+
+        width: 600px;
+        height: 2px;
+        background-color: var(--color-base3);
+    }
+    .step1-circle::after  {
+        content: '';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 0px;
+
+        width: 40px;
+        height: 40px;
+        background-color: orange;
+        border: 12px #EEEEEE solid;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    .step2-circle::after  {
+        content: '';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 200px;
+
+        width: 40px;
+        height: 40px;
+        background-color: var(--color-base2);
+        border: 12px #EEEEEE solid;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    .step3-circle::after  {
+        content: '';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 400px;
+
+        width: 40px;
+        height: 40px;
+        background-color: var(--color-base2);
+        border: 12px #EEEEEE solid;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    .step4-circle::after  {
+        content: '';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 600px;
+
+        width: 40px;
+        height: 40px;
+        background-color: var(--color-base2);
+        border: 12px #EEEEEE solid;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    .step1-text::before {
+        content: '1';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 0;
+
+        color: black;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step2-text::before {
+        content: '2';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 200px;
+
+        color: white;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step3-text::before {
+        content: '3';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 400px;
+
+        color: white;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step4-text::before {
+        content: '4';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 600px;
+
+        color: white;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step1-text::after {
+        content: 'flights';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 60%;
+        left: 0;
+
+        color: black;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step2-text::after {
+        content: 'passengers';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 60%;
+        left: 200px;
+
+        color: black;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step3-text::after {
+        content: 'seats';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 60%;
+        left: 400px;
+
+        color: black;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step4-text::after {
+        content: 'payment';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 60%;
+        left: 600px;
+
+        color: black;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+
+
+
+
+    .tab-widget {
+        width: 1000px;
+
+        color: black;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    .tab-head {
+        display: flex;
+        gap: 8px;
+    }
+    .tab-item {
+        width: 100%;
+
+        box-sizing: border-box;
+        padding: 10px 0 10px 0;
+
+        text-align: center;
+        text-transform: uppercase;
+
+        position: relative;
+        
+        cursor: pointer;
+        background-color: #F5F5F5;
+        box-shadow: 
+            inset 4px 0 4px -2px rgba(0, 0, 0, 0.2),
+            inset -4px 0 4px -2px rgba(0, 0, 0, 0.2);
+    }
+    .tab-item input[type=radio] {
+        display: none;
+    }
+    .tab-item::before, 
+    .tab-item::after {
+        content: "";
+        position: absolute;
+
+        left: 0;
+        width: 100%;
+    }
+    .tab-item::before {
+        top: 0;
+        height: 4px;
+        background-color: var(--color-base2);
+    }
+    .tab-item::after {
+        bottom: 0;
+        height: 1px;
+        background-color: var(--color-base3);
+    }
+    
+
+    .tab-item:has(input:checked) {
+        background-color: white;
+        box-shadow: 
+            4px 0 4px -2px rgba(0, 0, 0, 0.2),
+            -4px 0 4px -2px rgba(0, 0, 0, 0.2);
+    }
+    .tab-item:has(input:checked)::before {
+        background-color: orange;
+    }
+    .tab-item:has(input:checked)::after {
+        background-color: #F5F5F5;
+    }
+    .tab-item:has(input:checked) .item-label2 span {
+        background-color: white;
+    }
+    .tab-item:has(input:checked) .item-label2::before {
+        text-shadow: 
+            -4px 0 white, 
+            0 4px white, 
+            4px 0 white,
+            0 -4px white;
+    }
+
+    .tab-body {
+        box-sizing: border-box;
+        padding: 20px;
+        background-color: #F5F5F5;
+        box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.2);
+        display: none;
+        overflow: hidden;
+    }
+    .tab-active {
+        display: block;
+        background-color: white;
+    }
+
+
+    .item-label1 {
+        color: var(--color-base2);
+        font-size: 14px;  
+    }
+    .item-label2 {
+        display: inline-flex;
+        gap: 40px;
+        margin: 2px;
+        
+        position: relative;
+        font-size: 14px;
+    }
+    .item-label2 span {
+        box-sizing: border-box;
+        padding: 0 4px;
+        background-color: #F5F5F5;
+        z-index: 1;
+    }
+
+    .item-label2::before {
+        content: "\e539";
+        position: absolute;
+
+        top: 0;
+        left: 50%;
+        margin-left: -6px;
+
+        color: var(--color-base2);
+        font-size: 18px;
+        font-family: "Material Icons";
+        font-weight: 400;
+        text-shadow: 
+            -4px 0 #F5F5F5, 
+            0 4px #F5F5F5, 
+            4px 0 #F5F5F5,
+            0 -4px #F5F5F5;
+
+        z-index: 2;
+        transform: rotate(90deg);
+    }
+    .item-label3 {
+        color: #00838F;
+        font-size: 12.5px;
+    }
+
+
+    .passenger {
+        width: 400px;
+        height: 100px;
+        display: inline-block;
+        border: 1px var(--color-base1) solid;
+        box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+    }
+    .passenger-name {
+        box-sizing: border-box;
+        padding: 10px 20px;
+        position: relative;
+    }
+    .passenger-name::after {
+        content: "";
+        position: absolute;
+
+        left: 0;
+        bottom: 0;
+
+        width: 100%;
+        height: 1px;
+
+        background-color: var(--color-base3);
+    }
+    .passenger-seat {
+
+    }
+
+
+
+
+    .seatplan-legend {
+        box-sizing: border-box;
+        padding: 20px ;
+        border: 1px var(--color-base2) solid;
+        border-radius: 4px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .legend-items {
+        display: flex;
+        gap: 40px;
+    }
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        font-size: 14px;
+    }
+    .legend-label div {
+        font-weight: 400;
+    }
+
+
+
+
+    .airplane-model {
+        display: flex;
+        align-items: center;
+
+        color: black;
+        font-size: 14px;
+        font-weight: 600;
+
+        position: relative;
+        padding-top: 10px;
+    }
+    .airplane-model::before {
+        margin-right: 6px;
+        content: "\e905";
+
+        color: black;
+        font-size: 24px;
+        font-family: "Material Icons";
+        font-weight: 400;
+    }
+    .airplane-model::after {
+        content: "";
+        position: absolute;
+        
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 1px;
+
+        background-color: var(--color-base3);
+    }
+
+
+
+
+    .seatplan-seat {
+        width: 30px;
+        height: 30px;
+        box-sizing: border-box;
+
+        background-color: var(--color-base2);
+        border: 2px var(--color-base3) solid;
+        border-radius: 4px;
+    }
+    .seatplan-seat[type=button] {
+        width: 40px;
+        height: 40px;
+
+        color: white;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    .seat-legroom {
+        color: black;
+        background-color: #FF8F00;
+        border: 2px #FFE082 solid;
+    }
+    .seat-forward {
+        background-color: #2E7D32;
+        border: 2px #A5D6A7 solid;
+    }
+    .seat-standard {
+        background-color: #66BB6A;
+        border: 2px #A5D6A7 solid;
+    }
+    .seat-selected {
+        background-color: #283593;
+        border: 2px #9FA8DA solid;
+    }
+    .seat-unavailable {
+        background-color: #C62828;
+        border: 2px #EF9A9A solid;
+    }
+    .seat-label {
+        height: 40px;
+        width: 40px;
+
+        color: var(--color-base2);
+        text-align: center;
+    }
+
+
+    .toilet {
+        text-align: center;
+        background-color: var(--color-base3);
+        border: 2px #EEEEEE solid;
+        border-radius: 4px;
+    }
+    .toilet::before {
+        content: "\e63d";
+        vertical-align: middle;
+            
+        color: var(--color-base2);
+        font-size: 24px;
+        font-family: "Material Icons";
+        font-weight: 400;
+    }
+    .disable::before {
+        content: "\e63d\e914";
+    }
+
+    .exit {
+        text-align: center;
+        background-color: white;
+        border: 2px #EF5350 solid;
+        border-radius: 4px;
+    }
+    .exit::before {
+        content: "\e9ba";
+        vertical-align: middle;
+            
+        color: #EF5350;
+        font-size: 24px;
+        font-family: "Material Icons";
+        font-weight: 400;
+    }
+ 
+</style>
+
+<body>
+    <header-index></header-index>
+
+    <section class="section-title">
+        <h1 id="title">Search Result</h1>
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="wave wave4"></div>
+    </section>
+
+    <section class="section-content" 
+        style="
+            margin: 40px 0 20px 0;
+            background-color: #EEEEEE;
+            border-top: 1px var(--color-base3) solid;
+            border-bottom: 1px var(--color-base3) solid;
+        "
+    >
+        <div class="step-line">
+            <div class="step1-circle"></div>
+            <div class="step2-circle"></div>
+            <div class="step3-circle"></div>
+            <div class="step4-circle"></div>
+            <div class="step1-text"></div>
+            <div class="step2-text"></div>
+            <div class="step3-text"></div>
+            <div class="step4-text"></div>
+        </div>
+    </section>
+
+    <section class="section-content">
+        <div class="tab-widget">
+            <div class="tab-head">
+                <label for="item1" class="tab-item">
+                    <input type="radio" id="item1" name="tab-item" value="item1" checked>
+                    <div class="item-label1">departing</div>
+                    <div class="item-label2">
+                        <span>hkg</span>
+                        <span>jfk</span>
+                    </div>
+                    <div class="item-label3">economy</div>
+                </label>
+                <label for="item2" class="tab-item">
+                    <input type="radio" id="item2" name="tab-item" value="item2">
+                    <div class="item-label1">departing</div>
+                    <div class="item-label2">
+                        <span>hkg</span>
+                        <span>jfk</span>
+                    </div>
+                    <div class="item-label3">economy</div>
+                </label>
+                <label for="item3" class="tab-item">
+                    <input type="radio" id="item3" name="tab-item" value="item3">
+                    <div class="item-label1">departing</div>
+                    <div class="item-label2">
+                        <span>hkg</span>
+                        <span>jfk</span>
+                    </div>
+                    <div class="item-label3">economy</div>
+                </label>
+                <label for="item4" class="tab-item">
+                    <input type="radio" id="item4" name="tab-item" value="item4">
+                    <div class="item-label1">departing</div>
+                    <div class="item-label2">
+                        <span>hkg</span>
+                        <span>jfk</span>
+                    </div>
+                    <div class="item-label3">economy</div>
+                </label>
+            </div>
+
+            <div id="-item1" class="tab-body tab-active">
+
+                <!-- <div class="passenger">
+                    <div class="passenger-name">Johnny Greene</div>
+                    <div class="passenger-seat">No seat selected.</div>
+                </div> -->
+
+                <div class="seatplan-legend">
+                    <div>Legend</div>
+                    <div class="legend-items">
+                        <div class="legend-item">
+                            <div class="seatplan-seat seat-legroom"></div>
+                            <div class="legend-label">
+                                <div>Extra Legroom Seat</div>
+                                HKD 1250.70
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seatplan-seat seat-forward"></div>
+                            <div class="legend-label">
+                                <div>Foward Zone Seat</div>
+                                HKD 0.00
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seatplan-seat seat-standard"></div>
+                            <div class="legend-label">
+                                <div>Standard Seat</div>
+                                HKD 0.00
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seatplan-seat seat-selected"></div>
+                            <div class="legend-label">
+                                <div>Selected</div>
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seatplan-seat"></div>
+                            <div class="legend-label">
+                                <div>Not Available</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div>
+                        <span>Bassinet</span>
+                        <span>Windowless seat</span>
+                        <span>All seats are equipped with 110V AC</span>
+                        <span>12.1-inch touchscreen monitor</span>
+                    </div> -->
+                
+                    <div class="airplane-model">Airbus A350-900</div>
+                </div>
+
+                <div style=
+                "   
+                    overflow-y: scroll;
+                    height: 600px;
+                    
+                    display: flex;
+                    justify-content: center;
+
+                    margin: 20px;
+                "
+                >
+                    <table>
+                        <tr>
+                            <td class="seat-label">A</td>
+                            <td class="seat-label">B</td>
+                            <td class="seat-label">C</td>
+                            <td class="seat-label"></td>
+                            <td class="seat-label">D</td>
+                            <td class="seat-label">E</td>
+                            <td class="seat-label">F</td>
+                            <td class="seat-label"></td>
+                            <td class="seat-label">G</td>
+                            <td class="seat-label">H</td>
+                            <td class="seat-label">I</td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat" value="A30"></td>
+                            <td><input type="button" class="seatplan-seat" value="B30"></td>
+                            <td><input type="button" class="seatplan-seat" value="C30"></td>
+                            <td class="seat-label">30</td>
+                            <td><input type="button" class="seatplan-seat" value="D30"></td>
+                            <td><input type="button" class="seatplan-seat" value="E30"></td>
+                            <td><input type="button" class="seatplan-seat" value="F30"></td>
+                            <td class="seat-label">30</td>
+                            <td><input type="button" class="seatplan-seat" value="G30"></td>
+                            <td><input type="button" class="seatplan-seat" value="H30"></td>
+                            <td><input type="button" class="seatplan-seat" value="I30"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat" value="A31"></td>
+                            <td><input type="button" class="seatplan-seat" value="B31"></td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="C31"></td>
+                            <td class="seat-label">31</td>
+                            <td><input type="button" class="seatplan-seat" value="D31"></td>
+                            <td><input type="button" class="seatplan-seat" value="E31"></td>
+                            <td><input type="button" class="seatplan-seat" value="F31"></td>
+                            <td class="seat-label">31</td>
+                            <td><input type="button" class="seatplan-seat" value="G31"></td>
+                            <td><input type="button" class="seatplan-seat" value="H31"></td>
+                            <td><input type="button" class="seatplan-seat" value="I31"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat" value="A32"></td>
+                            <td><input type="button" class="seatplan-seat" value="B32"></td>
+                            <td><input type="button" class="seatplan-seat" value="C32"></td>
+                            <td class="seat-label">32</td>
+                            <td><input type="button" class="seatplan-seat" value="D32"></td>
+                            <td><input type="button" class="seatplan-seat" value="E32"></td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="F32"></td>
+                            <td class="seat-label">32</td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="G32"></td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="H32"></td>
+                            <td><input type="button" class="seatplan-seat" value="I32"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="A33"></td>
+                            <td><input type="button" class="seatplan-seat" value="B33"></td>
+                            <td><input type="button" class="seatplan-seat" value="C33"></td>
+                            <td class="seat-label">33</td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="D33"></td>
+                            <td><input type="button" class="seatplan-seat" value="E33"></td>
+                            <td><input type="button" class="seatplan-seat" value="F33"></td>
+                            <td class="seat-label">33</td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="G33"></td>
+                            <td><input type="button" class="seatplan-seat" value="H33"></td>
+                            <td><input type="button" class="seatplan-seat" value="I33"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="A34"></td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="B34"></td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="C34"></td>
+                            <td class="seat-label">34</td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="D34"></td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="E34"></td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="F34"></td>
+                            <td class="seat-label">34</td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="G34"></td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="H34"></td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="I34"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="A35"></td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="B35"></td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="C35"></td>
+                            <td class="seat-label">35</td>
+                            <td colspan="3"></td>
+                            <td class="seat-label">35</td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="G35"></td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="H35"></td>
+                            <td><input type="button" class="seatplan-seat seat-forward" value="I35"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="toilet"></td>
+                            <td class="seat-label"></td>
+                            <td colspan="2" class="toilet disable"></td>
+                            <td class="toilet"></td>
+                            <td class="seat-label"></td>
+                            <td colspan="3" class="toilet"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="exit"></td>
+                            <td class="seat-label"></td>
+                            <td colspan="3"></td>
+                            <td class="seat-label"></td>
+                            <td colspan="3" class="exit"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat seat-legroom" value="A30"></td>
+                            <td><input type="button" class="seatplan-seat seat-legroom" value="B30"></td>
+                            <td></td>
+                            <td class="seat-label">36</td>
+                            <td><input type="button" class="seatplan-seat" value="D30"></td>
+                            <td><input type="button" class="seatplan-seat" value="E30"></td>
+                            <td><input type="button" class="seatplan-seat" value="F30"></td>
+                            <td class="seat-label">36</td>
+                            <td></td>
+                            <td><input type="button" class="seatplan-seat seat-legroom" value="H30"></td>
+                            <td><input type="button" class="seatplan-seat seat-legroom" value="I30"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat" value="A31"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="B31"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="C31"></td>
+                            <td class="seat-label">37</td>
+                            <td><input type="button" class="seatplan-seat" value="D31"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="E31"></td>
+                            <td><input type="button" class="seatplan-seat" value="F31"></td>
+                            <td class="seat-label">37</td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="G31"></td>
+                            <td><input type="button" class="seatplan-seat" value="H31"></td>
+                            <td><input type="button" class="seatplan-seat" value="I31"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat" value="A32"></td>
+                            <td><input type="button" class="seatplan-seat" value="B32"></td>
+                            <td><input type="button" class="seatplan-seat" value="C32"></td>
+                            <td class="seat-label">38</td>
+                            <td><input type="button" class="seatplan-seat" value="D32"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="E32"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="F32"></td>
+                            <td class="seat-label">38</td>
+                            <td><input type="button" class="seatplan-seat" value="G32"></td>
+                            <td><input type="button" class="seatplan-seat" value="H32"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="I32"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="A33"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="B33"></td>
+                            <td><input type="button" class="seatplan-seat" value="C33"></td>
+                            <td class="seat-label">39</td>
+                            <td><input type="button" class="seatplan-seat" value="D33"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="E33"></td>
+                            <td><input type="button" class="seatplan-seat" value="F33"></td>
+                            <td class="seat-label">39</td>
+                            <td><input type="button" class="seatplan-seat" value="G33"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="H33"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="I33"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat" value="A34"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="B34"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="C34"></td>
+                            <td class="seat-label">40</td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="D34"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="E34"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="F34"></td>
+                            <td class="seat-label">40</td>
+                            <td><input type="button" class="seatplan-seat" value="G34"></td>
+                            <td><input type="button" class="seatplan-seat" value="H34"></td>
+                            <td><input type="button" class="seatplan-seat" value="I34"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat" value="A35"></td>
+                            <td><input type="button" class="seatplan-seat" value="B35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="C35"></td>
+                            <td class="seat-label">41</td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="D35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="E35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="F35"></td>
+                            <td class="seat-label">41</td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="G35"></td>
+                            <td><input type="button" class="seatplan-seat" value="H35"></td>
+                            <td><input type="button" class="seatplan-seat" value="I35"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat" value="A35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="B35"></td>
+                            <td><input type="button" class="seatplan-seat" value="C35"></td>
+                            <td class="seat-label">42</td>
+                            <td><input type="button" class="seatplan-seat" value="D35"></td>
+                            <td><input type="button" class="seatplan-seat" value="E35"></td>
+                            <td><input type="button" class="seatplan-seat" value="F35"></td>
+                            <td class="seat-label">42</td>
+                            <td><input type="button" class="seatplan-seat" value="G35"></td>
+                            <td><input type="button" class="seatplan-seat" value="H35"></td>
+                            <td><input type="button" class="seatplan-seat" value="I35"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat" value="A35"></td>
+                            <td><input type="button" class="seatplan-seat" value="B35"></td>
+                            <td><input type="button" class="seatplan-seat" value="C35"></td>
+                            <td class="seat-label">43</td>
+                            <td><input type="button" class="seatplan-seat" value="D35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="E35"></td>
+                            <td><input type="button" class="seatplan-seat" value="F35"></td>
+                            <td class="seat-label">43</td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="G35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="H35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="I35"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat" value="A35"></td>
+                            <td><input type="button" class="seatplan-seat" value="B35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="C35"></td>
+                            <td class="seat-label">44</td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="D35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="E35"></td>
+                            <td><input type="button" class="seatplan-seat" value="F35"></td>
+                            <td class="seat-label">44</td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="G35"></td>
+                            <td><input type="button" class="seatplan-seat" value="H35"></td>
+                            <td><input type="button" class="seatplan-seat" value="I35"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="A35"></td>
+                            <td><input type="button" class="seatplan-seat" value="B35"></td>
+                            <td><input type="button" class="seatplan-seat" value="C35"></td>
+                            <td class="seat-label">45</td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="D35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="E35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="F35"></td>
+                            <td class="seat-label">45</td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="G35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="H35"></td>
+                            <td><input type="button" class="seatplan-seat " value="I35"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="A35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="B35"></td>
+                            <td><input type="button" class="seatplan-seat" value="C35"></td>
+                            <td class="seat-label">46</td>
+                            <td><input type="button" class="seatplan-seat" value="D35"></td>
+                            <td><input type="button" class="seatplan-seat" value="E35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="F35"></td>
+                            <td class="seat-label">46</td>
+                            <td><input type="button" class="seatplan-seat" value="G35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="H35"></td>
+                            <td><input type="button" class="seatplan-seat" value="I35"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="A35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="B35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="C35"></td>
+                            <td class="seat-label">47</td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="D35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="E35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="F35"></td>
+                            <td class="seat-label">47</td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="G35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="H35"></td>
+                            <td><input type="button" class="seatplan-seat seat-standard" value="I35"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="toilet"></td>
+                            <td class="seat-label"></td>
+                            <td colspan="2" class="toilet disable"></td>
+                            <td class="toilet"></td>
+                            <td class="seat-label"></td>
+                            <td colspan="3" class="toilet"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="exit"></td>
+                            <td class="seat-label"></td>
+                            <td colspan="3"></td>
+                            <td class="seat-label"></td>
+                            <td colspan="3" class="exit"></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="float: right;">
+                    <button id="btn-submit" class="btn-style1">Next: Payment</button>
+                </div>
+            </div>
+            <div id="-item2" class="tab-body">
+                Item 2
+            </div>
+            <div id="-item3" class="tab-body">
+                Item 3
+            </div>
+            <div id="-item4" class="tab-body">
+                Item 4
+            </div>
+        </div>
+    </section>
+</body>
+</html>

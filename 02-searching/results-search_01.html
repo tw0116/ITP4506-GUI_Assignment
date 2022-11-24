@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
 <link rel="stylesheet" type="text/css" href="../styles/style_searchbox.css">
 <link rel="stylesheet" type="text/css" href="../styles/style_searchResults.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_flightCards.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -124,162 +125,6 @@
         font-family: 'Quicksand', sans-serif;
         font-weight: 600;
     }
-
-    /* Flight Cards */
-    .flight-card {
-        display: inline-flex;
-        min-height: 200px;
-
-        color: var(--color-base2);
-        font-family: 'Quicksand', sans-serif;
-        background-color: white;
-        border: 1px var(--color-base3) solid;
-        border-radius: 8px;
-        box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
-    }
-    .flight-info {
-        padding: 20px 0 20px 0;
-        width: 800px;
-
-        transition: 
-            transform 0.8s ease-in-out,
-            opacity 0.5s ease-in-out
-    }
-    .sections {
-        display: flex;
-        flex-direction: column;
-    }
-    .section-top {
-        padding: 0px 24px;
-        color: black;
-        font-weight: 600;
-    }
-    .section-bottom {
-        display: flex;
-    }
-    .block-info {
-        padding: 12px 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-    }
-    .block-info .airport {
-        padding: 0 8px;
-        color: white;
-        font-size: 24px;
-        background-color: var(--color-base1);
-        border-radius: 4px;
-    }
-    .block-info .time {
-        color: var(--color-base1);
-        font-size: 24px;
-        font-weight: 600;
-    }
-    .block-info .location {
-        color: black;
-        font-size: 12px;
-        font-weight: 600;
-    }
-    .block-info .date {
-        color: var(--color-base2);
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    /* Flightline & layover circle(s) */
-    .block-flightline {
-        position: relative;
-        width: 180px;
-    }
-    .block-flightline::after {
-        content: '';
-        position: absolute;
-        top: 28px;
-
-        width: 180px;
-        height: 1px;
-        background-color: var(--color-base3);
-    }
-    .block-flightline .os-circle::after {
-        content: '';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 28px;
-        left: 50%;
-
-        width: 10px;
-        height: 10px;
-        background-color: orange;
-        border-radius: 50%;
-        z-index: 1;
-    }
-    .block-flightline .ts-circle1::after {
-        content: '';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 28px;
-        left: 25%;
-
-        width: 10px;
-        height: 10px;
-        background-color: orange;
-        border-radius: 50%;
-        z-index: 1;
-    }
-    .block-flightline .ts-circle2::after {
-        content: '';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 28px;
-        left: 75%;
-
-        width: 10px;
-        height: 10px;
-        background-color: orange;
-        border-radius: 50%;
-        z-index: 1;
-    }
-    .os-layover {
-        position: absolute;
-        min-width: 80px;
-        text-align: center;
-        font-size:  14px;
-
-        transform: translate(-50%, 0);
-        top: 38px;
-        left: 50%;
-    }
-    .ts-layover1 {
-        position: absolute;
-        min-width: 80px;
-        text-align: center;
-        font-size:  14px;
-
-        transform: translate(-50%, 0);
-        top: 38px;
-        left: 25%;
-    }
-    .ts-layover2 {
-        position: absolute;
-        min-width: 80px;
-        text-align: center;
-        font-size:  14px;
-
-        transform: translate(-50%, 0);
-        top: 38px;
-        left: 75%;
-    }
-    .layover-airport {
-        color: black;
-        font-weight: 600;
-    }
-    .layover-time {
-        white-space: wrap;
-    }
-
     
     /* Airlines Group Icons*/
     .flight {
@@ -336,165 +181,7 @@
         color: #757575;
     }
 
-    /* Flight numbers */
-    .block-info_2 {
-        padding: 12px 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-    .block-info_2 .dot {
-        padding: 8px;
-    }
-    .block-info_2 .dot::before {
-        content: '';
-        position: absolute;
-        transform: translate(-50%, -50%);
 
-        width: 4px;
-        height: 4px;
-        background-color: var(--color-base2);
-        border-radius: 50%;
-    }
-    .block-info_2 .btn-moreDetails,
-    .block-info_2 .btn-lessDetails {
-        margin-top: 10px;
-        color: #0277BD;
-        font-size: 14px;
-        font-weight: 600;
-        text-decoration: underline;
-        background-color: transparent;
-        cursor: pointer;
-    }
-    .block-info_2 .flight-num {
-        color: black;
-        font-size: 16px;
-        font-weight: 600;
-    }
-
-
-    /* Flight Classes & Price */
-    .flight-class {
-        position: relative;
-        width: 200px;
-        border-left: 1px var(--color-base3) solid;
-    }
-    .flight-class .section-top {
-        height: 40px;
-        
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        color: white;
-        font-family: 'Abril Fatface', cursive;
-        font-weight: 400;
-    }
-    .class_1 {
-        background-color: #37474F;
-    }
-    .class_2 {
-        background-color: #00838F;
-    }
-    .class_3 {
-        background-color: #283593;
-    }
-    .class_4 {
-        background-color: #4527A0;
-        border-radius: 0 7px 0 0;
-    }
-    .flight-class .section-bottom {
-        width: 200px;
-        
-        display: flex;
-        flex-direction: column;
-
-        position: absolute;
-        transform: translate(-50%, -50%);
-        top: 58%;
-        left: 50%;
-
-        align-items: center;
-        font-weight: 600;
-    }
-    .section-bottom .currency {
-        color: #424242;
-        font-size: 24px;
-        font-weight: 600;
-    }
-    .section-bottom .price {
-        color: #424242;
-        font-size: 24px;
-        font-family: 'Abril Fatface', cursive;
-    }
-
-    /* Flight Details */
-    .flight-details {
-        width: 800px;
-    }
-    .block-details {
-        padding: 20px 0 20px 0;
-        box-sizing: border-box;
-        min-height: 200px;
-    }
-    .block-details .layover-title {
-        display: flex;
-        align-items: center;
-
-        color: var(--color-base2);
-    }
-    .block-details .layover-title::before {
-        margin-right: 4px;
-        content: "\e425";
-
-        color: var(--color-base2);
-        font-size: 24px;
-        font-family: "Material Icons";
-        font-weight: 400;
-    }
-    .block-flightline .airplane-icon::before {
-        margin-right: 6px;
-        content: "\e539";
-
-        position: absolute;
-        top: calc(28px - 11px);
-        left: calc(50% - 12px);
-
-        color: var(--color-base2);
-        font-size: 24px;
-        font-family: "Material Icons";
-        font-weight: 400;
-        text-shadow: 
-            -4px 0 white, 
-            0 4px white, 
-            4px 0 white,
-            0 -4px white;
-
-        z-index: 1;
-        transform: rotate(90deg);
-    }
-    .block-details .airport-name {
-        color: var(--color-base2);
-        font-size: 12px;
-        font-weight: 600;
-    }
-    .block-details .airplane-model {
-        display: flex;
-        align-items: center;
-
-        color: black;
-        font-size: 14px;
-        font-weight: 600;
-    }
-    .block-details .airplane-model::before {
-        margin-right: 6px;
-        content: "\e905";
-
-        color: black;
-        font-size: 24px;
-        font-family: "Material Icons";
-        font-weight: 400;
-    }
 
 
     .step-line {
@@ -702,7 +389,7 @@
 
         width: fit-content;
 
-        padding-bottom: 2px;
+        padding-bottom: 4px;
 
         font-size: 16px;
         font-family: 'Quicksand', sans-serif;
@@ -736,18 +423,17 @@
         justify-content: center;
         align-items: center;
 
-        color: var(--color-base2);
+        color: #616161;
         font-size: 1.2em;
         font-family: 'Quicksand', sans-serif;
         font-weight: 600;
         
-        width: 122px;
         height: 26px;
 
         padding: 0 8px;
         font-size: 16px;
         font-weight: 600;
-        background-color: #EEEEEE;
+        background-color: #E0E0E0;
         border: 1px var(--color-base3) solid;
         border-radius: 20px;
 
@@ -783,12 +469,11 @@
         flex-direction: column;
         gap: 20px;
 
-        background-color: white;
+        background-color: #F5F5F5;
         border: 1px var(--color-base3) solid;
         border-radius: 8px;
         box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
     }
-
     .filter-tag {    
         margin-bottom: 10px;
         padding-bottom: 2px;
@@ -812,7 +497,6 @@
 
         background-color: var(--color-base3);
     }
-
     .filter-options {
         display: flex;
         flex-direction: column;
