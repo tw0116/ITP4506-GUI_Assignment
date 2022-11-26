@@ -39,56 +39,8 @@
         var dp_val = $('.dp-selector').val()
 
         $('#btn-submit').click(function() {     
-            if (
-                $('input:text').val() == "" ||
-                !$('input:radio').is(':checked') ||
-                $('#agreement').is(':not(:checked)') ||
-                $('.lst').find('.lst-selected').text().trim() == "Title" ||
-                $('.lst').find('.txt-textarea').val() == "" ||
-                $('input:password').val() == ""
-            ) {
-                let text = $('input:text').filter(function() { return $(this).val() == "" })
-                let radio = $('input:radio').filter(function() { return !$(this).is(':checked') })
-                let checkbox = $('input:checkbox').filter(function() { return $(this).is(':not(:checked)') })
-                let list = $('.lst').find('.lst-selected').filter(function() { return $(this).text().trim() == "Title" })
-                let searchList = $('.lst').find('.txt-textarea').filter(function() { return $(this).val() == "" })
-                // let datePicker = $('.dp').find('.dp-selector').filter(function() { return $(this).val() == dp_val })
-                let password = $('input:password').filter(function() { return $(this).val() == "" })
 
-                text.parent().siblings('.msg').show()
-                radio.parent().siblings('.msg').show()
-                list.parent().siblings('.msg').show()
-                searchList.parent().parent().siblings('.msg').show()
-                // datePicker.parent().siblings('.msg')
-                password.parent().siblings('.msg').show()
-            }
-            else {
-                swal({
-                    title: "Successful",
-                    text: "You have successfully registered.",
-                    icon: "success",
-                    button: "Login",
-                })
-                .then(function() {
-                    $('body').load('./login.html')
-                })
-            }
-
-            let _text = $('input:text').filter(function() { return $(this).val() != "" })
-            let _radio = $('input:radio').filter(function() { return $(this).is(':checked') })
-            let _checkbox = $('input:checkbox').filter(function() { return $(this).is(':checked') })
-            let _list = $('.lst').find('.lst-selected').filter(function() { return $(this).text().trim() != "Title" })
-            let _searchList = $('.lst').find('.txt-textarea').filter(function() { return $(this).val() != "" })
-            // let _datePicker = $('.dp').find('.dp-selector').filter(function() { return $(this).val() != dp_val })
-            let _password = $('input:password').filter(function() { return $(this).val() != "" })
-            
-            _text.parent().siblings('.msg').hide()
-            _radio.parent().siblings('.msg').hide()
-            _list.parent().siblings('.msg').hide()
-            _searchList.parent().parent().siblings('.msg').hide()
-            // _datePicker.parent().siblings('.msg')
-            _password.parent().siblings('.msg').hide()
-        })
+        })     
     })
 </script>
 
