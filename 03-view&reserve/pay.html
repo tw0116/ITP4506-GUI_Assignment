@@ -411,6 +411,40 @@
 
         z-index: 2;
     }
+
+
+    .payment-method {
+        width: 200px;
+        height: 100px;
+
+        display: grid;
+        place-content: center;
+        text-align: center;
+        
+        border: 1px var(--color-base2) solid;
+        border-radius: 4px;
+        box-shadow: 0 4px 2px 0 rgb(0, 0, 0, 0.2);
+
+        cursor: pointer;
+    }
+    .method-selected {
+        border: 1px var(--color-base1) solid;
+    }
+
+    .payment-label {
+        color: black;
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    
+    .payment-img img {
+        width: 40px;
+    }
+
+    .payment-total {
+        border: 1px var(--color-base1) solid;
+    }
 </style>
 <body>
     
@@ -455,6 +489,35 @@
                     In some instances, credit / debit card verification may be required.
                 </p>
                 <p><a href="">&lt; Back</a></p>
+            </div>
+
+            <div class="register-info">
+                <div class="row">
+                    <div class="payment-method method-selected">
+                        <div class="payment-label">Credit / Debit Card</div>
+                        <div class="payment-img">
+                            <img src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Visa-Curved.png" alt="visa">
+                            <img src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Mastercard-Curved.png" alt="mastercard">
+                            <img src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Discover-Curved.png" alt="discover">
+                            <img src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/American-Express-Curved.png" alt="express">
+                        </div>
+                    </div>
+                    <div class="payment-method">
+                        <div class="payment-label">Paypal</div>
+                        <div class="payment-img" >
+                            <img src="https://cdn3.iconfinder.com/data/icons/creditcarddebitcard/128/paypal-curved.png" alt="paypal">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="payment-total">
+                        <div>Total to be paid now</div>
+                        <div>
+                            <div>HKD 4,000.00</div>
+                            <div>Includes discounts, taxes and surcharges</div>
+                        </div>
+                    </div>
+                </div>
             </div>
     
             <div class="register-info">
