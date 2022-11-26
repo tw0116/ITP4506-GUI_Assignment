@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>IVE Airline - Register</title>
+</head>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" type="text/css" href="../styles/style_headers.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_register.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../scripts/highlight.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="../scripts/inputs.js"></script>
+
+<script type="module" src="../scripts/element_headers.js"></script>
+
+<script type="text/javascript" lang="javascript">
+    function checkPW(pw) {
+        if (pw.match(/(?=.*[a-z])/)) 
+            strength += 1
+        if (pw.match(/(?=.*[0-9])/))
+            strength += 1
+        if (pw.match(/(?=.*[A-Z])/))
+            strength += 1
+        if (pw.match(/(?=.[`,~,!,@,#,$,%,^,&,*,(,),_,.])/))
+            strength += 1
+
+        setMeter(strength)
+    }
+
+    function setMeter(strength) {
+        $('.pw-meter').attr('strength', strength)
+    }
+
+    function checkConfirmPW(pw) {
+        if (pw == $('#confirm-password').val())
+            return true
+        else
+            return false
+    }
+
+    $(document).ready(function() {
+        var json_titles = '../jsons/titles.json'
+        var json_countries = '../jsons/countries.json'
+
+        $('.msg').hide();
+        $('#lst-titles').list(json_titles, 'title')
+        $('#slst-countries').custList(format, json_countries, 'dial_code', 'code', 'name')
+        $('.dp-selector').daterangepicker({"singleDatePicker": true})
+
+        $('form').submit(function(e) {
+            e.preventDefault();
+        });
+
+        $('.pw-visibility').click(function() {
+            if ($(this).siblings('.txt-textarea').attr('type') == 'password') {
+                $(this).siblings('.txt-textarea').attr('type', 'text')
+                $(this).removeClass('pw-show')
+                $(this).addClass('pw-hide')
+            }
+            else {
+                $(this).siblings('.txt-textarea').attr('type', 'password')
+                $(this).removeClass('pw-hide')
+                $(this).addClass('pw-show')
+            }
+        })
+
+        $('#password').keyup(function() {
+            strength = 0;
+            checkPW($(this).val())
+        })
+
+        $('#confirm-password').on('keyup focus', function() {
+            if ($(this).val() == "") {
+                $(this).css({'border-color': '#0277BD'})
+                $(this).siblings('label').css({'color': '#0277BD'})
+            } else if ($(this).val() != "" && checkConfirmPW($('#password').val()) == true) {
+                $(this).css({'border-color':'limegreen'})
+                $(this).siblings('label').css({'color': 'limegreen'})
+            } else {
+                $(this).css({'border-color': 'red'})
+                $(this).siblings('label').css({'color':'red'})
+            }
+        })
+
+        $('#confirm-password').focusout(function() {
+            if($(this).val() == "") {
+                $(this).css({'border-color': '#BDBDBD'})
+                $(this).siblings('label').css({'color': '#757575'})
+            } else if ($(this).val() != "" && checkConfirmPW($('#password').val()) == true) {
+                $(this).css({'border-color':'limegreen'})
+                $(this).siblings('label').css({'color': 'limegreen'})
+            }
+        })
+
+        // Check empty input(s) & display error messages
+        var dp_val = $('.dp-selector').val()
+
+        $('#btn-submit').click(function() {     
+            if (
+                $('input:text').val() == "" ||
+                !$('input:radio').is(':checked') ||
+                $('#agreement').is(':not(:checked)') ||
+                $('.lst').find('.lst-selected').text().trim() == "Title" ||
+                $('.lst').find('.txt-textarea').val() == "" ||
+                $('input:password').val() == ""
+            ) {
+                let text = $('input:text').filter(function() { return $(this).val() == "" })
+                let radio = $('input:radio').filter(function() { return !$(this).is(':checked') })
+                let checkbox = $('input:checkbox').filter(function() { return $(this).is(':not(:checked)') })
+                let list = $('.lst').find('.lst-selected').filter(function() { return $(this).text().trim() == "Title" })
+                let searchList = $('.lst').find('.txt-textarea').filter(function() { return $(this).val() == "" })
+                // let datePicker = $('.dp').find('.dp-selector').filter(function() { return $(this).val() == dp_val })
+                let password = $('input:password').filter(function() { return $(this).val() == "" })
+
+                text.parent().siblings('.msg').show()
+                radio.parent().siblings('.msg').show()
+                list.parent().siblings('.msg').show()
+                searchList.parent().parent().siblings('.msg').show()
+                // datePicker.parent().siblings('.msg')
+                password.parent().siblings('.msg').show()
+            }
+            else {
+                swal({
+                    title: "Successful",
+                    text: "You have successfully registered.",
+                    icon: "success",
+                    button: "Login",
+                })
+                .then(function() {
+                    $('body').load('./login.html')
+                })
+            }
+
+            let _text = $('input:text').filter(function() { return $(this).val() != "" })
+            let _radio = $('input:radio').filter(function() { return $(this).is(':checked') })
+            let _checkbox = $('input:checkbox').filter(function() { return $(this).is(':checked') })
+            let _list = $('.lst').find('.lst-selected').filter(function() { return $(this).text().trim() != "Title" })
+            let _searchList = $('.lst').find('.txt-textarea').filter(function() { return $(this).val() != "" })
+            // let _datePicker = $('.dp').find('.dp-selector').filter(function() { return $(this).val() != dp_val })
+            let _password = $('input:password').filter(function() { return $(this).val() != "" })
+            
+            _text.parent().siblings('.msg').hide()
+            _radio.parent().siblings('.msg').hide()
+            _list.parent().siblings('.msg').hide()
+            _searchList.parent().parent().siblings('.msg').hide()
+            // _datePicker.parent().siblings('.msg')
+            _password.parent().siblings('.msg').hide()
+        })
+    })
+</script>
+
+<script type="module" src="./scripts/element_headers.js"></script>
+
+<style>
+    :root {
+        --color-base1: #0277BD;
+        --color-base2: #757575;
+        --color-base3: #BDBDBD;
+    }
+
+    .section-content {
+        display: flex;
+        justify-content: center;
+    }
+
+
+
+
+    .register {
+        width: 800px;
+        margin: 80px 0;
+
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        /* border: 1px red solid; */
+    }
+    .register-heading h1 {
+        margin-bottom: 20px;
+
+        font-size: 2em;
+        font-family: 'Abril Fatface', cursive;
+        font-weight: 400;
+
+        background: -webkit-linear-gradient(45deg, #4527A0 0%, #0277BD 30%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .register-heading p, p {
+        margin: 10px 0;
+        line-height: 1.5em;
+
+        color: var(--color-base2);
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    .register-heading p span {
+        color: var(--color-base1);
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .register-heading p a {
+        font-weight: 600;
+    }
+    
+
+
+
+
+    .register-info {
+        padding: 10px 0 80px 0;
+
+        display: inline-flex;
+        flex-direction: column;
+
+        gap: 12px;
+        
+        border-top: 1px var(--color-base3) solid;
+    }
+    .register-info h1 {
+        margin-bottom: 14px;
+
+        color: #424242;
+        font-family: 'Abril Fatface', cursive;
+        font-weight: 400;
+    }
+    .register-info .row {
+        display: flex;
+
+        gap: 8px;
+    }
+
+
+
+
+    .input {
+        position: relative;
+        display: inline-flex;
+        flex-direction: column;
+
+        /* border: 1px red solid; */
+    }
+
+    .msg {
+        color: red;
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+
+    .txt {
+        width: 250px;
+    }
+    .txt .txt-textarea {
+        width: inherit;
+    }
+    
+    .lst-text {
+        font-size: 16px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    .dial_code {
+        color: var(--color-base2);       
+    }
+    .country {
+        float: right;
+        color: var(--color-base3);
+    }
+
+    
+
+
+    .step-line {
+        position: relative;
+        width: 600px;
+        height: 100px;
+
+        margin: 40px auto 0 auto;
+    }
+    .step-line::after {
+        content: '';
+        position: absolute;
+        top: 25%;
+
+        width: 600px;
+        height: 2px;
+        background-color: var(--color-base3);
+    }
+    .step1-circle::after  {
+        content: '';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 0px;
+
+        width: 40px;
+        height: 40px;
+        background-color: orange;
+        border: 12px #EEEEEE solid;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    .step2-circle::after  {
+        content: '';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 200px;
+
+        width: 40px;
+        height: 40px;
+        background-color: var(--color-base2);
+        border: 12px #EEEEEE solid;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    .step3-circle::after  {
+        content: '';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 400px;
+
+        width: 40px;
+        height: 40px;
+        background-color: var(--color-base2);
+        border: 12px #EEEEEE solid;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    .step4-circle::after  {
+        content: '';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 600px;
+
+        width: 40px;
+        height: 40px;
+        background-color: var(--color-base2);
+        border: 12px #EEEEEE solid;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    .step1-text::before {
+        content: '1';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 0;
+
+        color: black;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step2-text::before {
+        content: '2';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 200px;
+
+        color: white;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step3-text::before {
+        content: '3';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 400px;
+
+        color: white;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step4-text::before {
+        content: '4';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 25%;
+        left: 600px;
+
+        color: white;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step1-text::after {
+        content: 'flights';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 60%;
+        left: 0;
+
+        color: black;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step2-text::after {
+        content: 'passengers';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 60%;
+        left: 200px;
+
+        color: black;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step3-text::after {
+        content: 'seats';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 60%;
+        left: 400px;
+
+        color: black;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+    .step4-text::after {
+        content: 'payment';
+        position: absolute;
+
+        transform: translate(-50%, -50%);
+        top: 60%;
+        left: 600px;
+
+        color: black;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        text-transform: capitalize;
+
+        z-index: 2;
+    }
+</style>
+<body>
+    
+    <header-default></header-default>
+
+    <section class="section-title">
+        <h1 id="title">Registeration</h1>
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="wave wave4"></div>
+    </section>
+
+    <section class="section-content" 
+        style="
+            margin: 40px 0 20px 0;
+            background-color: #EEEEEE;
+            border-top: 1px var(--color-base3) solid;
+            border-bottom: 1px var(--color-base3) solid;
+        "
+    >
+        <div class="step-line">
+            <div class="step1-circle"></div>
+            <div class="step2-circle"></div>
+            <div class="step3-circle"></div>
+            <div class="step4-circle"></div>
+            <div class="step1-text"></div>
+            <div class="step2-text"></div>
+            <div class="step3-text"></div>
+            <div class="step4-text"></div>
+        </div>
+    </section>
+
+    <section class="section-content">
+        <form class="register" novalidate>
+
+            <div class="register-heading">
+                <h1>Passenger&nbsp;&nbsp;Details</h1>
+                <p>
+                    Each passenger must hold a valid passport (and visa(s), If required) to be allowed entry into each destination on the flight itinerary. 
+                    Singapore Airlines cannot be held responsible if a passenger is denied entry and/or deported by any local authority.
+                </p>
+                <p><a href="./login.html">&lt; Back</a></p>
+            </div>
+    
+            <div class="register-info">
+                <h1>Personal Details</h1>
+    
+                <div class="row">
+                    <div class="input">
+                        <div class="lst default" id="lst-titles">
+                            <div class="lst-items"></div>
+                            <div class="lst-selected">
+                                Title
+                            </div>
+                        </div>
+                        <div class="msg">*Please select a title</div>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="input">
+                        <div class="txt" >
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">First Name</label>
+                        </div>
+                        <div class="msg">*Please enter your first name</div>
+                    </div>
+                    
+                    <div class="input">
+                        <div class="txt">
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">Middle Name (optional)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="input">
+                        <div class="txt">
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">Last Name</label>
+                        </div>
+                        <div class="msg">*Please enter your last name</div>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="input">
+                        <div class="dp">
+                            <input type="text" class="dp-selector">
+                            <label id="dp-label">Date of Birth</label>
+                        </div>
+                        <div class="msg">*Please enter your date of birth</div>
+                    </div>
+                    
+                    <div class="input">
+                        <div style="margin-top: 10px;">
+                            <label for="test1" class="rdo">
+                                <input type="radio" name="type" id="test1" class="rdo-input">
+                                <div class="rdo-radio"></div>
+                                <span class="rdo-text">Male</span>
+                            </label>
+    
+                            <label for="test2" class="rdo">
+                                <input type="radio" name="type" id="test2" class="rdo-input">
+                                <div class="rdo-radio"></div>
+                                <span class="rdo-text">Female</span>
+                            </label>
+            
+                            <label for="test3" class="rdo">
+                                <input type="radio" name="type" id="test3" class="rdo-input">
+                                <div class="rdo-radio"></div>
+                                <span class="rdo-text">Other</span>
+                            </label>
+                            <div class="msg" style="position: absolute; top: 100%; transform: translateY(-100%);">*Please select a gender</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="register-info">
+                <h1>Passport Details</h1>
+                <div class="row">
+                    <div class="input">
+                        <div id="slst-countries" class="lst countries" style="width: 200px;">
+                            <div class="lst-items" style="width: inherit;"></div>
+                            <div class="lst-textbox txt" style="width: inherit;">
+                                <input type="text" class="txt-textarea" required>
+                                <label class="txt-placeholder">Nationality</label>
+                            </div>
+                        </div>
+                        <div class="msg">*Please select a nationality (as in passport)</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input">
+                        <div class="txt">
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">Passport Number</label>
+                        </div>
+                        <div class="msg">*Please enter your passport number</div>
+                    </div>
+
+                    <div class="input">
+                        <div id="slst-countries" class="lst countries" style="width: 200px;">
+                            <div class="lst-items" style="width: inherit;"></div>
+                            <div class="lst-textbox txt" style="width: inherit;">
+                                <input type="text" class="txt-textarea" required>
+                                <label class="txt-placeholder">Place of Issue</label>
+                            </div>
+                        </div>
+                        <div class="msg">*Please select the passport’s country/region of issue.</div>
+                    </div>
+
+                    <div class="input">
+                        <div class="txt">
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">Passport Expiry Date</label>
+                        </div>
+                        <div class="msg">*Please enter your passport expiry date</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="register-info">
+                <div class="row">
+                    <label for="agreement" class="rdo">
+                        <input type="checkbox" name="agreement" id="agreement" class="rdo-input">
+                        <div class="rdo-radio"></div>
+                    </label>
+                    <span class="rdo-text" style="margin-left: 8px;">
+                        By submitting my information, I acknowledge and accept the terms of IVE Airline's <a href="">Privacy Policy</a><br>
+                        and <a href="">terms and conditions of the IVE Airline programme.</a>
+                    </span>
+                </div>
+                
+                <div class="row" style="margin: 40px 0 0 auto">
+                    <button id="btn-submit" class="btn-style1">Next: Seats</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <!-- pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$" -->
+</body>
+</html>

@@ -9,19 +9,15 @@
 <link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
 <link rel="stylesheet" type="text/css" href="../styles/style_searchbox.css">
 <link rel="stylesheet" type="text/css" href="../styles/style_searchResults.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../scripts/inputs.js"></script>
 
-<script type="text/javascript" src="../scripts/highlight.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script type="text/javascript" src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
 
 <script type="module" src="../scripts/element_headers.js"></script>
-<script type="module" src="../scripts/element_flightCards.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -32,11 +28,10 @@
         })
 
         $('.seat-legroom, .seat-forward, .seat-standard, .seat-selected').on('click', function() {
-            console.log($(this).val())
             $(this).toggleClass('seat-selected')
             $('.seatplan-seat[type=button]').not(this).removeClass('seat-selected')
 
-            $(this).effect('bounce', {times : 2, distance: 12}, 400)
+            $(this).effect('bounce', {times : 1, distance: 8}, 200)
         })
 
         $('.seatplan-seat')
@@ -44,9 +39,18 @@
             .not('.seatplan-seat.seat-forward')
             .not('.seatplan-seat.seat-standard')
             .not('.seatplan-seat.seat-selected')
-            .click(function() {
-                $(this).effect('shake', {times : 3, distance: 4}, 500)
-            })  
+            .not('button')
+            .mousedown(function() {
+                $(this).addClass('seat-unavailable')
+                $(this).effect('shake', {times : 3, distance: 2}, 500)
+            })
+        
+        $('.seat-abbr').on('click', function() {
+            $(this).toggleClass('seat-abbrSelected')
+            $('.seat-abbr').not(this).removeClass('seat-abbrSelected')
+
+            $(this).effect('bounce', {times : 1, distance: 8}, 200)
+        })
     })
 </script>
 <style>
@@ -376,6 +380,11 @@
         display: none;
         overflow: hidden;
     }
+    .tab-body p {
+        margin-bottom: 10px;
+        color: var(--color-base2);
+        font-size: 14px;
+    }
     .tab-active {
         display: block;
         background-color: white;
@@ -532,8 +541,11 @@
         background-color: var(--color-base2);
         border: 2px var(--color-base3) solid;
         border-radius: 4px;
+
+        cursor: pointer;
     }
-    .seatplan-seat[type=button] {
+    .seatplan-seat[type=button],
+    button.seatplan-seat {
         width: 40px;
         height: 40px;
 
@@ -571,6 +583,33 @@
     }
 
 
+    .seat-abbr {
+        width: 42px;
+        height: 42px;
+
+        color: black;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+
+        background-color: white;
+        border: 1px var(--color-base2) solid;
+        border-radius: 4px;
+        box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
+
+        cursor: pointer;
+    }
+    .seat-abbr span {
+        font-size: 9px;
+        font-weight: 400;
+    }
+    .seat-abbrSelected {
+        color: white;
+        background-color: #283593;
+        border: 1px #9FA8DA solid;
+    }
+
+
     .toilet {
         text-align: center;
         background-color: var(--color-base3);
@@ -586,6 +625,7 @@
         font-family: "Material Icons";
         font-weight: 400;
     }
+
     .disable::before {
         content: "\e63d\e914";
     }
@@ -647,7 +687,7 @@
                     <div class="item-label1">departing</div>
                     <div class="item-label2">
                         <span>hkg</span>
-                        <span>jfk</span>
+                        <span>sin</span>
                     </div>
                     <div class="item-label3">economy</div>
                 </label>
@@ -655,26 +695,26 @@
                     <input type="radio" id="item2" name="tab-item" value="item2">
                     <div class="item-label1">departing</div>
                     <div class="item-label2">
-                        <span>hkg</span>
+                        <span>sin</span>
                         <span>jfk</span>
                     </div>
                     <div class="item-label3">economy</div>
                 </label>
                 <label for="item3" class="tab-item">
                     <input type="radio" id="item3" name="tab-item" value="item3">
-                    <div class="item-label1">departing</div>
+                    <div class="item-label1">returning</div>
                     <div class="item-label2">
-                        <span>hkg</span>
                         <span>jfk</span>
+                        <span>sin</span>
                     </div>
                     <div class="item-label3">economy</div>
                 </label>
                 <label for="item4" class="tab-item">
                     <input type="radio" id="item4" name="tab-item" value="item4">
-                    <div class="item-label1">departing</div>
+                    <div class="item-label1">returning</div>
                     <div class="item-label2">
+                        <span>sin</span>
                         <span>hkg</span>
-                        <span>jfk</span>
                     </div>
                     <div class="item-label3">economy</div>
                 </label>
@@ -1028,11 +1068,84 @@
                     <button id="btn-submit" class="btn-style1">Next: Payment</button>
                 </div>
             </div>
+            
             <div id="-item2" class="tab-body">
-                Item 2
+                <p>Specific seat selection is not available on this flight. 
+                    Please choose your preferred seat type, 
+                    and we'll do our best to fulfill your selection.
+                </p>
+                <div class="seatplan-legend" style="margin-bottom: 10px;">
+                    <div>Legend</div>
+                    <div style=
+                    "                     
+                        display: flex;
+                        justify-content: center;
+                        margin: 20px;
+                    "
+                    >
+                        <table>
+                            <tr>
+                                <td><button class="seat-abbr">w<br><span>window</span></button></td>
+                                <td><button class="seat-abbr"></button></td>
+                                <td><button class="seat-abbr">a<br><span>aisle</span></button></td>
+                                <td class="seat-label"></td>
+                                <td><button class="seat-abbr">a<br><span>aisle</span></button></td>
+                                <td><button class="seat-abbr"></button></td>
+                                <td><button class="seat-abbr">a<br><span>aisle</span></button></td>
+                                <td class="seat-label"></td>
+                                <td><button class="seat-abbr">a<br><span>aisle</span></button></td>
+                                <td><button class="seat-abbr"></button></td>
+                                <td><button class="seat-abbr">w<br><span>window</span></button></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <p>
+                        Aircraft types may vary. For details, get in touch with our partner airline operating this flight.
+                    </p>
+                </div>
+                <div style="float: right;">
+                    <button id="btn-submit" class="btn-style1">Next: Payment</button>
+                </div>
             </div>
+
             <div id="-item3" class="tab-body">
-                Item 3
+                <p>
+                    Specific seat selection is not available on this flight. 
+                    Please choose your preferred seat type, 
+                    and we'll do our best to fulfill your selection.
+                </p>
+                <div class="seatplan-legend" style="margin-bottom: 10px;">
+                    <div>Legend</div>
+                    <div style=
+                    "               
+                        display: flex;
+                        justify-content: center;
+                        margin: 20px;
+                    "
+                    >
+                        <table>
+                            <tr>
+                                <td><button class="seat-abbr">w<br><span>window</span></button></td>
+                                <td><button class="seat-abbr"></button></td>
+                                <td><button class="seat-abbr">a<br><span>aisle</span></button></td>
+                                <td class="seat-label"></td>
+                                <td><button class="seat-abbr">a<br><span>aisle</span></button></td>
+                                <td><button class="seat-abbr"></button></td>
+                                <td><button class="seat-abbr">a<br><span>aisle</span></button></td>
+                                <td class="seat-label"></td>
+                                <td><button class="seat-abbr">a<br><span>aisle</span></button></td>
+                                <td><button class="seat-abbr"></button></td>
+                                <td><button class="seat-abbr">w<br><span>window</span></button></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <p>
+                        Aircraft types may vary. For details, get in touch with our partner airline operating this flight.
+                    </p>
+                </div>
+                <div style="float: right;">
+                    <button id="btn-submit" class="btn-style1">Next: Payment</button>
+                </div>
             </div>
             <div id="-item4" class="tab-body">
                 Item 4
