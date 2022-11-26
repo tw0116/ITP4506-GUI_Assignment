@@ -35,6 +35,13 @@
             e.preventDefault();
         });
 
+        $('.payment-method').on('click', function() {
+            $(this).toggleClass('method-selected')
+            $('.payment-method').not(this).removeClass('method-selected')
+
+            $(this).effect('bounce', {times : 1, distance: 8}, 200)
+        })
+
         // Check empty input(s) & display error messages
         var dp_val = $('.dp-selector').val()
 
@@ -476,6 +483,12 @@
             </div>
 
             <div class="register-info">
+                <div>1.&nbsp;&nbsp;Itinerary</div>
+                <div>2.&nbsp;&nbsp;Passenger & Seats</div>
+                <div>3.&nbsp;&nbsp;Cost breakdown by passenger</div>
+            </div>
+
+            <div class="register-info">
                 <div class="row">
                     <div class="payment-method method-selected">
                         <div class="payment-label">Credit / Debit Card</div>
@@ -487,7 +500,7 @@
                         </div>
                     </div>
                     <div class="payment-method">
-                        <div class="payment-label">Paypal</div>
+                        <div class="payment-label">PayPal</div>
                         <div class="payment-img" >
                             <img src="https://cdn3.iconfinder.com/data/icons/creditcarddebitcard/128/paypal-curved.png" alt="paypal">
                         </div>
