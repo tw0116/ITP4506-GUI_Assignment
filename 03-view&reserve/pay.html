@@ -21,29 +21,6 @@
 <script type="module" src="../scripts/element_headers.js"></script>
 
 <script type="text/javascript" lang="javascript">
-    function checkPW(pw) {
-        if (pw.match(/(?=.*[a-z])/)) 
-            strength += 1
-        if (pw.match(/(?=.*[0-9])/))
-            strength += 1
-        if (pw.match(/(?=.*[A-Z])/))
-            strength += 1
-        if (pw.match(/(?=.[`,~,!,@,#,$,%,^,&,*,(,),_,.])/))
-            strength += 1
-
-        setMeter(strength)
-    }
-
-    function setMeter(strength) {
-        $('.pw-meter').attr('strength', strength)
-    }
-
-    function checkConfirmPW(pw) {
-        if (pw == $('#confirm-password').val())
-            return true
-        else
-            return false
-    }
 
     $(document).ready(function() {
         var json_titles = '../jsons/titles.json'
@@ -57,47 +34,6 @@
         $('form').submit(function(e) {
             e.preventDefault();
         });
-
-        $('.pw-visibility').click(function() {
-            if ($(this).siblings('.txt-textarea').attr('type') == 'password') {
-                $(this).siblings('.txt-textarea').attr('type', 'text')
-                $(this).removeClass('pw-show')
-                $(this).addClass('pw-hide')
-            }
-            else {
-                $(this).siblings('.txt-textarea').attr('type', 'password')
-                $(this).removeClass('pw-hide')
-                $(this).addClass('pw-show')
-            }
-        })
-
-        $('#password').keyup(function() {
-            strength = 0;
-            checkPW($(this).val())
-        })
-
-        $('#confirm-password').on('keyup focus', function() {
-            if ($(this).val() == "") {
-                $(this).css({'border-color': '#0277BD'})
-                $(this).siblings('label').css({'color': '#0277BD'})
-            } else if ($(this).val() != "" && checkConfirmPW($('#password').val()) == true) {
-                $(this).css({'border-color':'limegreen'})
-                $(this).siblings('label').css({'color': 'limegreen'})
-            } else {
-                $(this).css({'border-color': 'red'})
-                $(this).siblings('label').css({'color':'red'})
-            }
-        })
-
-        $('#confirm-password').focusout(function() {
-            if($(this).val() == "") {
-                $(this).css({'border-color': '#BDBDBD'})
-                $(this).siblings('label').css({'color': '#757575'})
-            } else if ($(this).val() != "" && checkConfirmPW($('#password').val()) == true) {
-                $(this).css({'border-color':'limegreen'})
-                $(this).siblings('label').css({'color': 'limegreen'})
-            }
-        })
 
         // Check empty input(s) & display error messages
         var dp_val = $('.dp-selector').val()
@@ -481,7 +417,7 @@
     <header-default></header-default>
 
     <section class="section-title">
-        <h1 id="title">Registeration</h1>
+        <h1 id="title">Payment</h1>
         <div class="wave wave1"></div>
         <div class="wave wave2"></div>
         <div class="wave wave3"></div>
@@ -512,34 +448,23 @@
         <form class="register" novalidate>
 
             <div class="register-heading">
-                <h1>Passenger&nbsp;&nbsp;Details</h1>
+                <h1>Select&nbsp;&nbsp;Payment&nbsp;&nbsp;Method</h1>
                 <p>
-                    Each passenger must hold a valid passport (and visa(s), If required) to be allowed entry into each destination on the flight itinerary. 
-                    Singapore Airlines cannot be held responsible if a passenger is denied entry and/or deported by any local authority.
+                    Payments may also incur foreign transaction and currency conversion fees. 
+                    For virtual cards, only PayPal virtual cards are accepted.
+                    In some instances, credit / debit card verification may be required.
                 </p>
-                <p><a href="./login.html">&lt; Back</a></p>
+                <p><a href="">&lt; Back</a></p>
             </div>
     
             <div class="register-info">
-                <h1>Personal Details</h1>
-    
-                <div class="row">
-                    <div class="input">
-                        <div class="lst default" id="lst-titles">
-                            <div class="lst-items"></div>
-                            <div class="lst-selected">
-                                Title
-                            </div>
-                        </div>
-                        <div class="msg">*Please select a title</div>
-                    </div>
-                </div>
+                <h1>Card Details</h1>
     
                 <div class="row">
                     <div class="input">
                         <div class="txt" >
                             <input type="text" class="txt-textarea" required>
-                            <label class="txt-placeholder">First Name</label>
+                            <label class="txt-placeholder">Name on credit / debit card*</label>
                         </div>
                         <div class="msg">*Please enter your first name</div>
                     </div>
@@ -547,94 +472,30 @@
                     <div class="input">
                         <div class="txt">
                             <input type="text" class="txt-textarea" required>
-                            <label class="txt-placeholder">Middle Name (optional)</label>
+                            <label class="txt-placeholder">Credit / Debit card number*</label>
                         </div>
-                    </div>
-                    
-                    <div class="input">
-                        <div class="txt">
-                            <input type="text" class="txt-textarea" required>
-                            <label class="txt-placeholder">Last Name</label>
-                        </div>
-                        <div class="msg">*Please enter your last name</div>
-                    </div>
-                </div>
-    
-                <div class="row">
-                    <div class="input">
-                        <div class="dp">
-                            <input type="text" class="dp-selector">
-                            <label id="dp-label">Date of Birth</label>
-                        </div>
-                        <div class="msg">*Please enter your date of birth</div>
-                    </div>
-                    
-                    <div class="input">
-                        <div style="margin-top: 10px;">
-                            <label for="test1" class="rdo">
-                                <input type="radio" name="type" id="test1" class="rdo-input">
-                                <div class="rdo-radio"></div>
-                                <span class="rdo-text">Male</span>
-                            </label>
-    
-                            <label for="test2" class="rdo">
-                                <input type="radio" name="type" id="test2" class="rdo-input">
-                                <div class="rdo-radio"></div>
-                                <span class="rdo-text">Female</span>
-                            </label>
-            
-                            <label for="test3" class="rdo">
-                                <input type="radio" name="type" id="test3" class="rdo-input">
-                                <div class="rdo-radio"></div>
-                                <span class="rdo-text">Other</span>
-                            </label>
-                            <div class="msg" style="position: absolute; top: 100%; transform: translateY(-100%);">*Please select a gender</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="register-info">
-                <h1>Passport Details</h1>
-                <div class="row">
-                    <div class="input">
-                        <div id="slst-countries" class="lst countries" style="width: 200px;">
-                            <div class="lst-items" style="width: inherit;"></div>
-                            <div class="lst-textbox txt" style="width: inherit;">
-                                <input type="text" class="txt-textarea" required>
-                                <label class="txt-placeholder">Nationality</label>
-                            </div>
-                        </div>
-                        <div class="msg">*Please select a nationality (as in passport)</div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="input">
-                        <div class="txt">
-                            <input type="text" class="txt-textarea" required>
-                            <label class="txt-placeholder">Passport Number</label>
+                    <div id="lst_items" class="lst default">
+                        <div class="lst-items"></div>
+                        <div class="lst-selected">
+                            MM
                         </div>
-                        <div class="msg">*Please enter your passport number</div>
                     </div>
-
-                    <div class="input">
-                        <div id="slst-countries" class="lst countries" style="width: 200px;">
-                            <div class="lst-items" style="width: inherit;"></div>
-                            <div class="lst-textbox txt" style="width: inherit;">
-                                <input type="text" class="txt-textarea" required>
-                                <label class="txt-placeholder">Place of Issue</label>
-                            </div>
+                    <div id="lst_items" class="lst default">
+                        <div class="lst-items"></div>
+                        <div class="lst-selected">
+                            YYYY
                         </div>
-                        <div class="msg">*Please select the passport’s country/region of issue.</div>
                     </div>
-
                     <div class="input">
-                        <div class="txt">
+                        <div class="txt" >
                             <input type="text" class="txt-textarea" required>
-                            <label class="txt-placeholder">Passport Expiry Date</label>
+                            <label class="txt-placeholder">CCV*</label>
                         </div>
-                        <div class="msg">*Please enter your passport expiry date</div>
+                        <div class="msg">*Please enter your first name</div>
                     </div>
                 </div>
             </div>
@@ -652,12 +513,10 @@
                 </div>
                 
                 <div class="row" style="margin: 40px 0 0 auto">
-                    <button id="btn-submit" class="btn-style1">Next: Seats</button>
+                    <button id="btn-submit" class="btn-style1">Make Payment</button>
                 </div>
             </div>
         </form>
     </section>
-
-    <!-- pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{10,}$" -->
 </body>
 </html>

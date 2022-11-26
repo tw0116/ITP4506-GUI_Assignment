@@ -224,6 +224,7 @@ $(document).ready(function() {
             })
     })
 
+    // Highlights for airport search
     $('.lst.airports').find('.txt-textarea').on('keyup change', function() {
         var keyword = $(this).val()
         var city = $(this)
@@ -265,7 +266,6 @@ $(document).ready(function() {
     }
 
     $('.num').numPicker()
-
     $('.drp-selector').daterangepicker()
 
 
@@ -294,6 +294,7 @@ $(document).ready(function() {
             })
     })
 
+    // Highlight for countries (telephone)
     $('.lst.countries').find('.txt-textarea').on('keyup change', function() {
         var keyword = $(this).val()
         var city = $(this)
