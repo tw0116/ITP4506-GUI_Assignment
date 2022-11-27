@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>IVE Airline - Register</title>
+</head>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" type="text/css" href="../styles/style_headers.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_register.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_stepBar.css">
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../scripts/highlight.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="../scripts/inputs.js"></script>
+
+<script type="module" src="../scripts/element_headers.js"></script>
+
+<script type="text/javascript" lang="javascript">
+
+    $(document).ready(function() {
+        var json_titles = '../jsons/titles.json'
+        var json_countries = '../jsons/countries.json'
+
+        $('.msg').hide();
+        $('#lst-titles').list(json_titles, 'title')
+        $('#slst-countries').list(format, json_countries, 'dial_code', 'code', 'name')
+        $('.dp-selector').daterangepicker({"singleDatePicker": true})
+
+        $('form').submit(function(e) {
+            e.preventDefault();
+        });
+
+        $('.payment-method').on('click', function() {
+            $(this).toggleClass('method-selected')
+            $('.payment-method').not(this).removeClass('method-selected')
+
+            $(this).effect('bounce', {times : 1, distance: 8}, 200)
+        })
+
+        // Check empty input(s) & display error messages
+        var dp_val = $('.dp-selector').val()
+
+        $('.next').click(function() {     
+            swal({
+                title: "Payment Successful",
+                text: "Your payment is successful. Enjoy your flight!",
+                icon: "success",
+                button: "Back to Home Page",
+            })
+            .then(function() {
+                window.location = '../index.html'
+            })
+        })     
+    })
+</script>
+
+<script type="module" src="./scripts/element_headers.js"></script>
+
+<style>
+    :root {
+        --color-base1: #0277BD;
+        --color-base2: #757575;
+        --color-base3: #BDBDBD;
+    }
+
+    .section-content {
+        display: flex;
+        justify-content: center;
+    }
+
+
+
+
+    .register {
+        width: 800px;
+        margin: 80px 0;
+
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        /* border: 1px red solid; */
+    }
+    .register-heading h1 {
+        margin-bottom: 20px;
+
+        font-size: 2em;
+        font-family: 'Abril Fatface', cursive;
+        font-weight: 400;
+
+        background: -webkit-linear-gradient(45deg, #4527A0 0%, #0277BD 30%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .register-heading p, p {
+        margin: 10px 0;
+        line-height: 1.5em;
+
+        color: var(--color-base2);
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    .register-heading p span {
+        color: var(--color-base1);
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .register-heading p a {
+        font-weight: 600;
+    }
+    
+
+
+
+
+    .register-info {
+        padding: 10px 0 80px 0;
+
+        display: inline-flex;
+        flex-direction: column;
+
+        gap: 12px;
+        
+        border-top: 1px var(--color-base3) solid;
+    }
+    .register-info h1 {
+        margin-bottom: 14px;
+
+        color: #424242;
+        font-family: 'Abril Fatface', cursive;
+        font-weight: 400;
+    }
+    .register-info .row {
+        display: flex;
+
+        gap: 8px;
+    }
+
+
+
+
+    .input {
+        position: relative;
+        display: inline-flex;
+        flex-direction: column;
+
+        /* border: 1px red solid; */
+    }
+
+    .txt {
+        width: 250px;
+    }
+    .txt .txt-textarea {
+        width: inherit;
+    }
+
+    .lst-text {
+        font-size: 16px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    .dial_code {
+        color: var(--color-base2);       
+    }
+    .country {
+        float: right;
+        color: var(--color-base3);
+    }
+
+
+
+
+    .payment-method {
+        width: 200px;
+        height: 100px;
+
+        display: grid;
+        place-content: center;
+        text-align: center;
+        
+        border: 1px var(--color-base2) solid;
+        border-radius: 4px;
+        box-shadow: 0 4px 2px 0 rgb(0, 0, 0, 0.2);
+
+        cursor: pointer;
+
+        opacity: 0.5;
+    }
+    .method-selected {
+        border: 1px var(--color-base1) solid;
+        opacity: 1;
+    }
+
+
+    .payment-label {
+        color: black;
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    .payment-img img {
+        width: 40px;
+    }
+    .payment-total {
+        width: 100%;
+        height: 80px;
+
+        box-sizing: border-box;
+        padding: 40px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        color: var(--color-base1);
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        
+        background-color: #EEEEEE;
+        border-radius: 2px;
+
+        box-shadow: 0 4px 2px 0 rgb(0, 0, 0, 0.2);
+    }
+    .payment-price {
+        text-align: right;
+    }
+    .payment-price div:first-child {
+        font-size: 20px;
+        font-family: 'Abril Fatface', cursive;
+    }
+    .payment-price div:nth-child(2) {
+        color: var(--color-base2);
+        font-size: 12px;
+    }
+
+
+
+
+    .swal-overlay {
+        background-color: rgba(0, 0, 0, 0.50);
+        backdrop-filter: blur(10px);
+    }
+    .swal-modal {
+        border-radius: 12px;
+    }
+    .swal-title {
+        color: var(--color-base1);
+        font-family: 'Abril Fatface', cursive;
+        font-weight: 400;
+    }
+    .swal-text {
+        color: var(--color-base2);
+        font-size: 16px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    .swal-button {
+        color: white;
+        font-size: 16px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+
+        background: #0277BD;
+        border: none;
+        border-radius: 24px;
+        box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+</style>
+<body>
+    
+    <header-default></header-default>
+
+    <section class="section-title">
+        <h1 id="title">Payment</h1>
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="wave wave4"></div>
+    </section>
+
+    <section class="section-content">
+        <form class="register" novalidate>
+
+            <div class="register-heading">
+                <h1>Sattle&nbsp;&nbsp;Your&nbsp;&nbsp;Purchase</h1>
+                <p>
+                    Review your purchase and complete your payment within 8 minutes,
+                    or this purchase session may expire.
+                </p>
+                <p><a href="./seats.html">&lt; Back</a></p>
+            </div>
+            
+            <div class="register-info">
+                <h1>Select Payment Method</h1>
+                <p>
+                    Review your booking and complete your payment and authertication
+                </p>
+
+                <div class="row">
+                    <div class="payment-method method-selected">
+                        <div class="payment-label">Credit / Debit Card</div>
+                        <div class="payment-img">
+                            <img src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Visa-Curved.png" alt="visa">
+                            <img src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Mastercard-Curved.png" alt="mastercard">
+                            <img src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Discover-Curved.png" alt="discover">
+                            <img src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/American-Express-Curved.png" alt="express">
+                        </div>
+                    </div>
+                    <div class="payment-method">
+                        <div class="payment-label">PayPal</div>
+                        <div class="payment-img" >
+                            <img src="https://cdn3.iconfinder.com/data/icons/creditcarddebitcard/128/paypal-curved.png" alt="paypal">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="payment-total">
+                        <div>Total to be paid now</div>
+                        <div class="payment-price">
+                            <div>HKD 340.00</div>
+                            <div>Includes discounts, taxes and surcharges</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="register-info">
+                <h1>Card Details</h1>
+    
+                <div class="row">
+                    <div class="input">
+                        <div class="txt" >
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">Name on credit / debit card*</label>
+                        </div>
+                    </div>
+                    
+                    <div class="input">
+                        <div class="txt">
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">Credit / Debit card number*</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input">
+                        <div class="txt" style="width: 120px;">
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">Exp. MM</label>
+                        </div>
+                    </div>
+                    <div class="input">
+                        <div class="txt" style="width: 120px;">
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">Exp. YYYY</label>
+                        </div>
+                    </div>
+                    <div class="input">
+                        <div class="txt" style="width: 80px;">
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">CCV*</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="register-info">
+                <div class="row">
+                    <label for="agreement" class="rdo">
+                        <input type="checkbox" name="agreement" id="agreement" class="rdo-input">
+                        <div class="rdo-radio"></div>
+                    </label>
+                    <span class="rdo-text" style="margin-left: 8px;">
+                        By submitting my information, I acknowledge and accept the terms of IVE Airline's <a href="">Privacy Policy</a><br>
+                        and <a href="">terms and conditions of the IVE Airline programme.</a>
+                    </span>
+                </div>
+                
+                <div class="row" style="margin: 40px 0 0 auto">
+                    <button id="btn-submit" class="btn-style1 next">Make Payment</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</body>
+</html>
