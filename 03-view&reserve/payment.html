@@ -28,7 +28,7 @@
 
         $('.msg').hide();
         $('#lst-titles').list(json_titles, 'title')
-        $('#slst-countries').custList(format, json_countries, 'dial_code', 'code', 'name')
+        $('#slst-countries').list(format, json_countries, 'dial_code', 'code', 'name')
         $('.dp-selector').daterangepicker({"singleDatePicker": true})
 
         $('form').submit(function(e) {
@@ -322,18 +322,17 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
-                    <div id="lst_items" class="lst default">
-                        <div class="lst-items"></div>
-                        <div class="lst-selected">
-                            MM
+                    <div class="input">
+                        <div class="txt" style="width: 120px;">
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">Exp. MM</label>
                         </div>
                     </div>
-                    <div id="lst_items" class="lst default">
-                        <div class="lst-items"></div>
-                        <div class="lst-selected">
-                            YYYY
+                    <div class="input">
+                        <div class="txt" style="width: 120px;">
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">Exp. YYYY</label>
                         </div>
                     </div>
                     <div class="input">

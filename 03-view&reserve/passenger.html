@@ -27,17 +27,22 @@
         var json_titles = '../jsons/titles.json'
         var json_countries = '../jsons/countries.json'
 
-        $('.msg').hide();
         $('#lst-titles').list(json_titles, 'title')
-        $('#slst-countries').custList(format, json_countries, 'dial_code', 'code', 'name')
+        $('.slst-countries').list(json_countries, 'name')
         $('.dp-selector').daterangepicker({"singleDatePicker": true})
 
         $('form').submit(function(e) {
             e.preventDefault();
         });
 
-        $("#addOn").sortable()
+        $("#addOn").sortable({connectWith: "#option"})
         $("#option").sortable({connectWith: "#addOn"})
+        $(".widget-draggable ul li").on('mousedown', function() {
+            $(this).css('cursor', 'grabbing')
+        })
+        $(".widget-draggable ul li").on('mouseup', function() {
+            $(this).css('cursor', 'grab')
+        })
 
         $(".resetLst").click(() => {
             $('#addOn li').appendTo('#option')
@@ -180,8 +185,6 @@
 
         width: 200px;
         height: 250px;
-
-        
     }
     .widget-draggable li {
         width: 120px;
@@ -191,11 +194,12 @@
         line-height: 24px;
         margin: 8px auto;
 
-
         background-color: var(--color-base3);
         border: 1px var(--color-base2) solid;
         border-radius: 24px;
         box-shadow: 0 4px 2px 0 rgb(0, 0, 0, 0.2);
+
+        cursor: grab;
     }
     #addOn li {
         background-color: orange;
@@ -208,7 +212,7 @@
     <header-default></header-default>
 
     <section class="section-title">
-        <h1 id="title">Registeration</h1>
+        <h1 id="title">Passengers</h1>
         <div class="wave wave1"></div>
         <div class="wave wave2"></div>
         <div class="wave wave3"></div>
@@ -309,11 +313,10 @@
                 <h1>Passport Details</h1>
                 <div class="row">
                     <div class="input">
-                        <div id="slst-countries" class="lst countries" style="width: 200px;">
-                            <div class="lst-items" style="width: inherit;"></div>
-                            <div class="lst-textbox txt" style="width: inherit;">
-                                <input type="text" class="txt-textarea" required>
-                                <label class="txt-placeholder">Nationality</label>
+                        <div class="lst default slst-countries" style="width: 200px;">
+                            <div class="lst-items"></div>
+                            <div class="lst-selected">
+                                Nationality
                             </div>
                         </div>
                     </div>
@@ -328,11 +331,10 @@
                     </div>
 
                     <div class="input">
-                        <div id="slst-countries" class="lst countries" style="width: 200px;">
-                            <div class="lst-items" style="width: inherit;"></div>
-                            <div class="lst-textbox txt" style="width: inherit;">
-                                <input type="text" class="txt-textarea" required>
-                                <label class="txt-placeholder">Place of Issue</label>
+                        <div class="lst default slst-countries" style="width: 200px;">
+                            <div class="lst-items"></div>
+                            <div class="lst-selected">
+                                Place of Issue
                             </div>
                         </div>
                     </div>
@@ -356,12 +358,12 @@
                 <div class="row">
                     <fieldset class="widget-draggable">
                         <legend>Food Allergens</legend>
-                        <ul id="addOn" class="widget-draggable"></ul>
+                        <ul id="addOn"></ul>
                     </fieldset>
             
                     <fieldset class="widget-draggable">
                         <legend>Options</legend>
-                        <ul id="option" class="widget-draggable">
+                        <ul id="option">
                             <li>Moluscs</li>
                             <li>Eggs</li>
                             <li>Fish</li>

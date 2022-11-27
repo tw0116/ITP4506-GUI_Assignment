@@ -163,6 +163,7 @@ class Flight_1Stop extends HTMLElement {
                         <span class="currency">HKD</span>
                         <span class="price">${this.getAttribute('class1-price')}</span>
                     </div>
+                    <button class="btn-style1">Select</button>
                 </div>
             </div>
 
@@ -176,6 +177,7 @@ class Flight_1Stop extends HTMLElement {
                         <span class="currency">HKD</span>
                         <span class="price">${this.getAttribute('class2-price')}</span>
                     </div>
+                    <button class="btn-style1">Select</button>
                 </div>
             </div>
         </div>
@@ -402,6 +404,7 @@ class Flight_2Stops extends HTMLElement {
                         <span class="currency">HKD</span>
                         <span class="price">${this.getAttribute('class1-price')}</span>
                     </div>
+                    <button class="btn-style1">Select</button>
                 </div>
             </div>
 
@@ -415,6 +418,7 @@ class Flight_2Stops extends HTMLElement {
                         <span class="currency">HKD</span>
                         <span class="price">${this.getAttribute('class2-price')}</span>
                     </div>
+                    <button class="btn-style1">Select</button>
                 </div>
             </div>
         </div>

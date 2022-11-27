@@ -69,13 +69,43 @@
             toggled = !toggled;
         })
 
-
-
         $("#card").flip({
             axis: 'x',
             reverse: true,
             trigger: 'manual',
             speed: 500
+        })
+
+        $("#result-departure").find(".flight-class").on('click', function() {
+            $("#result-departure")
+                .find(".flight-class").parent()
+                .not($(this).parent())
+                .toggleClass('disable')
+            
+            $(this)
+                .siblings('.flight-class')
+                .toggleClass('disable')
+            
+            if ($(this).find('button').text() == 'Select')
+                $(this).find('button').text('Cancel')
+            else
+                $(this).find('button').text('Select')
+        })
+
+        $("#result-return").find(".flight-class").on('click', function() {
+            $("#result-return")
+                .find(".flight-class").parent()
+                .not($(this).parent())
+                .toggleClass('disable')
+            
+            $(this)
+                .siblings('.flight-class')
+                .toggleClass('disable')
+            
+            if ($(this).find('button').text() == 'Select') 
+                $(this).find('button').text('Cancel')
+            else
+                $(this).find('button').text('Select')
         })
     })
 </script>
@@ -512,7 +542,7 @@
         <div>
             <section class="section-content">
 
-                <div class="search-result" style="margin-top: 40px;">
+                <div id="result-departure" class="search-result" style="margin-top: 40px;">
         
                     <div class="search-title">
                         <h1>Departing Flight</h1>
@@ -779,7 +809,7 @@
         
             <section class="section-content">
         
-                <div class="search-result">
+                <div id="result-return" class="search-result">
         
                     <div class="search-title" style="margin-top: 80px;">
                         <h1>Returning Flight</h1>
@@ -1050,6 +1080,10 @@
                     </div>
                 </div>
             </section>
+
+            <div class="row" style="margin: 40px 0; float: right;">
+                <button id="btn-submit" class="btn-style1">Next: Passengers</button>
+            </div>
         </div>
     </section>
 </body>
