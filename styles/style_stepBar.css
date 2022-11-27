@@ -1,0 +1,58 @@
+.wideget-step {
+    counter-reset: step;
+}
+.widget-step li {
+    list-style-type: none;
+    float: left;
+    width: 200px;
+    position: relative;
+    text-align: center;
+    counter-increment: step;
+
+    color: var(--color-base2);
+    font-size: 14px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+}
+.widget-step li::before {
+    content: counter(step);
+    display: block;
+
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+
+    color: white;
+    background-color: var(--color-base2);
+    border-radius: 50%;
+    
+    margin: 0 auto 10px auto;
+}
+.widget-step li::after {
+    content: "";
+    position: absolute;
+
+    top: 20px;
+    left: -50%;
+
+    width: 100%;
+    height: 2px;
+
+    background-color: var(--color-base3);
+    z-index: -1;
+}
+.widget-step li:first-child::after {
+    content: none;
+}
+
+
+.widget-step li.active {
+    color: black;
+}
+.widget-step li.active::before {
+    color: black;
+    background-color: orange;
+}
+.widget-step li.active + li::after {
+    background-color: orange;
+}

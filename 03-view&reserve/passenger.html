@@ -9,9 +9,11 @@
 <link rel="stylesheet" type="text/css" href="../styles/style_headers.css">
 <link rel="stylesheet" type="text/css" href="../styles/style_register.css">
 <link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_stepBar.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../scripts/highlight.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -20,31 +22,7 @@
 
 <script type="module" src="../scripts/element_headers.js"></script>
 
-<script type="text/javascript" lang="javascript">
-    function checkPW(pw) {
-        if (pw.match(/(?=.*[a-z])/)) 
-            strength += 1
-        if (pw.match(/(?=.*[0-9])/))
-            strength += 1
-        if (pw.match(/(?=.*[A-Z])/))
-            strength += 1
-        if (pw.match(/(?=.[`,~,!,@,#,$,%,^,&,*,(,),_,.])/))
-            strength += 1
-
-        setMeter(strength)
-    }
-
-    function setMeter(strength) {
-        $('.pw-meter').attr('strength', strength)
-    }
-
-    function checkConfirmPW(pw) {
-        if (pw == $('#confirm-password').val())
-            return true
-        else
-            return false
-    }
-
+<script>
     $(document).ready(function() {
         var json_titles = '../jsons/titles.json'
         var json_countries = '../jsons/countries.json'
@@ -58,100 +36,11 @@
             e.preventDefault();
         });
 
-        $('.pw-visibility').click(function() {
-            if ($(this).siblings('.txt-textarea').attr('type') == 'password') {
-                $(this).siblings('.txt-textarea').attr('type', 'text')
-                $(this).removeClass('pw-show')
-                $(this).addClass('pw-hide')
-            }
-            else {
-                $(this).siblings('.txt-textarea').attr('type', 'password')
-                $(this).removeClass('pw-hide')
-                $(this).addClass('pw-show')
-            }
-        })
+        $("#addOn").sortable()
+        $("#option").sortable({connectWith: "#addOn"})
 
-        $('#password').keyup(function() {
-            strength = 0;
-            checkPW($(this).val())
-        })
-
-        $('#confirm-password').on('keyup focus', function() {
-            if ($(this).val() == "") {
-                $(this).css({'border-color': '#0277BD'})
-                $(this).siblings('label').css({'color': '#0277BD'})
-            } else if ($(this).val() != "" && checkConfirmPW($('#password').val()) == true) {
-                $(this).css({'border-color':'limegreen'})
-                $(this).siblings('label').css({'color': 'limegreen'})
-            } else {
-                $(this).css({'border-color': 'red'})
-                $(this).siblings('label').css({'color':'red'})
-            }
-        })
-
-        $('#confirm-password').focusout(function() {
-            if($(this).val() == "") {
-                $(this).css({'border-color': '#BDBDBD'})
-                $(this).siblings('label').css({'color': '#757575'})
-            } else if ($(this).val() != "" && checkConfirmPW($('#password').val()) == true) {
-                $(this).css({'border-color':'limegreen'})
-                $(this).siblings('label').css({'color': 'limegreen'})
-            }
-        })
-
-        // Check empty input(s) & display error messages
-        var dp_val = $('.dp-selector').val()
-
-        $('#btn-submit').click(function() {     
-            if (
-                $('input:text').val() == "" ||
-                !$('input:radio').is(':checked') ||
-                $('#agreement').is(':not(:checked)') ||
-                $('.lst').find('.lst-selected').text().trim() == "Title" ||
-                $('.lst').find('.txt-textarea').val() == "" ||
-                $('input:password').val() == ""
-            ) {
-                let text = $('input:text').filter(function() { return $(this).val() == "" })
-                let radio = $('input:radio').filter(function() { return !$(this).is(':checked') })
-                let checkbox = $('input:checkbox').filter(function() { return $(this).is(':not(:checked)') })
-                let list = $('.lst').find('.lst-selected').filter(function() { return $(this).text().trim() == "Title" })
-                let searchList = $('.lst').find('.txt-textarea').filter(function() { return $(this).val() == "" })
-                // let datePicker = $('.dp').find('.dp-selector').filter(function() { return $(this).val() == dp_val })
-                let password = $('input:password').filter(function() { return $(this).val() == "" })
-
-                text.parent().siblings('.msg').show()
-                radio.parent().siblings('.msg').show()
-                list.parent().siblings('.msg').show()
-                searchList.parent().parent().siblings('.msg').show()
-                // datePicker.parent().siblings('.msg')
-                password.parent().siblings('.msg').show()
-            }
-            else {
-                swal({
-                    title: "Successful",
-                    text: "You have successfully registered.",
-                    icon: "success",
-                    button: "Login",
-                })
-                .then(function() {
-                    $('body').load('./login.html')
-                })
-            }
-
-            let _text = $('input:text').filter(function() { return $(this).val() != "" })
-            let _radio = $('input:radio').filter(function() { return $(this).is(':checked') })
-            let _checkbox = $('input:checkbox').filter(function() { return $(this).is(':checked') })
-            let _list = $('.lst').find('.lst-selected').filter(function() { return $(this).text().trim() != "Title" })
-            let _searchList = $('.lst').find('.txt-textarea').filter(function() { return $(this).val() != "" })
-            // let _datePicker = $('.dp').find('.dp-selector').filter(function() { return $(this).val() != dp_val })
-            let _password = $('input:password').filter(function() { return $(this).val() != "" })
-            
-            _text.parent().siblings('.msg').hide()
-            _radio.parent().siblings('.msg').hide()
-            _list.parent().siblings('.msg').hide()
-            _searchList.parent().parent().siblings('.msg').hide()
-            // _datePicker.parent().siblings('.msg')
-            _password.parent().siblings('.msg').hide()
+        $(".resetLst").click(() => {
+            $('#addOn li').appendTo('#option')
         })
     })
 </script>
@@ -249,13 +138,6 @@
         /* border: 1px red solid; */
     }
 
-    .msg {
-        color: red;
-        font-size: 14px;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-    }
-
     .txt {
         width: 250px;
     }
@@ -276,205 +158,50 @@
         color: var(--color-base3);
     }
 
-    
 
+    .widget-draggable {
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
 
-    .step-line {
-        position: relative;
-        width: 600px;
-        height: 100px;
-
-        margin: 40px auto 0 auto;
+        border-color: var(--color-base3);
+        border-radius: 8px;
     }
-    .step-line::after {
-        content: '';
-        position: absolute;
-        top: 25%;
+    .widget-draggable legend {
+        margin: auto;
+        padding: 4px 12px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px 2px rgb(0, 0, 0, 0.2);
+    }
+    .widget-draggable ul {
+        list-style-type: none;
+        overflow-y: scroll;
 
-        width: 600px;
-        height: 2px;
+        width: 200px;
+        height: 250px;
+
+        
+    }
+    .widget-draggable li {
+        width: 120px;
+        height: 24px;
+
+        text-align: center;
+        line-height: 24px;
+        margin: 8px auto;
+
+
         background-color: var(--color-base3);
+        border: 1px var(--color-base2) solid;
+        border-radius: 24px;
+        box-shadow: 0 4px 2px 0 rgb(0, 0, 0, 0.2);
     }
-    .step1-circle::after  {
-        content: '';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 0px;
-
-        width: 40px;
-        height: 40px;
+    #addOn li {
         background-color: orange;
-        border: 12px #EEEEEE solid;
-        border-radius: 50%;
-        z-index: 1;
+        border: 1px darkgoldenrod solid;
     }
-    .step2-circle::after  {
-        content: '';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 200px;
-
-        width: 40px;
-        height: 40px;
-        background-color: var(--color-base2);
-        border: 12px #EEEEEE solid;
-        border-radius: 50%;
-        z-index: 1;
-    }
-    .step3-circle::after  {
-        content: '';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 400px;
-
-        width: 40px;
-        height: 40px;
-        background-color: var(--color-base2);
-        border: 12px #EEEEEE solid;
-        border-radius: 50%;
-        z-index: 1;
-    }
-    .step4-circle::after  {
-        content: '';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 600px;
-
-        width: 40px;
-        height: 40px;
-        background-color: var(--color-base2);
-        border: 12px #EEEEEE solid;
-        border-radius: 50%;
-        z-index: 1;
-    }
-    .step1-text::before {
-        content: '1';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 0;
-
-        color: black;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step2-text::before {
-        content: '2';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 200px;
-
-        color: white;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step3-text::before {
-        content: '3';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 400px;
-
-        color: white;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step4-text::before {
-        content: '4';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 600px;
-
-        color: white;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step1-text::after {
-        content: 'flights';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 60%;
-        left: 0;
-
-        color: black;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step2-text::after {
-        content: 'passengers';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 60%;
-        left: 200px;
-
-        color: black;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step3-text::after {
-        content: 'seats';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 60%;
-        left: 400px;
-
-        color: black;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step4-text::after {
-        content: 'payment';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 60%;
-        left: 600px;
-
-        color: black;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
+    
 </style>
 <body>
     
@@ -488,24 +215,13 @@
         <div class="wave wave4"></div>
     </section>
 
-    <section class="section-content" 
-        style="
-            margin: 40px 0 20px 0;
-            background-color: #EEEEEE;
-            border-top: 1px var(--color-base3) solid;
-            border-bottom: 1px var(--color-base3) solid;
-        "
-    >
-        <div class="step-line">
-            <div class="step1-circle"></div>
-            <div class="step2-circle"></div>
-            <div class="step3-circle"></div>
-            <div class="step4-circle"></div>
-            <div class="step1-text"></div>
-            <div class="step2-text"></div>
-            <div class="step3-text"></div>
-            <div class="step4-text"></div>
-        </div>
+    <section class="section-content">
+        <ul class="widget-step">
+            <li class="active">Flights</li>
+            <li class="active">Passengers</li>
+            <li>Seats</li>
+            <li>Payment</li>
+        </ul>
     </section>
 
     <section class="section-content">
@@ -531,7 +247,6 @@
                                 Title
                             </div>
                         </div>
-                        <div class="msg">*Please select a title</div>
                     </div>
                 </div>
     
@@ -541,7 +256,6 @@
                             <input type="text" class="txt-textarea" required>
                             <label class="txt-placeholder">First Name</label>
                         </div>
-                        <div class="msg">*Please enter your first name</div>
                     </div>
                     
                     <div class="input">
@@ -556,7 +270,6 @@
                             <input type="text" class="txt-textarea" required>
                             <label class="txt-placeholder">Last Name</label>
                         </div>
-                        <div class="msg">*Please enter your last name</div>
                     </div>
                 </div>
     
@@ -566,7 +279,6 @@
                             <input type="text" class="dp-selector">
                             <label id="dp-label">Date of Birth</label>
                         </div>
-                        <div class="msg">*Please enter your date of birth</div>
                     </div>
                     
                     <div class="input">
@@ -588,7 +300,6 @@
                                 <div class="rdo-radio"></div>
                                 <span class="rdo-text">Other</span>
                             </label>
-                            <div class="msg" style="position: absolute; top: 100%; transform: translateY(-100%);">*Please select a gender</div>
                         </div>
                     </div>
                 </div>
@@ -605,7 +316,6 @@
                                 <label class="txt-placeholder">Nationality</label>
                             </div>
                         </div>
-                        <div class="msg">*Please select a nationality (as in passport)</div>
                     </div>
                 </div>
 
@@ -615,7 +325,6 @@
                             <input type="text" class="txt-textarea" required>
                             <label class="txt-placeholder">Passport Number</label>
                         </div>
-                        <div class="msg">*Please enter your passport number</div>
                     </div>
 
                     <div class="input">
@@ -626,7 +335,6 @@
                                 <label class="txt-placeholder">Place of Issue</label>
                             </div>
                         </div>
-                        <div class="msg">*Please select the passport’s country/region of issue.</div>
                     </div>
 
                     <div class="input">
@@ -634,8 +342,46 @@
                             <input type="text" class="txt-textarea" required>
                             <label class="txt-placeholder">Passport Expiry Date</label>
                         </div>
-                        <div class="msg">*Please enter your passport expiry date</div>
                     </div>
+                </div>
+            </div>
+
+            <div class="register-info">
+                <h1>Food Allergens (Optional)</h1>
+                <p>
+                    Your personal health is always our first priority. 
+                    Please select your food allergens before boarding on the plane.
+                    Our staff will try our best to meet your needs.
+                </p>
+                <div class="row">
+                    <fieldset class="widget-draggable">
+                        <legend>Food Allergens</legend>
+                        <ul id="addOn" class="widget-draggable"></ul>
+                    </fieldset>
+            
+                    <fieldset class="widget-draggable">
+                        <legend>Options</legend>
+                        <ul id="option" class="widget-draggable">
+                            <li>Moluscs</li>
+                            <li>Eggs</li>
+                            <li>Fish</li>
+                            <li>Lupin</li>
+                            <li>Soya</li>
+                            <li>Milk</li>
+                            <li>Peanuts</li>
+                            <li>Gluten</li>
+                            <li>Crustaceans</li>
+                            <li>Mustard</li>
+                            <li>Nuts</li>
+                            <li>Sesame</li>
+                            <li>Gelery</li>
+                            <li>Sulphites</li>
+                        </ul>
+                    </fieldset>
+                </div>
+
+                <div class="row">
+                    <button id="btn-submit" class="btn-style1 resetLst">Reset List</button>
                 </div>
             </div>
 

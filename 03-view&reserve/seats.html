@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="../styles/style_headers.css">
 <link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
 <link rel="stylesheet" type="text/css" href="../styles/style_searchResults.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_stepBar.css">
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
@@ -92,206 +93,6 @@
         font-size: 1.2em;
         font-family: 'Quicksand', sans-serif;
         font-weight: 600;
-    }
-
-
-
-    
-    .step-line {
-        position: relative;
-        width: 600px;
-        height: 100px;
-
-        margin: 40px auto 0 auto;
-    }
-    .step-line::after {
-        content: '';
-        position: absolute;
-        top: 25%;
-
-        width: 600px;
-        height: 2px;
-        background-color: var(--color-base3);
-    }
-    .step1-circle::after  {
-        content: '';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 0px;
-
-        width: 40px;
-        height: 40px;
-        background-color: orange;
-        border: 12px #EEEEEE solid;
-        border-radius: 50%;
-        z-index: 1;
-    }
-    .step2-circle::after  {
-        content: '';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 200px;
-
-        width: 40px;
-        height: 40px;
-        background-color: var(--color-base2);
-        border: 12px #EEEEEE solid;
-        border-radius: 50%;
-        z-index: 1;
-    }
-    .step3-circle::after  {
-        content: '';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 400px;
-
-        width: 40px;
-        height: 40px;
-        background-color: var(--color-base2);
-        border: 12px #EEEEEE solid;
-        border-radius: 50%;
-        z-index: 1;
-    }
-    .step4-circle::after  {
-        content: '';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 600px;
-
-        width: 40px;
-        height: 40px;
-        background-color: var(--color-base2);
-        border: 12px #EEEEEE solid;
-        border-radius: 50%;
-        z-index: 1;
-    }
-    .step1-text::before {
-        content: '1';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 0;
-
-        color: black;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step2-text::before {
-        content: '2';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 200px;
-
-        color: white;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step3-text::before {
-        content: '3';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 400px;
-
-        color: white;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step4-text::before {
-        content: '4';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 25%;
-        left: 600px;
-
-        color: white;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step1-text::after {
-        content: 'flights';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 60%;
-        left: 0;
-
-        color: black;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step2-text::after {
-        content: 'passengers';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 60%;
-        left: 200px;
-
-        color: black;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step3-text::after {
-        content: 'seats';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 60%;
-        left: 400px;
-
-        color: black;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
-    }
-    .step4-text::after {
-        content: 'payment';
-        position: absolute;
-
-        transform: translate(-50%, -50%);
-        top: 60%;
-        left: 600px;
-
-        color: black;
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-
-        z-index: 2;
     }
 
 
@@ -658,24 +459,15 @@
         <div class="wave wave4"></div>
     </section>
 
-    <section class="section-content" 
-        style="
-            margin: 40px 0 20px 0;
-            background-color: #EEEEEE;
-            border-top: 1px var(--color-base3) solid;
-            border-bottom: 1px var(--color-base3) solid;
-        "
+    <section class="section-content"
+        style="margin-bottom: 40px;"
     >
-        <div class="step-line">
-            <div class="step1-circle"></div>
-            <div class="step2-circle"></div>
-            <div class="step3-circle"></div>
-            <div class="step4-circle"></div>
-            <div class="step1-text"></div>
-            <div class="step2-text"></div>
-            <div class="step3-text"></div>
-            <div class="step4-text"></div>
-        </div>
+        <ul class="widget-step">
+            <li class="active">Flights</li>
+            <li class="active">Passengers</li>
+            <li class="active">Seats</li>
+            <li>Payment</li>
+        </ul>
     </section>
 
     <section class="section-content">

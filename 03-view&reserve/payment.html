@@ -1,179 +1,367 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment</title>
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" type="text/css" href="../styles/style_headers.css">
-    <link rel="stylesheet" type="text/css" href="../styles/style_index.css">
-    <link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
-
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <!--import bootstrap 5-->
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-
-
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
-    <script type="text/javascript" src="../scripts/highlight.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
-        </script>
-
-    <script type="module" src="../scripts/element_headers.js"></script>
+    <title>IVE Airline - Register</title>
 </head>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" type="text/css" href="../styles/style_headers.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_register.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_stepBar.css">
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../scripts/highlight.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="../scripts/inputs.js"></script>
+
+<script type="module" src="../scripts/element_headers.js"></script>
+
+<script type="text/javascript" lang="javascript">
+
+    $(document).ready(function() {
+        var json_titles = '../jsons/titles.json'
+        var json_countries = '../jsons/countries.json'
+
+        $('.msg').hide();
+        $('#lst-titles').list(json_titles, 'title')
+        $('#slst-countries').custList(format, json_countries, 'dial_code', 'code', 'name')
+        $('.dp-selector').daterangepicker({"singleDatePicker": true})
+
+        $('form').submit(function(e) {
+            e.preventDefault();
+        });
+
+        $('.payment-method').on('click', function() {
+            $(this).toggleClass('method-selected')
+            $('.payment-method').not(this).removeClass('method-selected')
+
+            $(this).effect('bounce', {times : 1, distance: 8}, 200)
+        })
+
+        // Check empty input(s) & display error messages
+        var dp_val = $('.dp-selector').val()
+
+        $('#btn-submit').click(function() {     
+
+        })     
+    })
+</script>
+
+<script type="module" src="./scripts/element_headers.js"></script>
+
 <style>
-    .inlineimage {
-        max-width: 470px;
-        margin-right: px;
-        margin-left: 10px;
+    :root {
+        --color-base1: #0277BD;
+        --color-base2: #757575;
+        --color-base3: #BDBDBD;
     }
 
-    .images {
-        display: inline-block;
-        max-width: 100%;
-        height: auto;
-        width: 20%;
-        margin: 1%;
-        text-align: center
+    .section-content {
+        display: flex;
+        justify-content: center;
     }
 
-    .text-center {
-        color: #0277BD;
+
+
+
+    .register {
+        width: 800px;
+        margin: 80px 0;
+
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        /* border: 1px red solid; */
+    }
+    .register-heading h1 {
+        margin-bottom: 20px;
+
+        font-size: 2em;
+        font-family: 'Abril Fatface', cursive;
+        font-weight: 400;
+
+        background: -webkit-linear-gradient(45deg, #4527A0 0%, #0277BD 30%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .register-heading p, p {
+        margin: 10px 0;
+        line-height: 1.5em;
+
+        color: var(--color-base2);
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    .register-heading p span {
+        color: var(--color-base1);
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .register-heading p a {
+        font-weight: 600;
+    }
+    
+
+
+
+
+    .register-info {
+        padding: 10px 0 80px 0;
+
+        display: inline-flex;
+        flex-direction: column;
+
+        gap: 12px;
+        
+        border-top: 1px var(--color-base3) solid;
+    }
+    .register-info h1 {
+        margin-bottom: 14px;
+
+        color: #424242;
+        font-family: 'Abril Fatface', cursive;
+        font-weight: 400;
+    }
+    .register-info .row {
+        display: flex;
+
+        gap: 8px;
+    }
+
+
+
+
+    .input {
+        position: relative;
+        display: inline-flex;
+        flex-direction: column;
+
+        /* border: 1px red solid; */
+    }
+
+    .txt {
+        width: 250px;
+    }
+    .txt .txt-textarea {
+        width: inherit;
+    }
+
+    .lst-text {
+        font-size: 16px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    .dial_code {
+        color: var(--color-base2);       
+    }
+    .country {
+        float: right;
+        color: var(--color-base3);
+    }
+
+
+
+
+    .payment-method {
+        width: 200px;
+        height: 100px;
+
+        display: grid;
+        place-content: center;
         text-align: center;
+        
+        border: 1px var(--color-base2) solid;
+        border-radius: 4px;
+        box-shadow: 0 4px 2px 0 rgb(0, 0, 0, 0.2);
+
+        cursor: pointer;
+
+        opacity: 0.5;
+    }
+    .method-selected {
+        border: 1px var(--color-base1) solid;
+        opacity: 1;
+    }
+
+
+    .payment-label {
+        color: black;
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    .payment-img img {
+        width: 40px;
+    }
+    .payment-total {
+        width: 100%;
+        height: 80px;
+
+        box-sizing: border-box;
+        padding: 40px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        color: var(--color-base1);
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        
+        background-color: #EEEEEE;
+        border-radius: 2px;
+
+        box-shadow: 0 4px 2px 0 rgb(0, 0, 0, 0.2);
+    }
+    .payment-price {
+        text-align: right;
+    }
+    .payment-price div:first-child {
+        font-size: 20px;
         font-family: 'Abril Fatface', cursive;
     }
-
-    .container-sm {
-        width: 800px;
-        position: absolute;
-        transform: translate(-50%, -50%);
-        top: 50%;
-        left: 50%;
-        z-index: 1000;
-    }
-
-    form {
-        background-color: aliceblue;
-        padding: 40px 50px;
-        border: 1px black;
-        border-radius: 10px;
-        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    .payment-price div:nth-child(2) {
+        color: var(--color-base2);
+        font-size: 12px;
     }
 </style>
-
 <body>
-
+    
     <header-default></header-default>
 
-    <section>
+    <section class="section-title">
+        <h1 id="title">Payment</h1>
         <div class="wave wave1"></div>
         <div class="wave wave2"></div>
         <div class="wave wave3"></div>
         <div class="wave wave4"></div>
     </section>
 
+    <section class="section-content">
+        <ul class="widget-step">
+            <li class="active">Flights</li>
+            <li class="active">Passengers</li>
+            <li class="active">Seats</li>
+            <li class="active">Payment</li>
+        </ul>
+    </section>
 
-    <div class="container-sm">
+    <section class="section-content">
+        <form class="register" novalidate>
 
-        <form action="" method="post">
-            <div class="row">
-                <div class="col-xs-12 col-md-6 col-md-offset-4">
+            <div class="register-heading">
+                <h1>Review&nbsp;&nbsp;Your&nbsp;&nbsp;Booking</h1>
+                <p>
+                    Review your booking and complete your payment and authentication within 8 minutes,
+                    or this booking session may expire.
+                </p>
+                <p><a href="">&lt; Back</a></p>
+            </div>
 
+            <div class="register-info">
+                <div>1.&nbsp;&nbsp;Itinerary</div>
+                <div>2.&nbsp;&nbsp;Passenger & Seats</div>
+                <div>3.&nbsp;&nbsp;Cost breakdown by passenger</div>
+            </div>
 
-                    <div class="panel">
+            <div class="register-info">
+                <h1>Select Payment Method</h1>
+                <p>
+                    Review your booking and complete your payment and authertication
+                </p>
 
-                        <div class="panel-heading">
-
-                            <div class="row">
-                                <h1 class="text-center">Payment Details</h1>
-                                <!--credit card picture-->
-                                <div class="inlineimage">
-                                    <img class="img-responsive images"
-                                        src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Mastercard-Curved.png">
-                                    <img class="img-responsive images"
-                                        src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Discover-Curved.png">
-                                    <img class="img-responsive images"
-                                        src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Paypal-Curved.png">
-                                    <img class="img-responsive images"
-                                        src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/American-Express-Curved.png">
-                                    <img class="img-res">
-                                </div>
-                            </div>
+                <div class="row">
+                    <div class="payment-method method-selected">
+                        <div class="payment-label">Credit / Debit Card</div>
+                        <div class="payment-img">
+                            <img src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Visa-Curved.png" alt="visa">
+                            <img src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Mastercard-Curved.png" alt="mastercard">
+                            <img src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Discover-Curved.png" alt="discover">
+                            <img src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/American-Express-Curved.png" alt="express">
                         </div>
-
-
-                        <div class="panel-body">
-
-                            <!--card holder-->
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group"> <label>CARD OWNER</label>
-                                        <input type="text" class="form-control" placeholder="Card Holder's Name" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="">
-                                    <div class="form-group">
-                                        <label>CARD NUMBER</label>
-
-                                        <div class="input-group">
-                                            <input type="tel" class="form-control" placeholder="Card Number" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <!-- Expirtaion date-->
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label>
-                                            <span class="hidden-xs">Expiry Date </span>
-                                        </label>
-                                        <input type="tel" class="form-control" placeholder="MM / YY" />
-                                    </div>
-                                </div>
-                                <!--security code-->
-                                <div class=" col-md-4">
-                                    <div class="form-group">
-                                        <label>CVV</label>
-                                        <input type="tel" class="form-control" placeholder="000" />
-                                    </div>
-                                </div>
-                            </div>
-
-
+                    </div>
+                    <div class="payment-method">
+                        <div class="payment-label">PayPal</div>
+                        <div class="payment-img" >
+                            <img src="https://cdn3.iconfinder.com/data/icons/creditcarddebitcard/128/paypal-curved.png" alt="paypal">
                         </div>
-
-                        <!--footer of the payment form-->
-                        <div class="panel-footer">
-                            <br>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <button class="btn btn-primary btn-lg btn-block">Confirm Payment</button>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="payment-total">
+                        <div>Total to be paid now</div>
+                        <div class="payment-price">
+                            <div>HKD 4,000.00</div>
+                            <div>Includes discounts, taxes and surcharges</div>
                         </div>
                     </div>
                 </div>
             </div>
+    
+            <div class="register-info">
+                <h1>Card Details</h1>
+    
+                <div class="row">
+                    <div class="input">
+                        <div class="txt" >
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">Name on credit / debit card*</label>
+                        </div>
+                    </div>
+                    
+                    <div class="input">
+                        <div class="txt">
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">Credit / Debit card number*</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div id="lst_items" class="lst default">
+                        <div class="lst-items"></div>
+                        <div class="lst-selected">
+                            MM
+                        </div>
+                    </div>
+                    <div id="lst_items" class="lst default">
+                        <div class="lst-items"></div>
+                        <div class="lst-selected">
+                            YYYY
+                        </div>
+                    </div>
+                    <div class="input">
+                        <div class="txt" style="width: 80px;">
+                            <input type="text" class="txt-textarea" required>
+                            <label class="txt-placeholder">CCV*</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="register-info">
+                <div class="row">
+                    <label for="agreement" class="rdo">
+                        <input type="checkbox" name="agreement" id="agreement" class="rdo-input">
+                        <div class="rdo-radio"></div>
+                    </label>
+                    <span class="rdo-text" style="margin-left: 8px;">
+                        By submitting my information, I acknowledge and accept the terms of IVE Airline's <a href="">Privacy Policy</a><br>
+                        and <a href="">terms and conditions of the IVE Airline programme.</a>
+                    </span>
+                </div>
+                
+                <div class="row" style="margin: 40px 0 0 auto">
+                    <button id="btn-submit" class="btn-style1">Make Payment</button>
+                </div>
+            </div>
         </form>
-
-    </div>
+    </section>
 </body>
-
 </html>
