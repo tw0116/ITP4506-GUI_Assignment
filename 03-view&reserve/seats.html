@@ -51,6 +51,10 @@
 
             $(this).effect('bounce', {times : 1, distance: 8}, 200)
         })
+
+        $('.next').on('click', function() {
+            window.location = "./payment.html"
+        })
     })
 </script>
 <style>
@@ -555,13 +559,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div>
-                        <span>Bassinet</span>
-                        <span>Windowless seat</span>
-                        <span>All seats are equipped with 110V AC</span>
-                        <span>12.1-inch touchscreen monitor</span>
-                    </div> -->
-                
                     <div class="airplane-model">Airbus A350-900</div>
                 </div>
 
@@ -856,7 +853,7 @@
                 </div>
 
                 <div style="float: right;">
-                    <button id="btn-submit" class="btn-style1">Next: Payment</button>
+                    <button id="btn-submit" class="btn-style1 next">Next: Payment</button>
                 </div>
             </div>
             
@@ -977,7 +974,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div style=
                 "   
                     overflow-y: scroll;
@@ -1266,6 +1263,10 @@
                             <td colspan="3" class="exit"></td>
                         </tr>
                     </table>
+                </div>
+
+                <div style="float: right;">
+                    <button id="btn-submit" class="btn-style1 next">Next: Payment</button>
                 </div>
             </div>
         </div>

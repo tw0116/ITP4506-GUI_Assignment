@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>IVE Airline - Register</title>
+</head>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" type="text/css" href="../styles/style_headers.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_register.css">
+<link rel="stylesheet" type="text/css" href="../styles/style_inputs.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+
+<script type="text/javascript" src="../scripts/highlight.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
+<script type="text/javascript" src="../scripts/inputs.js"></script>
+
+<script type="module" src="../scripts/element_headers.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+    })
+</script>
+
+<script type="module" src="./scripts/element_headers.js"></script>
+
+<style>
+    :root {
+        --color-base1: #0277BD;
+        --color-base2: #757575;
+        --color-base3: #BDBDBD;
+    }
+
+    .section-content {
+        display: flex;
+        justify-content: center;
+    }
+
+
+
+
+    .register {
+        width: 800px;
+        margin: 80px 0;
+
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        /* border: 1px red solid; */
+    }
+    .register-heading h1 {
+        margin-bottom: 20px;
+
+        font-size: 2em;
+        font-family: 'Abril Fatface', cursive;
+        font-weight: 400;
+
+        background: -webkit-linear-gradient(45deg, #4527A0 0%, #0277BD 30%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .register-heading p, p {
+        margin: 10px 0;
+        line-height: 1.5em;
+
+        color: var(--color-base2);
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+    }
+    .register-heading p span {
+        color: var(--color-base1);
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .register-heading p a {
+        font-weight: 600;
+    }
+    
+
+
+
+
+    .register-info {
+        padding: 10px 0 80px 0;
+
+        display: inline-flex;
+        flex-direction: column;
+
+        gap: 12px;
+        
+        border-top: 1px var(--color-base3) solid;
+    }
+    .register-info h1 {
+        margin-bottom: 14px;
+
+        color: #424242;
+        font-family: 'Abril Fatface', cursive;
+        font-weight: 400;
+    }
+    .register-info .row {
+        display: flex;
+
+        gap: 8px;
+    }
+
+
+    .mainbox {
+        width: 500px;
+        height: 500px;
+        position: relative;
+    }
+    .mainbox:after {
+        position: absolute;
+        content: '';
+        width: 60px;
+        height: 60px;
+        background: url(./arrow.png) no-repeat;
+        background-size: 60px;
+        top: calc(50% - 20px);
+        right: -30px;
+    }
+    .box {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        border-radius: 50%;
+        border: 10px solid black;
+        overflow: hidden;
+
+        transition: all 5s ease-in-out;
+    }
+    .box span {
+        width: 50%;
+        height: 50%;
+        display: inline-block;
+        position: absolute;
+    }
+    .span1 {
+        clip-path: polygon(0 92%, 100% 50%, 0 8%);
+        background-color: darkred;
+        top: 125px;
+        left: 0;
+    }
+    .span2 {
+        clip-path: polygon(100% 92%, 0 50%, 100% 8%);
+        background-color: darkcyan;
+        top: 125px;
+        right: 0;
+    }
+    .span3 {
+        clip-path: polygon(50% 0%, 8% 100%, 92% 100%);
+        background-color: mediumseagreen;
+        bottom: 0;
+        left: 125px;
+    }
+    .span4 {
+        clip-path: polygon(50% 100%, 92% 0, 8% 0);
+        background-color: orange;
+        top: 0;
+        left: 125px;
+    }
+
+
+    .box1 .span3 b{
+            transform: translate(-50%, -50%) rotate(-270deg);
+    }
+    .box1 .span1 b,
+    .box2 .span1 b{
+        transform: translate(-50%, -50%) rotate(185deg);
+    }
+    .box2 .span3 b{
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+    .box1 .span4 b,
+    .box2 .span4 b{
+        transform: translate(-50%, -50%) rotate(-85deg);
+    }
+
+    .box2 {
+        width: 100%;
+        height: 100%;
+        transform: rotate(-135deg);
+    }
+    span b {
+        width: 60px;
+        height: 60px;
+
+        line-height: 65px;
+        border-radius: 50%;
+        font-size: 26px;
+        text-align: center;
+        background-color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: inset 0 3px 3px 0 #717171;
+    }
+    .spin {
+        position: absolute;
+        width: 75px;
+        height: 75px;
+
+        top: 52%;
+        left: 52%;
+        transform: translate(-50%, -50%);
+        
+        border-radius: 50%;
+        border: 4px solid white;
+        background-color: #ff5722;
+        color: white;
+        box-shadow: 0 5px 20px black;
+        font-weight: bold;
+        font-size: 22px;
+        cursor: pointer;
+    }
+    .spin:active {
+        width: 70px;
+        height: 70px;
+        font-size: 20px;
+    }
+
+    .mainbox.animate:after {
+        animation: animateArrow 0.7s ease infinite;
+    }
+    @keyframes animateArrow{
+        50%{
+            right: -40px;
+        }
+    }
+
+    .card-container {
+        width: 200px;
+        height: 300px;
+    }
+    .card {
+        width: 200px;
+        height: 300px;
+
+        box-sizing: border-box;
+        padding: 20px;
+
+        background-color: white;
+        border-radius: 8px;
+        border: 1px var(--color-base2) solid;
+        box-shadow: 0 4px 2px 2px rgba(0, 0, 0, 0.2);
+
+        text-align: center;
+        font-size: 14px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+
+        cursor: pointer;
+    }
+    .card-img {
+        width: 150px;
+    }
+    .btn-buy {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        bottom: 0;
+    }
+    .back {
+        background-color: whitesmoke;
+    }
+</style>
+<body>
+    
+    <header-default></header-default>
+
+    <section class="section-title">
+        <h1 id="title">Merge</h1>
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="wave wave4"></div>
+    </section>
+
+    <section class="section-content">
+        <form class="register" novalidate>
+
+            <div class="register-heading">
+                <h1>Let's&nbsp;&nbsp;Show&nbsp;&nbsp;Your&nbsp;&nbsp;Favourites&nbsp;&nbsp;!</h1>
+                <p>
+                    Earn points by playing the spinner and buy your favourites merge!!!
+                </p>
+                <p><a href="/02-searching/results-search_01.html">&lt; Back</a></p>
+            </div>
+    
+            <div class="register-info">
+                <h1>Spinner</h1>
+                <p>Press the spin button at the middle and begin to win your price!!!</p>
+                <div class="row" style="justify-content: center;">
+                    <div id="mainbox" class="mainbox">
+                        <div id="box" class="box">
+                            <div class="box1">
+                                <span class="span1"><b>100</b></span>
+                                <span class="span2"><b>150</b></span>
+                                <span class="span3"><b>300</b></span>
+                                <span class="span4"><b>200</b></span>
+                            </div>
+                            <div class="box2">
+                                <span class="span1"><b>100</b></span>
+                                <span class="span2"><b>150</b></span>
+                                <span class="span3"><b>300</b></span>
+                                <span class="span4"><b>200</b></span>
+                            </div>
+                        </div>
+                        <button type="button" class="spin" onclick="spin()">Spin</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="register-info">
+                <h1>Merge</h1>
+                <div class="row">
+                    <div class="card-container">
+                        <div class="card front"> 
+                            Airplane Model 9088
+                            <img class="card-img" src="https://cdn.shopify.com/s/files/1/0521/7121/0945/products/Photo5-12-2020_73323AM_1024x1024@2x.jpg?v=1634421405">
+                            Point-to-buy: 800pt
+                        </div>
+                        <div class="card back">
+                            NG model 1/400 Royal Air Force RAF Airbus A330-200 MRTT ZZ336 Boris One
+                            <div class="btn-buy">
+                                <button id="btn-submit" class="btn-style1 next">Buy</button>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="card-container">
+                        <div class="card front"> 
+                            Airplane Model 6788
+                            <img class="card-img" src="https://cdn.shopify.com/s/files/1/0521/7121/0945/products/Photo13-12-2021_63949AM_1024x1024@2x.jpg?v=1639369507">
+                            Point-to-buy: 600pt
+                        </div>
+                        <div class="card back">
+                            NG models 1/400 All Nippon Airways ANA Lockheed L-1011-1 JA8501 31023
+                            <div class="btn-buy">
+                                <button id="btn-submit" class="btn-style1 next">Buy</button>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="card-container">
+                        <div class="card front"> 
+                            Airplane Model 9898
+                            <img class="card-img" src="https://cdn.shopify.com/s/files/1/0521/7121/0945/products/NGATAL-10112_1024x1024@2x.jpg?v=1610755607">
+                            Point-to-buy: 750pt
+                        </div>
+                        <div class="card back">
+                            NG Model 1/400 American Trans Air ATA Lockheed L-1011-1 N186AT 31016
+                            <div class="btn-buy">
+                                <button id="btn-submit" class="btn-style1 next">Buy</button>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="card-container">
+                        <div class="card front"> 
+                            Airplane Model 1077
+                            <img class="card-img" src="https://cdn.shopify.com/s/files/1/0521/7121/0945/products/Photo5-5-2021_75537AM_1024x1024@2x.jpg?v=1620182973">
+                            Point-to-buy: 900pt
+                        </div>
+                        <div class="card back">
+                            NG model 1/400 Royal Air Force RAF Airbus A330-200 MRTT ZZ336 Boris One
+                            <div class="btn-buy">
+                                <button id="btn-submit" class="btn-style1 next">Buy</button>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="card-container">
+                        <div class="card front"> 
+                            Airplane Model 1127
+                            <img class="card-img" src="https://cdn.shopify.com/s/files/1/0521/7121/0945/products/Photo3-4-2021_62151AM_1024x1024@2x.jpg?v=1617404601">
+                            Point-to-buy: 600pt
+                        </div>
+                        <div class="card back">
+                            NG models 1/400 Pan Am Boeing 747SP N540PA China Clipper 07006
+                            <div class="btn-buy">
+                                <button id="btn-submit" class="btn-style1 next">Buy</button>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="card-container">
+                        <div class="card front"> 
+                            Airplane Model 7889
+                            <img class="card-img" src="https://cdn.shopify.com/s/files/1/0521/7121/0945/products/Photo5-5-2021_24044AM_1024x1024@2x.jpg?v=1620183920">
+                            Point-to-buy: 800pt
+                        </div>
+                        <div class="card back">
+                            NG models 1/400 American Airlines Boeing 747SP N601AA
+                            <div class="btn-buy">
+                                <button id="btn-submit" class="btn-style1 next">Buy</button>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="card-container">
+                        <div class="card front"> 
+                            Airplane Model 1973
+                            <img class="card-img" src="https://cdn.shopify.com/s/files/1/0521/7121/0945/products/62023_8_1024x1024@2x.jpg?v=1628380771">
+                            Point-to-buy: 900pt
+                        </div>
+                        <div class="card back">
+                            NG model 1/400 Royal Air Force RAF Airbus A330-200 MRTT ZZ336 Boris One
+                            <div class="btn-buy">
+                                <button id="btn-submit" class="btn-style1 next">Buy</button>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="card-container">
+                        <div class="card front"> 
+                            Airplane Model 9470
+                            <img class="card-img" src="https://cdn.shopify.com/s/files/1/0521/7121/0945/products/Photo11-6-2021_100214PM_1024x1024@2x.jpg?v=1623423630">
+                            Point-to-buy: 750pt
+                        </div>
+                        <div class="card back">
+                            NG models 1/400 ANA All Nippon Airways Boeing 787-10 JA901A 56010
+                            <div class="btn-buy">
+                                <button id="btn-submit" class="btn-style1 next">Buy</button>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <script>
+        function spin() {
+            var x = 1024
+            var y = 9999
+
+            var deg = Math.floor(Math.random() * (x - y)) + y
+
+            document.getElementById('box').style.transform = "rotate(" + deg + "deg)"
+            
+            var element = document.getElementById('mainbox')
+            element.classList.remove('animate')
+            setTimeout(function() {
+                element.classList.add('animate');
+                swal({
+                    title: "You Won!",
+                    text: "You have earned points. Buy your favourite merge now!",
+                    icon: "info",
+                    button: "Countinue",
+                })
+            }, 5000)
+        }
+
+        $(document).ready(function() {
+            $(".card-container").flip({
+                axis: 'y',
+                trigger: 'hover',
+                reverse: true
+            });
+        })
+    </script>
+</body>
+</html>

@@ -14,6 +14,7 @@ class HeaderIndex extends HTMLElement {
                     <li><a href="">Manage</a></li>
                     <li><a href="">Experience</a></li>
                     <li><a href="">Memebership</a></li>
+                    <li><a href="04-additionalFunction/merge.html">Merge</a></li>
                 </ul>
             </nav>
             <div>

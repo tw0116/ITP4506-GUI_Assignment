@@ -107,6 +107,10 @@
             else
                 $(this).find('button').text('Select')
         })
+
+        $('.next').on('click', function() {
+            window.location = "/03-view&reserve/passenger.html"
+        })
     })
 </script>
 <style>
@@ -1082,7 +1086,7 @@
             </section>
 
             <div class="row" style="margin: 40px 0; float: right;">
-                <button id="btn-submit" class="btn-style1">Next: Passengers</button>
+                <button id="btn-submit" class="btn-style1 next">Next: Passengers</button>
             </div>
         </div>
     </section>

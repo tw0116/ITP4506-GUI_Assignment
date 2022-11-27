@@ -47,6 +47,10 @@
         $(".resetLst").click(() => {
             $('#addOn li').appendTo('#option')
         })
+
+        $('.next').on('click', function() {
+            window.location = "./seats.html"
+        })
     })
 </script>
 
@@ -237,7 +241,7 @@
                     Each passenger must hold a valid passport (and visa(s), If required) to be allowed entry into each destination on the flight itinerary. 
                     Singapore Airlines cannot be held responsible if a passenger is denied entry and/or deported by any local authority.
                 </p>
-                <p><a href="./login.html">&lt; Back</a></p>
+                <p><a href="/02-searching/results-search_01.html">&lt; Back</a></p>
             </div>
     
             <div class="register-info">
@@ -400,7 +404,7 @@
                 </div>
                 
                 <div class="row" style="margin: 40px 0 0 auto">
-                    <button id="btn-submit" class="btn-style1">Next: Seats</button>
+                    <button id="btn-submit" class="btn-style1 next">Next: Seats</button>
                 </div>
             </div>
         </form>
